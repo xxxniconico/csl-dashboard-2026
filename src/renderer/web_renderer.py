@@ -1,0 +1,878 @@
+import json
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, Set, Tuple
+
+_RENDERER_DIR = Path(__file__).resolve().parent
+if str(_RENDERER_DIR) not in sys.path:
+    sys.path.insert(0, str(_RENDERER_DIR))
+
+from team_logo_assets import build_team_logo_map_for_dashboard
+
+
+def load_data(root: Path) -> Dict[str, Any]:
+    candidates = [
+        root / "data" / "all_seasons_unified_ext_enriched.json",
+        root / "data" / "csl_final_production_ready.json",
+        root / "data" / "all_seasons_unified_index.json",
+    ]
+    for p in candidates:
+        if p.exists():
+            with p.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+            data["_source_file"] = p.name
+            return data
+    raise FileNotFoundError("No unified dataset found in data directory.")
+
+
+def _norm_name(name: Any) -> str:
+    return str(name or "").strip()
+
+
+def _is_synthetic_player_label(name: str) -> bool:
+    """Placeholder names from data_enrichor (e.g. 上海海港球员3) or empty."""
+    n = _norm_name(name)
+    if not n or n == "Unknown":
+        return True
+    if re.search(r"球员\d+$", n):
+        return True
+    if n.startswith("未命名球员"):
+        return True
+    return False
+
+
+def _event_merge_rank(events: Any) -> Tuple[int, int, int, int]:
+    """
+    Sort key for picking the better match copy: higher is better.
+    (real_named_events, -synthetic_named, total_with_any_name, total_events)
+    """
+    if not isinstance(events, list):
+        return (0, 0, 0, 0)
+    real = synth = empty = 0
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        p = _norm_name(event.get("player") or event.get("player_name"))
+        if not p:
+            empty += 1
+        elif _is_synthetic_player_label(p):
+            synth += 1
+        else:
+            real += 1
+    total = len([e for e in events if isinstance(e, dict)])
+    named = real + synth
+    return (real, -synth, named, total)
+
+
+def _pick_richer_match(prev: Dict[str, Any], cur: Dict[str, Any]) -> Dict[str, Any]:
+    rp = _event_merge_rank(prev.get("events"))
+    rc = _event_merge_rank(cur.get("events"))
+    if rc > rp:
+        return cur
+    if rc < rp:
+        return prev
+    # Tie on event quality: prefer explicit CFL API source, then longer id (CFL ids are opaque strings).
+    src_prev = str(prev.get("source") or "")
+    src_cur = str(cur.get("source") or "")
+    if src_cur == "cfl_api" and src_prev != "cfl_api":
+        return cur
+    if src_prev == "cfl_api" and src_cur != "cfl_api":
+        return prev
+    lid = len(str(prev.get("match_id") or "")), len(str(cur.get("match_id") or ""))
+    if lid[1] != lid[0]:
+        return cur if lid[1] > lid[0] else prev
+    return prev
+
+
+def _normalize_match_date(value: Any) -> str:
+    text = _norm_name(value)
+    if not text:
+        return ""
+    # Keep to minute-level precision so "2026-03-07 19:35" and
+    # "2026-03-07 19:35:00" map to the same natural-key.
+    if len(text) >= 16:
+        return text[:16]
+    return text
+
+
+def _natural_match_key(match: Dict[str, Any]) -> str:
+    date_key = _normalize_match_date(match.get("date"))
+    home = _norm_name(match.get("home_club"))
+    away = _norm_name(match.get("away_club"))
+    if date_key and home and away:
+        return f"{date_key}|{home}|{away}"
+    # Fallback only when natural key cannot be built.
+    return _norm_name(match.get("match_id"))
+
+
+def _merge_same_competition(data: Dict[str, Any]) -> Dict[str, Any]:
+    leagues = data.get("leagues")
+    if not isinstance(leagues, list) or not leagues:
+        return data
+
+    # "中职联赛" and "中超联赛" are treated as one competition.
+    canonical = {"league_id": "csl", "name": "中超联赛", "standings": [], "matches": []}
+    standings_by_club: Dict[str, Dict[str, Any]] = {}
+    matches_by_key: Dict[str, Dict[str, Any]] = {}
+
+    for league in leagues:
+        if not isinstance(league, dict):
+            continue
+        for row in league.get("standings", []) or []:
+            if not isinstance(row, dict):
+                continue
+            club_name = _norm_name(row.get("club_name"))
+            if not club_name:
+                continue
+            standings_by_club.setdefault(club_name, row)
+
+        for match in league.get("matches", []) or []:
+            if not isinstance(match, dict):
+                continue
+            key = _natural_match_key(match)
+            if not key:
+                continue
+            prev = matches_by_key.get(key)
+            if prev is None:
+                matches_by_key[key] = match
+                continue
+            matches_by_key[key] = _pick_richer_match(prev, match)
+
+    canonical["standings"] = list(standings_by_club.values())
+    canonical["matches"] = list(matches_by_key.values())
+    data["leagues"] = [canonical]
+    return data
+
+
+def _collect_club_names(data: Dict[str, Any]) -> Set[str]:
+    names: Set[str] = set()
+    for league in data.get("leagues") or []:
+        if not isinstance(league, dict):
+            continue
+        for row in league.get("standings") or []:
+            if isinstance(row, dict):
+                n = _norm_name(row.get("club_name"))
+                if n:
+                    names.add(n)
+        for m in league.get("matches") or []:
+            if not isinstance(m, dict):
+                continue
+            for key in ("home_club", "away_club"):
+                n = _norm_name(m.get(key))
+                if n:
+                    names.add(n)
+    return names
+
+
+def load_normalized_player_stats(root: Path) -> list:
+    path = root / "data" / "csl_normalized.json"
+    if not path.exists():
+        return []
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            payload = json.load(f)
+    except Exception:
+        return []
+    rows = payload.get("player_stats")
+    return rows if isinstance(rows, list) else []
+
+
+def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> str:
+    data = _merge_same_competition(data)
+    dataset_json = json.dumps(data, ensure_ascii=False)
+    player_stats_json = json.dumps(data.get("_normalized_player_stats", []), ensure_ascii=False)
+    team_logos_json = json.dumps(team_logos, ensure_ascii=False)
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    source_file = data.get("_source_file", "unknown")
+
+    html = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Ultimate Football Dashboard 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+            mono: ["JetBrains Mono", "ui-monospace", "monospace"]
+          },
+          colors: {
+            midnight: "#0f172a",
+            surface: "#1e293b",
+            accent: "#38bdf8",
+            success: "#22c55e",
+            warn: "#f59e0b",
+            danger: "#ef4444"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+  </style>
+</head>
+<body class="bg-midnight text-slate-100 min-h-screen touch-manipulation pb-[max(4.5rem,calc(3.75rem+env(safe-area-inset-bottom,0px)))] lg:pb-0">
+  <div class="mx-auto max-w-[1600px] p-2 sm:p-4 md:p-6">
+    <header class="mb-3 rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4 md:p-6">
+      <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div class="min-w-0">
+          <p class="text-[10px] uppercase tracking-[0.15em] text-accent sm:text-xs sm:tracking-[0.2em]">China Football Season Monitor 2026</p>
+          <h1 class="text-xl font-black sm:text-2xl md:text-3xl">Ultimate CSL Dashboard</h1>
+          <p class="hidden text-sm text-slate-400 sm:block">Match timeline drilldown + penalty-adjusted standings + player radar</p>
+          <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
+        </div>
+        <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
+          Generated: __GENERATED__<br/>Source: __SOURCE_FILE__
+        </div>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-[260px_1fr]">
+      <aside class="hidden rounded-2xl border border-slate-800 bg-surface/90 p-4 lg:block">
+        <h2 class="mb-3 text-sm font-bold uppercase tracking-wide text-slate-300">League</h2>
+        <div id="leagueNav" class="space-y-2"></div>
+
+        <h2 class="mt-6 mb-3 text-sm font-bold uppercase tracking-wide text-slate-300">视图</h2>
+        <div class="space-y-2">
+          <button type="button" data-view="standings" class="view-btn view-btn-desktop w-full rounded-lg border border-accent/40 bg-accent/15 px-3 py-2 text-left text-sm font-semibold text-accent">积分榜</button>
+          <button type="button" data-view="matches" class="view-btn view-btn-desktop w-full rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-left text-sm font-semibold text-slate-200">赛程与事件</button>
+          <button type="button" data-view="players" class="view-btn view-btn-desktop w-full rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-left text-sm font-semibold text-slate-200">球员榜</button>
+        </div>
+      </aside>
+
+      <main class="space-y-4">
+        <section id="view-standings" class="view-panel rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+          <div class="mb-2 flex flex-col gap-2 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <h2 class="text-base font-bold sm:text-lg">积分榜</h2>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" id="sortOfficialBtn" class="sort-standings-btn min-h-[40px] rounded-lg border border-accent/50 bg-accent/15 px-3 py-2 text-xs font-semibold text-accent sm:min-h-0 sm:text-sm">
+                按官方积分排序
+              </button>
+              <button type="button" id="sortMatchBtn" class="sort-standings-btn min-h-[40px] rounded-lg border border-slate-600 bg-slate-800/80 px-3 py-2 text-xs font-semibold text-slate-200 sm:min-h-0 sm:text-sm">
+                按赛场积分排序
+              </button>
+            </div>
+          </div>
+          <details id="officialPolicyDetails" class="mb-3 rounded-lg border border-slate-700 bg-slate-900/50 text-xs text-slate-400 sm:text-sm">
+            <summary class="cursor-pointer select-none px-3 py-2 font-semibold text-slate-300 hover:text-accent">
+              官方积分说明（中国足协 2026 赛前纪律扣分）
+            </summary>
+            <div id="officialPolicyBody" class="space-y-2 border-t border-slate-800 px-3 py-2 leading-relaxed"></div>
+          </details>
+          <div class="overflow-x-auto overscroll-x-contain -mx-1 px-1 sm:mx-0 sm:px-0">
+            <table class="min-w-[720px] w-full text-[11px] sm:min-w-0 sm:text-sm">
+              <thead class="bg-slate-900/60 text-slate-300">
+                <tr>
+                  <th class="sticky left-0 z-20 bg-slate-900/95 px-1 py-2 text-left shadow-[2px_0_8px_rgba(0,0,0,0.3)] sm:px-2">#</th>
+                  <th class="sticky left-7 z-20 bg-slate-900/95 px-1 py-2 text-left shadow-[2px_0_8px_rgba(0,0,0,0.3)] sm:left-8 sm:px-2">球队</th>
+                  <th class="px-1 py-2 text-left sm:px-2">赛</th>
+                  <th class="px-1 py-2 text-left sm:px-2">胜-平-负</th>
+                  <th class="px-1 py-2 text-left sm:px-2">近况</th>
+                  <th class="px-1 py-2 text-left sm:px-2">进</th>
+                  <th class="px-1 py-2 text-left sm:px-2">失</th>
+                  <th class="px-1 py-2 text-left sm:px-2">净</th>
+                  <th class="px-1 py-2 text-left sm:px-2" title="仅由已赛场次胜平负累计">赛场</th>
+                  <th class="px-1 py-2 text-left sm:px-2" title="赛季开赛前足协纪律处罚">赛前扣</th>
+                  <th class="px-1 py-2 text-left sm:px-2" title="赛场积分 − 赛前扣分">官方</th>
+                </tr>
+              </thead>
+              <tbody id="standingsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="view-matches" class="view-panel hidden">
+          <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+            <div class="mb-2 flex flex-col gap-2 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+              <h2 class="text-base font-bold sm:text-lg">赛程与事件</h2>
+              <div id="clubFilterBar" class="hidden flex-col gap-2 sm:flex sm:flex-row sm:items-center">
+                <span class="rounded-full border border-accent/40 bg-accent/15 px-3 py-1.5 text-xs text-accent">
+                  筛选：<span id="clubFilterName"></span>
+                </span>
+                <button id="clearClubFilterBtn" type="button" class="min-h-[44px] rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-xs hover:border-accent/40 sm:min-h-0 sm:py-1">
+                  清除筛选
+                </button>
+              </div>
+            </div>
+            <div id="matchList" class="max-h-[min(640px,calc(100dvh-11rem))] overflow-auto pr-1 sm:max-h-[640px]"></div>
+          </div>
+        </section>
+
+        <section id="view-players" class="view-panel hidden grid grid-cols-1 gap-3 sm:gap-4 xl:grid-cols-[1fr_1fr]">
+          <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+            <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">球员榜</h2>
+            <div id="playerList" class="max-h-[min(480px,calc(100dvh-14rem))] overflow-auto pr-1 sm:max-h-[560px]"></div>
+          </div>
+          <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+            <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">能力雷达</h2>
+            <div id="radarTitle" class="mb-2 text-xs text-slate-400 sm:text-sm">在上方选择球员</div>
+            <div class="h-[min(320px,55vw)] sm:h-[380px] xl:h-[420px]">
+              <canvas id="playerRadar"></canvas>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-900/95 backdrop-blur-md lg:hidden" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
+    <div class="flex max-w-[1600px] mx-auto">
+      <button type="button" data-view="standings" class="view-btn flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent px-1 py-2 text-[10px] font-semibold text-slate-200 active:bg-slate-800/80">
+        <span class="text-base leading-none">📊</span>
+        <span>积分榜</span>
+      </button>
+      <button type="button" data-view="matches" class="view-btn flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent px-1 py-2 text-[10px] font-semibold text-slate-200 active:bg-slate-800/80">
+        <span class="text-base leading-none">⚽</span>
+        <span>赛程</span>
+      </button>
+      <button type="button" data-view="players" class="view-btn flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent px-1 py-2 text-[10px] font-semibold text-slate-200 active:bg-slate-800/80">
+        <span class="text-base leading-none">📈</span>
+        <span>球员</span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="matchModal" class="fixed inset-0 z-50 hidden">
+    <div id="matchModalOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
+    <div class="absolute inset-x-2 bottom-2 flex h-[min(88dvh,calc(100dvh-env(safe-area-inset-bottom,0px)-1rem))] flex-col overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl sm:inset-x-auto sm:bottom-0 sm:left-auto sm:right-0 sm:top-0 sm:h-full sm:max-h-none sm:w-full sm:max-w-2xl sm:rounded-none sm:border-l sm:border-t-0">
+      <div class="flex shrink-0 items-center justify-between gap-2 border-b border-slate-800 px-3 py-3 sm:px-4">
+        <div class="min-w-0 flex-1 pr-1">
+          <h3 class="text-sm font-bold sm:text-lg">比赛事件</h3>
+          <div id="modalTitle" class="mt-1 min-w-0 text-xs sm:text-sm"></div>
+        </div>
+        <button type="button" id="closeModalBtn" class="min-h-[44px] shrink-0 rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-sm hover:border-accent/40 sm:min-h-0 sm:py-1">关闭</button>
+      </div>
+      <div id="modalTimeline" class="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-3 space-y-3 sm:p-4"></div>
+    </div>
+  </div>
+
+  <script>
+    const RAW_DATA = __DATASET_JSON__;
+    const RAW_PLAYER_STATS = __PLAYER_STATS_JSON__;
+    const TEAM_LOGOS = __TEAM_LOGOS_JSON__;
+
+    const leagueNavEl = document.getElementById("leagueNav");
+    const leagueNavMobileEl = document.getElementById("leagueNavMobile");
+    const standingsBodyEl = document.getElementById("standingsBody");
+    const matchListEl = document.getElementById("matchList");
+    const matchModal = document.getElementById("matchModal");
+    const matchModalOverlay = document.getElementById("matchModalOverlay");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const modalTitleEl = document.getElementById("modalTitle");
+    const modalTimelineEl = document.getElementById("modalTimeline");
+    const clubFilterBarEl = document.getElementById("clubFilterBar");
+    const clubFilterNameEl = document.getElementById("clubFilterName");
+    const clearClubFilterBtn = document.getElementById("clearClubFilterBtn");
+    const playerListEl = document.getElementById("playerList");
+    const radarTitleEl = document.getElementById("radarTitle");
+    const viewButtons = document.querySelectorAll(".view-btn");
+    const viewPanels = document.querySelectorAll(".view-panel");
+    const sortOfficialBtn = document.getElementById("sortOfficialBtn");
+    const sortMatchBtn = document.getElementById("sortMatchBtn");
+    const officialPolicyBodyEl = document.getElementById("officialPolicyBody");
+    const officialPolicyDetailsEl = document.getElementById("officialPolicyDetails");
+
+    let currentView = "standings";
+    let selectedClub = "";
+    let radarChart = null;
+    let standingsSortMode = "official";
+
+    function safeArr(v){ return Array.isArray(v) ? v : []; }
+    function n(v){ const x = Number(v); return Number.isFinite(x) ? x : 0; }
+    function esc(s){ return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;"); }
+
+    function clubImg(name){
+      const src = TEAM_LOGOS[name] || "";
+      const initial = String(name || "").trim().slice(0, 1) || "?";
+      const box = "inline-flex h-7 w-7 shrink-0 items-center justify-center sm:h-8 sm:w-8";
+      if (!src){
+        return `<span class="${box} rounded-md border border-slate-700 bg-slate-900 text-[10px] font-bold text-slate-500 sm:text-xs" title="${esc(name)}">${esc(initial)}</span>`;
+      }
+      return `<span class="${box} overflow-hidden rounded-md border border-slate-700 bg-slate-900">
+        <img src="${esc(src)}" alt="" class="h-full w-full object-contain p-0.5" loading="lazy" onerror="this.style.display='none'; const f=this.nextElementSibling; if(f) f.classList.remove('hidden');" />
+        <span class="hidden h-full w-full items-center justify-center text-[10px] font-bold text-slate-500 sm:text-xs">${esc(initial)}</span>
+      </span>`;
+    }
+
+    function resultEmoji(r){
+      if (r === "W") return "🟢";
+      if (r === "D") return "🟡";
+      return "🔴";
+    }
+
+    function getLeague(){
+      return safeArr(RAW_DATA.leagues)[0] || {matches:[], standings:[]};
+    }
+
+    function computeForm(clubName, matches){
+      const finished = safeArr(matches).filter(m => String(m.status).toLowerCase() === "finished");
+      const related = finished.filter(m => m.home_club === clubName || m.away_club === clubName);
+      related.sort((a,b) => String(b.date||"").localeCompare(String(a.date||"")));
+      return related.slice(0,5).map(m => {
+        const hs = n(m?.score?.home), as = n(m?.score?.away);
+        const home = m.home_club === clubName;
+        if (hs === as) return "D";
+        const won = home ? hs > as : as > hs;
+        return won ? "W" : "L";
+      });
+    }
+
+    function renderLeagueNav(){
+      const league = getLeague();
+      const chip = `<div class="w-full rounded-lg border border-accent/50 bg-accent/15 px-3 py-2 text-left text-sm font-semibold text-accent">${esc(league.name || "中超联赛")}</div>`;
+      leagueNavEl.innerHTML = chip;
+      if (leagueNavMobileEl) leagueNavMobileEl.innerHTML = chip;
+    }
+
+    function renderOfficialPolicy(){
+      const pol = RAW_DATA.official_points_policy;
+      if (!pol || !officialPolicyBodyEl){
+        if (officialPolicyDetailsEl) officialPolicyDetailsEl.classList.add("hidden");
+        return;
+      }
+      if (officialPolicyDetailsEl) officialPolicyDetailsEl.classList.remove("hidden");
+      const lines = [];
+      if (pol.policy_title) lines.push(`<p class="font-medium text-slate-300">${esc(pol.policy_title)}</p>`);
+      if (pol.announcement_date) lines.push(`<p>公告日期：${esc(pol.announcement_date)}</p>`);
+      if (pol.summary) lines.push(`<p>${esc(pol.summary)}</p>`);
+      const refs = safeArr(pol.references);
+      if (refs.length){
+        lines.push('<p class="font-medium text-slate-300">参考链接：</p><ul class="list-inside list-disc space-y-1">');
+        for (const r of refs){
+          const t = esc(r.title || r.url || "");
+          const u = esc(r.url || "");
+          if (u) lines.push(`<li><a class="text-accent underline" href="${u}" target="_blank" rel="noopener noreferrer">${t}</a></li>`);
+        }
+        lines.push("</ul>");
+      }
+      officialPolicyBodyEl.innerHTML = lines.join("");
+    }
+
+    function sortStandingsRows(rows, mode){
+      const out = rows.slice();
+      const tieBreak = (a, b) => {
+        const gd = n(b.goal_difference) - n(a.goal_difference);
+        if (gd !== 0) return gd;
+        const gf = n(b?.summary?.goals_for) - n(a?.summary?.goals_for);
+        if (gf !== 0) return gf;
+        return String(a.club_name || "").localeCompare(String(b.club_name || ""));
+      };
+      if (mode === "match"){
+        out.sort((a, b) => {
+          const p = n(b.points) - n(a.points);
+          if (p !== 0) return p;
+          return tieBreak(a, b);
+        });
+      } else {
+        out.sort((a, b) => {
+          const p = n(b.effective_points) - n(a.effective_points);
+          if (p !== 0) return p;
+          return tieBreak(a, b);
+        });
+      }
+      return out;
+    }
+
+    function updateSortButtons(){
+      const onO = standingsSortMode === "official";
+      if (sortOfficialBtn){
+        sortOfficialBtn.classList.toggle("border-accent/50", onO);
+        sortOfficialBtn.classList.toggle("bg-accent/15", onO);
+        sortOfficialBtn.classList.toggle("text-accent", onO);
+        sortOfficialBtn.classList.toggle("border-slate-600", !onO);
+        sortOfficialBtn.classList.toggle("bg-slate-800/80", !onO);
+        sortOfficialBtn.classList.toggle("text-slate-200", !onO);
+      }
+      if (sortMatchBtn){
+        const onM = standingsSortMode === "match";
+        sortMatchBtn.classList.toggle("border-accent/50", onM);
+        sortMatchBtn.classList.toggle("bg-accent/15", onM);
+        sortMatchBtn.classList.toggle("text-accent", onM);
+        sortMatchBtn.classList.toggle("border-slate-600", !onM);
+        sortMatchBtn.classList.toggle("bg-slate-800/80", !onM);
+        sortMatchBtn.classList.toggle("text-slate-200", !onM);
+      }
+    }
+
+    function renderStandings(){
+      const league = getLeague();
+      const standings = sortStandingsRows(safeArr(league.standings), standingsSortMode);
+      const matches = safeArr(league.matches);
+      updateSortButtons();
+      standingsBodyEl.innerHTML = standings.map((row, idx) => {
+        const wdl = safeArr(row.w_d_l);
+        const form = computeForm(row.club_name, matches);
+        return `
+          <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+            <td class="sticky left-0 z-10 bg-slate-900/95 px-1 py-2 text-center shadow-[2px_0_8px_rgba(0,0,0,0.2)] sm:px-2">${idx + 1}</td>
+            <td class="sticky left-7 z-10 max-w-[7.5rem] bg-slate-900/95 px-1 py-2 font-semibold shadow-[2px_0_8px_rgba(0,0,0,0.2)] sm:left-8 sm:max-w-none sm:px-2">
+              <div class="flex items-center gap-1 sm:gap-2">
+                ${clubImg(row.club_name)}
+                <button type="button" data-club-name="${esc(row.club_name)}" class="club-filter-btn min-h-[40px] max-w-[5.5rem] rounded px-0.5 py-1 text-left text-[11px] leading-tight text-accent hover:bg-accent/10 sm:min-h-0 sm:max-w-none sm:px-1 sm:text-sm sm:leading-normal hover:underline">
+                  ${esc(row.club_name)}
+                </button>
+              </div>
+            </td>
+            <td class="px-1 py-2 sm:px-2">${n(row.played)}</td>
+            <td class="px-1 py-2 sm:px-2">
+              <span class="inline-flex items-center gap-0.5 rounded bg-success/20 px-1 py-0.5 text-[10px] text-success sm:gap-1 sm:px-2 sm:text-xs">胜${n(wdl[0])}</span>
+              <span class="inline-flex items-center gap-0.5 rounded bg-warn/20 px-1 py-0.5 text-[10px] text-warn sm:gap-1 sm:px-2 sm:text-xs">平${n(wdl[1])}</span>
+              <span class="inline-flex items-center gap-0.5 rounded bg-danger/20 px-1 py-0.5 text-[10px] text-danger sm:gap-1 sm:px-2 sm:text-xs">负${n(wdl[2])}</span>
+            </td>
+            <td class="whitespace-nowrap px-1 py-2 sm:px-2">${form.map(resultEmoji).join(" ") || "—"}</td>
+            <td class="px-1 py-2 sm:px-2">${n(row?.summary?.goals_for)}</td>
+            <td class="px-1 py-2 sm:px-2">${n(row?.summary?.goals_against)}</td>
+            <td class="px-1 py-2 sm:px-2 ${n(row.goal_difference) >= 0 ? "text-success" : "text-danger"}">${n(row.goal_difference)}</td>
+            <td class="px-1 py-2 font-semibold text-slate-200 sm:px-2">${n(row.points)}</td>
+            <td class="px-1 py-2 sm:px-2 ${n(row.penalty_points) > 0 ? "text-danger font-semibold" : "text-slate-300"}">-${n(row.penalty_points)}</td>
+            <td class="px-1 py-2 font-bold text-accent sm:px-2">${n(row.effective_points)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".club-filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedClub = btn.dataset.clubName || "";
+          renderMatches();
+          switchView("matches");
+        });
+      });
+    }
+
+    function fmtScore(m){
+      const hs = m?.score?.home;
+      const as = m?.score?.away;
+      if (hs === null || hs === undefined || as === null || as === undefined) return ":";
+      return `${hs}:${as}`;
+    }
+
+    function venueStadium(m){
+      const v = m?.venue && typeof m.venue === "object" ? m.venue.name : "";
+      const s = String(v || "").trim();
+      return s;
+    }
+
+    function openMatchModal(match){
+      const home = match.home_club || "";
+      const away = match.away_club || "";
+      const stadium = venueStadium(match);
+      const stadiumLine = stadium ? `体育场：${esc(stadium)}` : "体育场：待公布";
+      modalTitleEl.innerHTML = `
+        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-slate-300 sm:gap-x-2">
+          ${clubImg(home)}
+          <span class="max-w-[min(42vw,9rem)] truncate text-xs font-semibold sm:max-w-none sm:text-sm" title="${esc(home)}">${esc(home)}</span>
+          <span class="rounded bg-slate-800 px-2 py-1 font-mono text-sm font-bold text-accent sm:py-0.5">${esc(fmtScore(match))}</span>
+          ${clubImg(away)}
+          <span class="max-w-[min(42vw,9rem)] truncate text-xs font-semibold sm:max-w-none sm:text-sm" title="${esc(away)}">${esc(away)}</span>
+          <span class="w-full shrink-0 text-[11px] text-slate-500 sm:ml-1 sm:w-auto sm:text-xs">· ${esc(match.date || "")}</span>
+          <span class="w-full text-[11px] leading-snug text-slate-500 sm:text-xs">${stadiumLine}</span>
+        </div>
+      `;
+      const events = safeArr(match.events).slice().sort((a,b)=>n(a.minute)-n(b.minute));
+      if (!events.length){
+        modalTimelineEl.innerHTML = '<div class="text-sm text-slate-400">本场比赛暂无事件数据（未赛或数据源未更新）。</div>';
+      } else {
+        modalTimelineEl.innerHTML = events.map(e => `
+          <div class="relative pl-6 sm:pl-7">
+            <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-accent"></span>
+            <div class="rounded-lg border border-slate-700 bg-slate-800/70 p-2.5 sm:p-3">
+              <div class="mb-1 flex items-center justify-between gap-2">
+                <span class="rounded px-2 py-0.5 text-[10px] sm:text-xs ${eventBadge(e.type)}">${esc(e.type)}</span>
+                <span class="font-mono text-xs text-slate-300 sm:text-sm">${esc(e.minute)}'</span>
+              </div>
+              <div class="text-xs font-semibold sm:text-sm">${esc(e.player || e.player_name || "Unknown")}</div>
+            </div>
+          </div>
+        `).join("");
+      }
+      matchModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMatchModal(){
+      matchModal.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    function renderMatches(){
+      const league = getLeague();
+      let matches = safeArr(league.matches).slice();
+      if (selectedClub){
+        matches = matches.filter(m => m.home_club === selectedClub || m.away_club === selectedClub);
+      }
+      matches.sort((a,b)=>{
+        const fa = String(a.status||"").toLowerCase() === "finished" ? 0 : 1;
+        const fb = String(b.status||"").toLowerCase() === "finished" ? 0 : 1;
+        if (fa !== fb) return fa - fb;
+        return String(a.date||"").localeCompare(String(b.date||""));
+      });
+
+      if (selectedClub){
+        clubFilterBarEl.classList.remove("hidden");
+        clubFilterBarEl.classList.add("flex");
+        clubFilterNameEl.textContent = selectedClub;
+      } else {
+        clubFilterBarEl.classList.add("hidden");
+        clubFilterBarEl.classList.remove("flex");
+        clubFilterNameEl.textContent = "";
+      }
+
+      matchListEl.innerHTML = matches.map((m, idx) => {
+        const status = String(m.status || "").toLowerCase();
+        const statusCls = status === "finished" ? "bg-success/20 text-success" : "bg-warn/20 text-warn";
+        const st = venueStadium(m);
+        const stadiumTxt = st ? `体育场：${esc(st)}` : "体育场：待公布";
+        return `
+          <button type="button" data-match-index="${idx}" class="match-item mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
+            <div class="mb-1 flex flex-wrap items-center justify-between gap-1">
+              <span class="text-[11px] text-slate-400 sm:text-xs">${esc(m.round || "")} · ${esc(m.date || "")}</span>
+              <span class="rounded px-2 py-0.5 text-[10px] ${statusCls} sm:text-xs">${esc(status || "scheduled")}</span>
+            </div>
+            <div class="mb-1.5 text-[11px] leading-snug text-slate-500 sm:text-xs">${stadiumTxt}</div>
+            <div class="grid grid-cols-1 items-center gap-2 min-[380px]:grid-cols-[1fr_auto_1fr]">
+              <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-end">
+                <span class="max-w-[45%] truncate text-right text-xs font-medium sm:text-sm">${esc(m.home_club)}</span>
+                ${clubImg(m.home_club)}
+              </div>
+              <div class="flex justify-center">
+                <div class="rounded bg-slate-800 px-3 py-1.5 font-mono text-base font-bold text-accent sm:px-2 sm:py-1 sm:text-sm">${esc(fmtScore(m))}</div>
+              </div>
+              <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-start">
+                ${clubImg(m.away_club)}
+                <span class="max-w-[45%] truncate text-xs font-medium sm:text-sm">${esc(m.away_club)}</span>
+              </div>
+            </div>
+          </button>
+        `;
+      }).join("");
+
+      const items = document.querySelectorAll(".match-item");
+      items.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.matchIndex);
+          openMatchModal(matches[idx]);
+        });
+      });
+
+      if (!matches.length){
+        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">该球队暂无比赛记录。</div>';
+      }
+    }
+
+    function eventBadge(type){
+      if (type === "goal") return "bg-success/20 text-success";
+      if (type === "yellow_card") return "bg-warn/20 text-warn";
+      return "bg-danger/20 text-danger";
+    }
+
+    function buildPlayerStats(matches){
+      const map = new Map();
+      const touch = (name) => {
+        if (!map.has(name)) map.set(name, {player_name:name, goals:0, yellow_card:0, red_card:0, matches:0});
+        return map.get(name);
+      };
+      for (const m of safeArr(matches)){
+        const seenInMatch = new Set();
+        for (const e of safeArr(m.events)){
+          let name = String(e.player || e.player_name || "").trim();
+          if (!name) continue;
+          const p = touch(name);
+          if (e.type === "goal") p.goals += 1;
+          if (e.type === "yellow_card") p.yellow_card += 1;
+          if (e.type === "red_card") p.red_card += 1;
+          seenInMatch.add(name);
+        }
+        seenInMatch.forEach(name => touch(name).matches += 1);
+      }
+      return [...map.values()].sort((a,b)=> (b.goals-a.goals) || (a.red_card-b.red_card) || a.player_name.localeCompare(b.player_name));
+    }
+
+    function buildPlayerStatsFromNormalized(){
+      const merged = new Map();
+      for (const row of safeArr(RAW_PLAYER_STATS)){
+        const name = String(row.player_name || "").trim();
+        if (!name || name === "Unknown" || name.startsWith("未命名球员")) continue;
+        const team = String(row.team_name || "").trim();
+        const key = name;
+        const candidate = {
+          player_name: name,
+          team_name: team,
+          goals: n(row.goals),
+          assists: n(row.assists),
+          yellow_card: n(row.yellow_cards),
+          red_card: n(row.red_cards),
+          matches: 0,
+        };
+        const prev = merged.get(key);
+        if (!prev){
+          merged.set(key, candidate);
+          continue;
+        }
+        const prevScore = (prev.team_name ? 2 : 0) + prev.goals + prev.assists + prev.yellow_card + prev.red_card;
+        const curScore = (candidate.team_name ? 2 : 0) + candidate.goals + candidate.assists + candidate.yellow_card + candidate.red_card;
+        if (curScore > prevScore) merged.set(key, candidate);
+      }
+      return [...merged.values()].sort((a,b)=> (b.goals-a.goals) || (b.assists-a.assists) || (a.red_card-b.red_card) || a.player_name.localeCompare(b.player_name));
+    }
+
+    function renderPlayers(){
+      const league = getLeague();
+      let players = buildPlayerStatsFromNormalized();
+      if (!players.length){
+        players = buildPlayerStats(league.matches);
+      }
+      playerListEl.innerHTML = players.map((p, idx) => `
+        <button type="button" data-player-index="${idx}" class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
+          <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
+            <span class="text-sm font-semibold">${idx+1}. ${esc(p.player_name)}</span>
+            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "球队待补全")}</span>
+          </div>
+          <div class="mt-1 text-[11px] text-slate-300 sm:text-xs">进球 ${p.goals} · 助攻 ${n(p.assists)} · 黄 ${p.yellow_card} · 红 ${p.red_card}</div>
+        </button>
+      `).join("");
+
+      const rows = document.querySelectorAll(".player-row");
+      rows.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.playerIndex);
+          drawRadar(players[idx]);
+        });
+      });
+      if (players.length) drawRadar(players[0]);
+      else drawRadar(null);
+    }
+
+    function drawRadar(player){
+      const ctx = document.getElementById("playerRadar");
+      if (!ctx) return;
+      if (radarChart) radarChart.destroy();
+      if (!player){
+        radarTitleEl.textContent = "暂无球员数据";
+        return;
+      }
+      radarTitleEl.textContent = `${player.player_name} · 能力雷达`;
+      radarChart = new Chart(ctx, {
+        type: "radar",
+        data: {
+          labels: ["进球", "黄牌", "红牌", "场次", "影响"],
+          datasets: [{
+            label: player.player_name,
+            data: [
+              player.goals,
+              player.yellow_card,
+              player.red_card,
+              player.matches,
+              player.goals * 2 + n(player.assists) + player.matches - player.red_card * 2
+            ],
+            backgroundColor: "rgba(56,189,248,0.25)",
+            borderColor: "rgba(56,189,248,0.95)",
+            pointBackgroundColor: "rgba(56,189,248,0.95)",
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: { color: "rgba(148,163,184,0.25)" },
+              grid: { color: "rgba(148,163,184,0.25)" },
+              pointLabels: { color: "#cbd5e1", font: { size: typeof window !== "undefined" && window.innerWidth < 640 ? 10 : 12 } },
+              ticks: { color: "#94a3b8", backdropColor: "transparent", font: { size: typeof window !== "undefined" && window.innerWidth < 640 ? 9 : 11 } }
+            }
+          },
+          plugins: { legend: { labels: { color: "#f8fafc", font: { size: typeof window !== "undefined" && window.innerWidth < 640 ? 11 : 12 } } } }
+        }
+      });
+    }
+
+    function switchView(name){
+      currentView = name;
+      viewPanels.forEach(panel => panel.classList.toggle("hidden", panel.id !== `view-${name}`));
+      viewButtons.forEach(btn => {
+        const active = btn.dataset.view === name;
+        const mobileNav = btn.closest("nav");
+        if (mobileNav && mobileNav.classList.contains("lg:hidden")) {
+          btn.classList.toggle("border-t-accent", active);
+          btn.classList.toggle("border-transparent", !active);
+          btn.classList.toggle("text-accent", active);
+          btn.classList.toggle("text-slate-400", !active);
+          btn.classList.toggle("bg-accent/10", active);
+          return;
+        }
+        btn.classList.toggle("bg-accent/15", active);
+        btn.classList.toggle("border-accent/40", active);
+        btn.classList.toggle("text-accent", active);
+        btn.classList.toggle("bg-slate-800/70", !active);
+        btn.classList.toggle("border-slate-700", !active);
+        btn.classList.toggle("text-slate-200", !active);
+      });
+    }
+
+    function renderAll(){
+      renderLeagueNav();
+      renderOfficialPolicy();
+      renderStandings();
+      renderMatches();
+      renderPlayers();
+      switchView(currentView);
+    }
+
+    if (sortOfficialBtn) sortOfficialBtn.addEventListener("click", () => {
+      standingsSortMode = "official";
+      renderStandings();
+    });
+    if (sortMatchBtn) sortMatchBtn.addEventListener("click", () => {
+      standingsSortMode = "match";
+      renderStandings();
+    });
+
+    viewButtons.forEach(btn => btn.addEventListener("click", () => switchView(btn.dataset.view)));
+    clearClubFilterBtn.addEventListener("click", () => {
+      selectedClub = "";
+      renderMatches();
+    });
+    closeModalBtn.addEventListener("click", closeMatchModal);
+    matchModalOverlay.addEventListener("click", closeMatchModal);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMatchModal(); });
+    renderAll();
+  </script>
+</body>
+</html>
+"""
+
+    html = html.replace("__DATASET_JSON__", dataset_json)
+    html = html.replace("__PLAYER_STATS_JSON__", player_stats_json)
+    html = html.replace("__TEAM_LOGOS_JSON__", team_logos_json)
+    html = html.replace("__GENERATED__", generated_at)
+    html = html.replace("__SOURCE_FILE__", source_file)
+    return html
+
+
+def main() -> None:
+    root = Path(__file__).resolve().parents[2]
+    output_path = root / "web" / "index.html"
+    data = load_data(root)
+    data["_normalized_player_stats"] = load_normalized_player_stats(root)
+    merged = json.loads(json.dumps(data))
+    merged = _merge_same_competition(merged)
+    club_names = _collect_club_names(merged)
+    team_logos = build_team_logo_map_for_dashboard(root, club_names)
+    html = build_dashboard_html(data, team_logos)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(html, encoding="utf-8")
+    print(f"dashboard written: {output_path}")
+
+
+if __name__ == "__main__":
+    main()
