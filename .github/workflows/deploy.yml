@@ -34,6 +34,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 1b. 恢复上次爬取数据（data/*.json 被 gitignore，无缓存则每次全量重爬）
+      - name: Restore crawl data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: csl-crawl-data-v1-${{ runner.os }}
+
       # 2. 设置 Python 环境
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -49,17 +56,28 @@ jobs:
           playwright install chromium --with-deps
 
       # 4. 运行爬虫 (抓取最新数据)
+      # CI 环境自动启用 --fast + --skip-complete：轻量等待 + 跳过已有事件的场次
       - name: Run Crawler
+        id: crawl
         run: |
           python src/crawler/schedule_indexer.py
           python src/crawler/batch_event_crawler.py
         env:
           PYTHONIOENCODING: utf-8
+          CI: true
+
+      # 4b. 爬虫成功后立即写入缓存（后续 enrich/render/deploy 失败时仍会保留，避免下次全量重爬）
+      - name: Save crawl data cache
+        if: steps.crawl.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: csl-crawl-data-v1-${{ runner.os }}
 
       # 5. 运行数据处理 (更新积分榜)
       - name: Process Data
         run: |
-          python src/processor/data_enricher.py
+          python src/processor/data_enrichor.py
         env:
           PYTHONIOENCODING: utf-8
 

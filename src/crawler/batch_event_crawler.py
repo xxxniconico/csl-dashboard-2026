@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import random
 import re
 import time
@@ -27,6 +28,8 @@ class BatchEventCrawler:
         chunk_size: int = 10,
         timeout_s: int = 25,
         headless: bool = True,
+        fast: bool = False,
+        skip_complete: bool = False,
     ) -> None:
         self.index_path = index_path
         self.output_path = output_path
@@ -34,6 +37,8 @@ class BatchEventCrawler:
         self.chunk_size = max(1, chunk_size)
         self.timeout_ms = timeout_s * 1000
         self.headless = headless
+        self.fast = fast
+        self.skip_complete = skip_complete
 
     def _read_json_array(self, path: Path) -> List[Dict[str, Any]]:
         if not path.exists():
@@ -61,9 +66,13 @@ class BatchEventCrawler:
         self.checkpoint_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     def _human_delay(self, lo: float = 0.7, hi: float = 1.8) -> None:
+        if self.fast:
+            lo, hi = min(lo, 0.12), min(hi, 0.35)
         time.sleep(random.uniform(lo, hi))
 
     def _human_scroll(self, page: Any) -> None:
+        if self.fast:
+            return
         # Subtle random scrolls to mimic reading behavior.
         for _ in range(random.randint(1, 3)):
             delta = random.randint(180, 620)
@@ -144,6 +153,20 @@ class BatchEventCrawler:
             uniq.append(e)
         return sorted(uniq, key=lambda x: x.get("minute") if x.get("minute") is not None else 999)
 
+    def _wait_after_navigation(self, page: Any) -> None:
+        """networkidle is very slow on SPAs; load + short sleep is enough for event HTML."""
+        if self.fast:
+            try:
+                page.wait_for_load_state("load", timeout=min(12000, self.timeout_ms))
+            except Exception:
+                pass
+            time.sleep(0.2)
+            return
+        try:
+            page.wait_for_load_state("networkidle", timeout=self.timeout_ms)
+        except Exception:
+            pass
+
     def _crawl_one_match(self, page: Any, match: Dict[str, Any]) -> Dict[str, Any]:
         match_id = str(match.get("match_id", ""))
         detail_path = str(match.get("detail_path", ""))
@@ -178,7 +201,7 @@ class BatchEventCrawler:
                     page.goto(url, wait_until="domcontentloaded", timeout=self.timeout_ms)
                     self._human_delay(0.8, 1.6)
                     self._human_scroll(page)
-                    page.wait_for_load_state("networkidle", timeout=self.timeout_ms)
+                    self._wait_after_navigation(page)
 
                     if "/live" in page.url:
                         errors.append(f"redirected_to_live_probable_antibot@{url}")
@@ -194,7 +217,7 @@ class BatchEventCrawler:
                     errors.append(f"timeout@{url}#try{attempt}: {exc}")
                 except Exception as exc:
                     errors.append(f"exception@{url}#try{attempt}: {exc}")
-                self._human_delay(1.0, 2.0)
+                self._human_delay(1.0 if not self.fast else 0.2, 2.0 if not self.fast else 0.45)
             if best_events:
                 break
 
@@ -251,6 +274,13 @@ class BatchEventCrawler:
                 chunk = pending[i : i + self.chunk_size]
                 print(f"processing chunk {i // self.chunk_size + 1}, size={len(chunk)}")
                 for match in chunk:
+                    match_id = str(match.get("match_id", ""))
+                    if self.skip_complete and match_id and match_id in existing_by_id:
+                        prev = existing_by_id[match_id]
+                        ev = prev.get("events") or []
+                        if isinstance(ev, list) and len(ev) > 0:
+                            self._save_checkpoint(match_id)
+                            continue
                     enriched = self._crawl_one_match(page, match)
                     match_id = str(enriched.get("match_id", ""))
                     if match_id:
@@ -302,6 +332,18 @@ def main() -> None:
     )
     parser.add_argument("--chunk-size", type=int, default=10, help="Matches processed per chunk")
     parser.add_argument("--timeout", type=int, default=25, help="Per-page timeout in seconds")
+    parser.add_argument(
+        "--fast",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Shorter waits and load instead of networkidle (recommended in CI)",
+    )
+    parser.add_argument(
+        "--skip-complete",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Skip matches that already have events in output JSON (incremental)",
+    )
     parser.add_argument("--max-matches", type=int, default=0, help="Limit processed matches for testing")
     parser.add_argument("--finished-only", action="store_true", help="Process only finished matches")
     parser.add_argument("--year", type=int, default=0, help="Filter by match date year, e.g. 2026")
@@ -327,6 +369,10 @@ def main() -> None:
     else:
         index_path = raw_index_path
 
+    in_ci = os.environ.get("CI", "").lower() in ("true", "1", "yes")
+    use_fast = args.fast if args.fast is not None else in_ci
+    use_skip = args.skip_complete if args.skip_complete is not None else in_ci
+
     crawler = BatchEventCrawler(
         index_path=index_path,
         output_path=Path(args.output),
@@ -334,6 +380,8 @@ def main() -> None:
         chunk_size=args.chunk_size,
         timeout_s=args.timeout,
         headless=not args.headed,
+        fast=use_fast,
+        skip_complete=use_skip,
     )
     if args.reset_checkpoint:
         cp = Path(args.checkpoint)

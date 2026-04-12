@@ -95,8 +95,12 @@ def crawl_full_2026_schedule() -> Dict[str, object]:
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=30000)
                 page.wait_for_selector("tr.matchinfo", timeout=15000)
-                page.wait_for_load_state("networkidle", timeout=15000)
-                time.sleep(0.7)
+                # networkidle 在动态页面上常多等 10–20s；赛程行已出现即可解析
+                try:
+                    page.wait_for_load_state("load", timeout=12000)
+                except PlaywrightTimeoutError:
+                    pass
+                time.sleep(0.35)
 
                 html = page.content()
                 soup = BeautifulSoup(html, "html.parser")
@@ -159,6 +163,7 @@ def main() -> None:
     result = crawl_full_2026_schedule()
 
     # Requirement requests an array of match objects; write matches array only.
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result["matches"], ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"saved: {output_path}")
     print(f"matches: {result['meta']['match_count']}, rounds: {result['meta']['round_pages_visited']}")
