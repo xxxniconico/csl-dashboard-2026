@@ -4,7 +4,7 @@
 
 ## 🌐 在线访问
 
-[https://YOUR_USERNAME.github.io/csl-dashboard-2026/](https://YOUR_USERNAME.github.io/csl-dashboard-2026/)
+[https://xxxniconico.github.io/csl-dashboard-2026/](https://xxxniconico.github.io/csl-dashboard-2026/)
 
 ## ✨ 核心功能
 
