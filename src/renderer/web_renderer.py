@@ -387,7 +387,7 @@ def prepare_dashboard_embed_payload(
     return lean, stats, team_logos, source_file
 
 
-def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: str) -> str:
+def build_dashboard_html(source_file: str, generated_at: str) -> str:
     html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -516,7 +516,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
                   <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
                 </div>
                 <div id="matchCalCells" class="mt-1 grid grid-cols-7 gap-1"></div>
-                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">先选俱乐部（可选），再与日历联动：圆点表示当日有比赛；首次进入按今天定位最近赛日；换月显示当月；点某日只看该日。</p>
+                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">全部赛程：首次展示「最近2场已赛+接下来2场未赛」。选俱乐部：展示该队全部已赛与未赛场次，并定位到最近一场已赛。换月/点某日规则不变。</p>
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
                   显示整月赛程
                 </button>
@@ -629,6 +629,12 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     /** 俱乐部/数据源切换后需重新按「最近赛日」锚定 */
     let matchViewNeedsDateAnchor = true;
     let lastScheduleAnchorClubSig = "__unset__";
+    /** month=按月列表；global24=全局2已赛+2未赛；club_all=当前俱乐部全部已赛+未赛 */
+    let scheduleViewMode = "month";
+    /** 俱乐部锚定：在日历上圈选「最近一场已赛」日期（非单日筛选） */
+    let calendarHighlightYmd = "";
+    /** 俱乐部锚定：列表滚动到该日期分组（渲染后消费） */
+    let matchScrollAnchorYmd = "";
 
     const matchCalTitleEl = document.getElementById("matchCalTitle");
     const matchCalCellsEl = document.getElementById("matchCalCells");
@@ -917,6 +923,65 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       return k.slice(0, 7) === monthPrefixYm(y, m0);
     }
 
+    function matchStatusNorm(m){
+      return String(m && m.status != null ? m.status : "").toLowerCase();
+    }
+
+    function isFinishedMatch(m){
+      const s = matchStatusNorm(m);
+      return s === "finished" || s === "completed" || s === "ft";
+    }
+
+    function isLiveMatch(m){
+      const s = matchStatusNorm(m);
+      return s === "live" || s === "in_progress" || s === "playing";
+    }
+
+    function isUpcomingMatch(m){
+      if (isFinishedMatch(m) || isLiveMatch(m)) return false;
+      const s = matchStatusNorm(m);
+      if (s === "cancelled" || s === "canceled" || s === "postponed") return false;
+      return true;
+    }
+
+    /** 全场：时间轴上最近 2 场已结束 + 接下来 2 场未开始/进行中 */
+    function buildGlobal24Window(matches){
+      const sorted = matches.slice().sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
+      const fin = sorted.filter(isFinishedMatch);
+      const last2 = fin.slice(-2);
+      const up = sorted.filter(m => isUpcomingMatch(m) || isLiveMatch(m));
+      const next2 = up.slice(0, 2);
+      const seen = new Set();
+      const out = [];
+      for (const m of last2.concat(next2)){
+        const id = String(m.match_id != null ? m.match_id : "") ||
+          (matchDateKey(m) + "|" + String(m.home_club || "") + "|" + String(m.away_club || ""));
+        if (seen.has(id)) continue;
+        seen.add(id);
+        out.push(m);
+      }
+      return out.sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
+    }
+
+    /** 相对系统日期：最近一场已完成的赛日（≤今天中取最晚；若无则取已赛场中最晚一天） */
+    function lastCompletedDateYmd(matches){
+      const today = todayYmd();
+      const fins = matches.filter(isFinishedMatch).map(m => matchDateKey(m)).filter(k => k.length === 10);
+      if (!fins.length) return "";
+      fins.sort((a, b) => a.localeCompare(b));
+      const past = fins.filter(d => d <= today);
+      if (past.length) return past[past.length - 1];
+      return fins[fins.length - 1];
+    }
+
+    function firstUpcomingDateYmd(matches){
+      const sorted = matches.slice().sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
+      for (const m of sorted){
+        if (isUpcomingMatch(m) || isLiveMatch(m)) return matchDateKey(m);
+      }
+      return "";
+    }
+
     function matchStatusLabel(status){
       const s = String(status || "").toLowerCase();
       if (s === "finished") return "已结束";
@@ -991,10 +1056,12 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         const has = matchDatesSet.has(ymd);
         const isToday = ymd === todayKey;
         const isSel = selectedMatchDate === ymd;
+        const isHl = calendarHighlightYmd && calendarHighlightYmd === ymd && !isSel;
         let cls = "relative flex min-h-[2.25rem] flex-col items-center justify-center rounded-lg border text-xs font-medium transition-colors";
         if (isSel) cls += " border-accent bg-accent/20 text-accent";
+        else if (isHl) cls += " border-success/50 bg-success/10 text-success ring-1 ring-success/40";
         else cls += " border-transparent bg-slate-800/50 text-slate-200 hover:border-slate-600";
-        if (isToday && !isSel) cls += " ring-1 ring-accent/45";
+        if (isToday && !isSel && !isHl) cls += " ring-1 ring-accent/45";
         const dot = has ? '<span class="absolute bottom-1 h-1 w-1 rounded-full bg-accent" aria-hidden="true"></span>' : "";
         const dis = !has ? " opacity-60" : "";
         cells.push(`<button type="button" data-cal-date="${ymd}" class="${cls}${dis}" title="${has ? "查看当日比赛" : "当日无比赛"}">${d}${dot}</button>`);
@@ -1002,6 +1069,8 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       matchCalCellsEl.innerHTML = cells.join("");
       matchCalCellsEl.querySelectorAll("[data-cal-date]").forEach(btn => {
         btn.addEventListener("click", () => {
+          scheduleViewMode = "month";
+          calendarHighlightYmd = "";
           selectedMatchDate = btn.getAttribute("data-cal-date") || "";
           renderMatches();
         });
@@ -1046,12 +1115,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       if (selectedClub){
         matches = matches.filter(m => m.home_club === selectedClub || m.away_club === selectedClub);
       }
-      matches.sort((a,b)=>{
-        const fa = String(a.status||"").toLowerCase() === "finished" ? 0 : 1;
-        const fb = String(b.status||"").toLowerCase() === "finished" ? 0 : 1;
-        if (fa !== fb) return fa - fb;
-        return String(a.date||"").localeCompare(String(b.date||""));
-      });
+      matches.sort((a,b)=> String(a.date||"").localeCompare(String(b.date||"")));
 
       const clubSig = selectedClub || "__all__";
       if (lastScheduleAnchorClubSig !== clubSig){
@@ -1059,11 +1123,40 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         lastScheduleAnchorClubSig = clubSig;
       }
       if (matchViewNeedsDateAnchor && matches.length){
-        const anchor = nearestMatchDateYmd(matches);
-        if (anchor && anchor.length === 10){
-          calendarViewYear = Number(anchor.slice(0, 4));
-          calendarViewMonth = Number(anchor.slice(5, 7)) - 1;
-          selectedMatchDate = anchor;
+        selectedMatchDate = "";
+        calendarHighlightYmd = "";
+        matchScrollAnchorYmd = "";
+        if (selectedClub){
+          scheduleViewMode = "club_all";
+          const ld = lastCompletedDateYmd(matches);
+          if (ld && ld.length === 10){
+            calendarViewYear = Number(ld.slice(0, 4));
+            calendarViewMonth = Number(ld.slice(5, 7)) - 1;
+            calendarHighlightYmd = ld;
+            matchScrollAnchorYmd = ld;
+          } else {
+            const nu = firstUpcomingDateYmd(matches);
+            if (nu && nu.length === 10){
+              calendarViewYear = Number(nu.slice(0, 4));
+              calendarViewMonth = Number(nu.slice(5, 7)) - 1;
+              calendarHighlightYmd = nu;
+            }
+          }
+        } else {
+          scheduleViewMode = "global24";
+          const win = buildGlobal24Window(matches);
+          let pivot = "";
+          if (win.length){
+            const mid = Math.max(0, Math.floor((win.length - 1) / 2));
+            pivot = matchDateKey(win[mid]);
+          }
+          if (!pivot || pivot.length < 10){
+            pivot = nearestMatchDateYmd(matches);
+          }
+          if (pivot && pivot.length === 10){
+            calendarViewYear = Number(pivot.slice(0, 4));
+            calendarViewMonth = Number(pivot.slice(5, 7)) - 1;
+          }
         }
         matchViewNeedsDateAnchor = false;
       }
@@ -1085,6 +1178,15 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       let displayMatches;
       if (selectedMatchDate){
         displayMatches = matches.filter(m => matchDateKey(m) === selectedMatchDate);
+      } else if (scheduleViewMode === "global24"){
+        displayMatches = buildGlobal24Window(matches);
+        if (!displayMatches.length && matches.length){
+          scheduleViewMode = "month";
+          displayMatches = monthMatches.slice();
+        }
+      } else if (scheduleViewMode === "club_all"){
+        displayMatches = matches.filter(m => isFinishedMatch(m) || isUpcomingMatch(m) || isLiveMatch(m));
+        displayMatches.sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
       } else {
         displayMatches = monthMatches.slice();
       }
@@ -1100,11 +1202,21 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         return;
       }
 
-      if (!selectedMatchDate && !monthMatches.length){
+      if (!selectedMatchDate && scheduleViewMode === "month" && !monthMatches.length){
         matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">当前月份暂无比赛（可切换月份查看其他赛程）。</div>';
         return;
       }
 
+      if (!selectedMatchDate && !displayMatches.length){
+        if (scheduleViewMode === "club_all"){
+          matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">该俱乐部暂无已结束或未开始的比赛。</div>';
+        } else {
+          matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">暂无可展示的场次。</div>';
+        }
+        return;
+      }
+
+      const scrollDk = matchScrollAnchorYmd;
       let html = "";
       const flat = [];
       if (selectedMatchDate){
@@ -1128,7 +1240,8 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         for (const dk of order){
           const list = dateGroups.get(dk);
           if (!list.length) continue;
-          html += `<div class="sticky top-0 z-[1] mb-2 border-b border-slate-700 bg-slate-900/95 py-1.5 pl-0.5 text-xs font-semibold text-accent backdrop-blur-sm">${esc(formatDateSectionTitle(dk))}</div>`;
+          const anchorId = (scheduleViewMode === "club_all" && scrollDk && dk === scrollDk) ? ' id="schedule-club-anchor"' : "";
+          html += `<div${anchorId} class="sticky top-0 z-[1] mb-2 border-b border-slate-700 bg-slate-900/95 py-1.5 pl-0.5 text-xs font-semibold text-accent backdrop-blur-sm">${esc(formatDateSectionTitle(dk))}</div>`;
           for (const m of list){
             const idx = flat.length;
             flat.push(m);
@@ -1144,6 +1257,13 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           openMatchModal(flat[idx]);
         });
       });
+      if (scrollDk && scheduleViewMode === "club_all"){
+        const el = document.getElementById("schedule-club-anchor");
+        if (el){
+          requestAnimationFrame(() => { el.scrollIntoView({ block: "center", behavior: "smooth" }); });
+        }
+      }
+      matchScrollAnchorYmd = "";
     }
 
     function eventBadge(type){
@@ -1438,6 +1558,9 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     clearClubFilterBtn.addEventListener("click", () => {
       selectedClub = "";
       selectedMatchDate = "";
+      scheduleViewMode = "month";
+      calendarHighlightYmd = "";
+      matchScrollAnchorYmd = "";
       if (matchClubFilterEl) matchClubFilterEl.value = "";
       renderMatches();
     });
@@ -1448,18 +1571,27 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     });
     if (matchCalPrevBtn) matchCalPrevBtn.addEventListener("click", () => {
       selectedMatchDate = "";
+      scheduleViewMode = "month";
+      calendarHighlightYmd = "";
+      matchScrollAnchorYmd = "";
       calendarViewMonth -= 1;
       if (calendarViewMonth < 0){ calendarViewMonth = 11; calendarViewYear -= 1; }
       renderMatches();
     });
     if (matchCalNextBtn) matchCalNextBtn.addEventListener("click", () => {
       selectedMatchDate = "";
+      scheduleViewMode = "month";
+      calendarHighlightYmd = "";
+      matchScrollAnchorYmd = "";
       calendarViewMonth += 1;
       if (calendarViewMonth > 11){ calendarViewMonth = 0; calendarViewYear += 1; }
       renderMatches();
     });
     if (matchCalResetDayBtn) matchCalResetDayBtn.addEventListener("click", () => {
       selectedMatchDate = "";
+      scheduleViewMode = "month";
+      calendarHighlightYmd = "";
+      matchScrollAnchorYmd = "";
       renderMatches();
     });
     closeModalBtn.addEventListener("click", closeMatchModal);
@@ -1486,19 +1618,51 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       return new URL("dashboard_embed.json", window.location.origin + p + "/");
     }
 
+    let lastEmbedFetchAt = 0;
+    const EMBED_REFRESH_THROTTLE_MS = 30000;
+    const EMBED_POLL_MS = 120000;
+
+    async function fetchDashboardBundle(){
+      const embedUrl = resolveEmbedJsonUrl();
+      embedUrl.searchParams.set("v", String(Date.now()));
+      const res = await fetch(embedUrl.toString(), {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache" }
+      });
+      if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
+      return res.json();
+    }
+
+    function applyDashboardBundle(bundle){
+      RAW_DATA = bundle.raw_data || { leagues: [] };
+      RAW_PLAYER_STATS = Array.isArray(bundle.player_stats) ? bundle.player_stats : [];
+      TEAM_LOGOS = bundle.team_logos && typeof bundle.team_logos === "object" ? bundle.team_logos : {};
+      RAW_CFL_PROFILES = Array.isArray(bundle.cfl_player_profiles) ? bundle.cfl_player_profiles : [];
+    }
+
+    async function refreshDashboardData(opts){
+      const o = opts || {};
+      const silent = !!o.silent;
+      try {
+        const bundle = await fetchDashboardBundle();
+        applyDashboardBundle(bundle);
+        lastEmbedFetchAt = Date.now();
+        renderAll();
+      } catch (err){
+        console.warn("refreshDashboardData failed", err);
+        if (!silent){
+          console.error("embed base", resolveEmbedJsonUrl().toString());
+        }
+      }
+    }
+
     async function bootDashboard(){
       let triedUrl = "";
       try {
-        const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "__EMBED_V__");
-        triedUrl = embedUrl.toString();
-        const res = await fetch(triedUrl, { cache: "no-store" });
-        if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
-        const bundle = await res.json();
-        RAW_DATA = bundle.raw_data || { leagues: [] };
-        RAW_PLAYER_STATS = Array.isArray(bundle.player_stats) ? bundle.player_stats : [];
-        TEAM_LOGOS = bundle.team_logos && typeof bundle.team_logos === "object" ? bundle.team_logos : {};
-        RAW_CFL_PROFILES = Array.isArray(bundle.cfl_player_profiles) ? bundle.cfl_player_profiles : [];
+        const bundle = await fetchDashboardBundle();
+        triedUrl = resolveEmbedJsonUrl().toString();
+        applyDashboardBundle(bundle);
+        lastEmbedFetchAt = Date.now();
         renderAll();
       } catch (err) {
         console.error("bootDashboard failed, url=", triedUrl, err);
@@ -1508,6 +1672,18 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         document.body.insertBefore(bar, document.body.firstChild);
       }
     }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") return;
+      if (Date.now() - lastEmbedFetchAt < EMBED_REFRESH_THROTTLE_MS) return;
+      refreshDashboardData({ silent: true });
+    });
+
+    setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      refreshDashboardData({ silent: true });
+    }, EMBED_POLL_MS);
+
     bootDashboard();
   </script>
 </body>
@@ -1516,7 +1692,6 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
     html = html.replace("__GENERATED__", generated_at)
     html = html.replace("__SOURCE_FILE__", source_file)
-    html = html.replace("__EMBED_V__", embed_cache_bust)
     return html
 
 
@@ -1537,8 +1712,7 @@ def main() -> None:
     lean, stats, logos_embed, source_file = prepare_dashboard_embed_payload(data, team_logos)
     cfl_profiles = load_cfl_player_profiles_for_embed(root)
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    embed_cache_bust = str(int(datetime.now(timezone.utc).timestamp()))
-    html = build_dashboard_html(source_file, generated_at, embed_cache_bust)
+    html = build_dashboard_html(source_file, generated_at)
 
     bundle = {
         "raw_data": lean,
