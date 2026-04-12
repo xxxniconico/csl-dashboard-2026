@@ -2,6 +2,8 @@ import copy
 import json
 import random
 import re
+import subprocess
+import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -469,6 +471,18 @@ def main() -> None:
     cfl_path = root / "data" / "csl_matches_enriched_cfl.json"
     fixtures_path = root / "data" / "csl_season_fixtures_cfl.json"
     normalized_path = root / "data" / "csl_normalized.json"
+
+    if not in_path.exists():
+        unifier = root / "src" / "processor" / "data_unifier.py"
+        if not unifier.is_file():
+            raise FileNotFoundError(
+                f"缺少 {in_path}，且未找到 data_unifier.py。请先运行: python src/processor/data_unifier.py"
+            )
+        subprocess.run([sys.executable, str(unifier)], check=True)
+    if not in_path.exists():
+        raise FileNotFoundError(
+            f"仍缺少 {in_path}。请确认 data/csl_matches_enriched.json 已由爬虫生成后再运行 data_unifier。"
+        )
 
     payload = load_json(in_path)
     cfa_path = root / "data" / "csl_cfa_2026_official_deductions.json"

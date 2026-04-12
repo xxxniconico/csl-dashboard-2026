@@ -74,6 +74,12 @@ jobs:
           path: data
           key: csl-crawl-data-v1-${{ runner.os }}
 
+      # 4c. 由 csl_matches_enriched.json 等生成 all_seasons_unified_index.json（data_enricher 依赖此文件）
+      - name: Unify seasons index
+        run: python src/processor/data_unifier.py
+        env:
+          PYTHONIOENCODING: utf-8
+
       # 5. 运行数据处理 (更新积分榜)
       - name: Process Data
         run: |

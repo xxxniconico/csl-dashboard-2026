@@ -51,13 +51,16 @@ playwright install chromium
 python src/crawler/schedule_indexer.py
 python src/crawler/batch_event_crawler.py
 
-# 4. 处理数据
+# 4. 合并赛程与事件为统一索引（生成 data/all_seasons_unified_index.json，供下一步使用）
+python src/processor/data_unifier.py
+
+# 5. 处理数据（积分榜、事件补全等）
 python src/processor/data_enricher.py
 
-# 5. 生成页面
+# 6. 生成页面
 python src/renderer/web_renderer.py
 
-# 6. 本地预览
+# 7. 本地预览
 cd web
 python -m http.server 8080
 ```
