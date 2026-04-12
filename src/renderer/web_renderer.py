@@ -228,15 +228,6 @@ def load_normalized_player_stats(root: Path) -> list:
     return []
 
 
-def _safe_json_for_script(obj: Any) -> str:
-    """嵌入 <script> 时避免 </script>、U+2028 等打断解析导致整页脚本失效。"""
-    s = json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
-    s = s.replace("<", "\\u003c")
-    for ch in ("\u2028", "\u2029"):
-        s = s.replace(ch, "")
-    return s
-
-
 def _ensure_match_events_player_fields(data: Dict[str, Any]) -> None:
     """保证每条 event 同时有 player / player_name，与 event_names 一致。"""
     for league in data.get("leagues") or []:
@@ -253,20 +244,22 @@ def _ensure_match_events_player_fields(data: Dict[str, Any]) -> None:
                 e["player_name"] = p
 
 
-def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> str:
-    data = _merge_same_competition(data)
-    _ensure_match_events_player_fields(data)
-    # 避免把大段重复球员数据塞进 RAW_DATA（仅保留联赛与政策等）
-    lean = {k: v for k, v in data.items() if k != "_normalized_player_stats"}
-    stats = data.get("_normalized_player_stats")
+def prepare_dashboard_embed_payload(
+    data: Dict[str, Any], team_logos: Dict[str, str]
+) -> Tuple[Dict[str, Any], list, Dict[str, str], str]:
+    """合并联赛、补全事件球员名；拆出嵌入用 lean / player_stats。"""
+    work = json.loads(json.dumps(data))
+    work = _merge_same_competition(work)
+    _ensure_match_events_player_fields(work)
+    stats = work.get("_normalized_player_stats")
     if not isinstance(stats, list):
         stats = []
-    dataset_json = _safe_json_for_script(lean)
-    player_stats_json = _safe_json_for_script(stats)
-    team_logos_json = _safe_json_for_script(team_logos)
-    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    source_file = data.get("_source_file", "unknown")
+    lean = {k: v for k, v in work.items() if k != "_normalized_player_stats"}
+    source_file = str(work.get("_source_file") or "unknown")
+    return lean, stats, team_logos, source_file
 
+
+def build_dashboard_html(source_file: str, generated_at: str) -> str:
     html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -437,9 +430,8 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
   </div>
 
   <script>
-    const RAW_DATA = __DATASET_JSON__;
-    const RAW_PLAYER_STATS = __PLAYER_STATS_JSON__;
-    const TEAM_LOGOS = __TEAM_LOGOS_JSON__;
+    /** 数据从同目录 dashboard_embed.json 加载，避免内联巨型 JSON 被 HTML/浏览器截断或误解析 */
+    var RAW_DATA, RAW_PLAYER_STATS, TEAM_LOGOS;
 
     const leagueNavEl = document.getElementById("leagueNav");
     const leagueNavMobileEl = document.getElementById("leagueNavMobile");
@@ -931,15 +923,42 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
     closeModalBtn.addEventListener("click", closeMatchModal);
     matchModalOverlay.addEventListener("click", closeMatchModal);
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMatchModal(); });
-    renderAll();
+
+    /** 与 dashboard_embed.json 同目录；兼容 GitHub Pages 项目站无末尾 / 的地址（避免解析到站点根导致 404） */
+    function resolveEmbedJsonUrl(){
+      const p = window.location.pathname || "/";
+      if (p.endsWith("/")) return new URL("dashboard_embed.json", window.location.origin + p);
+      const last = p.slice(p.lastIndexOf("/") + 1);
+      if (last.includes(".") && /\\.[a-z0-9]+$/i.test(last)){
+        return new URL("dashboard_embed.json", window.location.origin + p.slice(0, p.lastIndexOf("/") + 1));
+      }
+      return new URL("dashboard_embed.json", window.location.origin + p + "/");
+    }
+
+    async function bootDashboard(){
+      try {
+        const embedUrl = resolveEmbedJsonUrl();
+        const res = await fetch(embedUrl.toString(), { cache: "no-store" });
+        if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
+        const bundle = await res.json();
+        RAW_DATA = bundle.raw_data || { leagues: [] };
+        RAW_PLAYER_STATS = Array.isArray(bundle.player_stats) ? bundle.player_stats : [];
+        TEAM_LOGOS = bundle.team_logos && typeof bundle.team_logos === "object" ? bundle.team_logos : {};
+        renderAll();
+      } catch (err) {
+        console.error("bootDashboard", err);
+        const bar = document.createElement("div");
+        bar.className = "fixed left-0 right-0 top-0 z-[100] bg-red-900 px-3 py-2 text-center text-sm text-white";
+        bar.textContent = "数据加载失败（请检查是否已部署 dashboard_embed.json 或强制刷新）";
+        document.body.insertBefore(bar, document.body.firstChild);
+      }
+    }
+    bootDashboard();
   </script>
 </body>
 </html>
 """
 
-    html = html.replace("__DATASET_JSON__", dataset_json)
-    html = html.replace("__PLAYER_STATS_JSON__", player_stats_json)
-    html = html.replace("__TEAM_LOGOS_JSON__", team_logos_json)
     html = html.replace("__GENERATED__", generated_at)
     html = html.replace("__SOURCE_FILE__", source_file)
     return html
@@ -947,7 +966,8 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
 
 def main() -> None:
     root = Path(__file__).resolve().parents[2]
-    output_path = root / "web" / "index.html"
+    web_dir = root / "web"
+    output_path = web_dir / "index.html"
     data = load_data(root)
     data["_normalized_player_stats"] = load_normalized_player_stats(root)
     merged = json.loads(json.dumps(data))
@@ -957,10 +977,19 @@ def main() -> None:
     pub_base = os.environ.get("CSL_DASHBOARD_PUBLIC_BASE", "").strip()
     if pub_base:
         team_logos = apply_team_logo_public_base(team_logos, pub_base)
-    html = build_dashboard_html(data, team_logos)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    lean, stats, logos_embed, source_file = prepare_dashboard_embed_payload(data, team_logos)
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    html = build_dashboard_html(source_file, generated_at)
+
+    bundle = {"raw_data": lean, "player_stats": stats, "team_logos": logos_embed}
+    embed_path = web_dir / "dashboard_embed.json"
+    web_dir.mkdir(parents=True, exist_ok=True)
+    embed_path.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
+
     output_path.write_text(html, encoding="utf-8")
     print(f"dashboard written: {output_path}")
+    print(f"embed bundle written: {embed_path}")
 
 
 if __name__ == "__main__":
