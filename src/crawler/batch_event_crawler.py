@@ -82,7 +82,9 @@ class BatchEventCrawler:
         page.mouse.wheel(0, -random.randint(80, 220))
         self._human_delay(0.2, 0.5)
 
-    def _normalize_event(self, event_type: str, player_name: str, minute: Any) -> Dict[str, Any]:
+    def _normalize_event(
+        self, event_type: str, player_name: str, minute: Any, team_name: str = ""
+    ) -> Dict[str, Any]:
         t = str(event_type).lower().strip()
         if t.isdigit():
             if t == "1":
@@ -105,7 +107,11 @@ class BatchEventCrawler:
         except Exception:
             m = None
         nm = (player_name or "").strip()
-        return {"type": t, "player_name": nm, "player": nm, "minute": m}
+        out: Dict[str, Any] = {"type": t, "player_name": nm, "player": nm, "minute": m}
+        tn = (team_name or "").strip()
+        if tn:
+            out["team_name"] = tn
+        return out
 
     def _extract_events(self, html: str) -> List[Dict[str, Any]]:
         events: List[Dict[str, Any]] = []
@@ -134,7 +140,14 @@ class BatchEventCrawler:
                             or ""
                         )
                         minute = item.get("minute") or item.get("time") or item.get("time_min") or item.get("min")
-                        evt = self._normalize_event(et, pl, minute)
+                        tn = str(
+                            item.get("teamName")
+                            or item.get("team_name")
+                            or item.get("club_name")
+                            or item.get("team")
+                            or ""
+                        ).strip()
+                        evt = self._normalize_event(et, pl, minute, tn)
                         if evt:
                             events.append(evt)
                 except Exception:

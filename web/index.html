@@ -43,7 +43,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 06:59 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 09:38 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -493,8 +493,16 @@
 
     function buildPlayerStats(matches){
       const map = new Map();
+      const teamVotes = new Map();
+      const bumpTeam = (playerName, team) => {
+        const t = String(team || "").trim();
+        if (!t) return;
+        if (!teamVotes.has(playerName)) teamVotes.set(playerName, new Map());
+        const vm = teamVotes.get(playerName);
+        vm.set(t, (vm.get(t) || 0) + 1);
+      };
       const touch = (name) => {
-        if (!map.has(name)) map.set(name, {player_name:name, goals:0, yellow_card:0, red_card:0, matches:0});
+        if (!map.has(name)) map.set(name, {player_name:name, team_name:"", goals:0, yellow_card:0, red_card:0, matches:0, assists:0});
         return map.get(name);
       };
       for (const m of safeArr(matches)){
@@ -502,6 +510,8 @@
         for (const e of safeArr(m.events)){
           let name = eventPlayerName(e);
           if (!name) continue;
+          const team = String(e.team_name ?? e.teamName ?? e.club_name ?? "").trim();
+          bumpTeam(name, team);
           const p = touch(name);
           if (e.type === "goal") p.goals += 1;
           if (e.type === "yellow_card") p.yellow_card += 1;
@@ -509,6 +519,13 @@
           seenInMatch.add(name);
         }
         seenInMatch.forEach(name => touch(name).matches += 1);
+      }
+      for (const p of map.values()){
+        const vm = teamVotes.get(p.player_name);
+        if (!vm || !vm.size) continue;
+        let best = "", bestC = 0;
+        vm.forEach((c, t) => { if (c > bestC){ bestC = c; best = t; } });
+        if (best) p.team_name = best;
       }
       return [...map.values()].sort((a,b)=> (b.goals-a.goals) || (a.red_card-b.red_card) || a.player_name.localeCompare(b.player_name));
     }
@@ -677,7 +694,7 @@
       let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "1775977178");
+        embedUrl.searchParams.set("v", "1775986733");
         triedUrl = embedUrl.toString();
         const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);

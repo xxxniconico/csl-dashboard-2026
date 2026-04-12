@@ -2,6 +2,7 @@ import json
 import os
 import re
 import sys
+from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Set, Tuple
@@ -229,7 +230,7 @@ def load_normalized_player_stats(root: Path) -> list:
 
 
 def _ensure_match_events_player_fields(data: Dict[str, Any]) -> None:
-    """保证每条 event 同时有 player / player_name，与 event_names 一致。"""
+    """保证每条 event 同时有 player / player_name；保留 team_name / club_name（俱乐部展示）。"""
     for league in data.get("leagues") or []:
         if not isinstance(league, dict):
             continue
@@ -242,6 +243,37 @@ def _ensure_match_events_player_fields(data: Dict[str, Any]) -> None:
                 p = resolve_event_player_name(e) or _norm_name(e.get("player") or e.get("player_name"))
                 e["player"] = p
                 e["player_name"] = p
+                tn = _norm_name(e.get("team_name") or e.get("club_name"))
+                if tn:
+                    e["team_name"] = tn
+
+
+def _enrich_player_stats_teams_from_match_events(data: Dict[str, Any], stats: list) -> None:
+    """用各场 event.team_name 投票，为 player_stats 中空 team_name 的行补俱乐部。"""
+    votes: Dict[str, Counter] = defaultdict(Counter)
+    for league in data.get("leagues") or []:
+        if not isinstance(league, dict):
+            continue
+        for m in league.get("matches") or []:
+            if not isinstance(m, dict):
+                continue
+            for e in m.get("events") or []:
+                if not isinstance(e, dict):
+                    continue
+                pname = _norm_name(
+                    resolve_event_player_name(e) or e.get("player") or e.get("player_name")
+                )
+                team = _norm_name(e.get("team_name") or e.get("club_name"))
+                if pname and team:
+                    votes[pname][team] += 1
+    for row in stats:
+        if not isinstance(row, dict):
+            continue
+        if _norm_name(row.get("team_name")):
+            continue
+        pn = _norm_name(row.get("player_name"))
+        if pn and votes.get(pn):
+            row["team_name"] = votes[pn].most_common(1)[0][0]
 
 
 def prepare_dashboard_embed_payload(
@@ -254,6 +286,7 @@ def prepare_dashboard_embed_payload(
     stats = work.get("_normalized_player_stats")
     if not isinstance(stats, list):
         stats = []
+    _enrich_player_stats_teams_from_match_events(work, stats)
     lean = {k: v for k, v in work.items() if k != "_normalized_player_stats"}
     source_file = str(work.get("_source_file") or "unknown")
     return lean, stats, team_logos, source_file
@@ -755,8 +788,16 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
     function buildPlayerStats(matches){
       const map = new Map();
+      const teamVotes = new Map();
+      const bumpTeam = (playerName, team) => {
+        const t = String(team || "").trim();
+        if (!t) return;
+        if (!teamVotes.has(playerName)) teamVotes.set(playerName, new Map());
+        const vm = teamVotes.get(playerName);
+        vm.set(t, (vm.get(t) || 0) + 1);
+      };
       const touch = (name) => {
-        if (!map.has(name)) map.set(name, {player_name:name, goals:0, yellow_card:0, red_card:0, matches:0});
+        if (!map.has(name)) map.set(name, {player_name:name, team_name:"", goals:0, yellow_card:0, red_card:0, matches:0, assists:0});
         return map.get(name);
       };
       for (const m of safeArr(matches)){
@@ -764,6 +805,8 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         for (const e of safeArr(m.events)){
           let name = eventPlayerName(e);
           if (!name) continue;
+          const team = String(e.team_name ?? e.teamName ?? e.club_name ?? "").trim();
+          bumpTeam(name, team);
           const p = touch(name);
           if (e.type === "goal") p.goals += 1;
           if (e.type === "yellow_card") p.yellow_card += 1;
@@ -771,6 +814,13 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           seenInMatch.add(name);
         }
         seenInMatch.forEach(name => touch(name).matches += 1);
+      }
+      for (const p of map.values()){
+        const vm = teamVotes.get(p.player_name);
+        if (!vm || !vm.size) continue;
+        let best = "", bestC = 0;
+        vm.forEach((c, t) => { if (c > bestC){ bestC = c; best = t; } });
+        if (best) p.team_name = best;
       }
       return [...map.values()].sort((a,b)=> (b.goals-a.goals) || (a.red_card-b.red_card) || a.player_name.localeCompare(b.player_name));
     }

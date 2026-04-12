@@ -207,6 +207,9 @@ def ensure_player_fields_on_events(match: Dict[str, Any]) -> None:
         p = resolve_event_player_name(e) or norm_name(e.get("player") or e.get("player_name"))
         e["player"] = p
         e["player_name"] = p
+        tn = norm_name(e.get("team_name") or e.get("club_name"))
+        if tn:
+            e["team_name"] = tn
 
 
 def backfill_events_from_cfl(match: Dict[str, Any], cfl_best: Dict[str, Dict[str, Any]]) -> bool:

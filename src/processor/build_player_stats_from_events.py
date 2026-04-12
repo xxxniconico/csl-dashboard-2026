@@ -1,4 +1,5 @@
 import json
+from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
@@ -42,6 +43,7 @@ def main() -> None:
 
     # Treat CSL/CFL as one competition for player stats.
     player_map: Dict[str, Dict[str, Any]] = {}
+    team_votes: Dict[str, Counter] = defaultdict(Counter)
     for league in safe_list(data.get("leagues")):
         for match in safe_list(league.get("matches")):
             for event in safe_list(match.get("events")):
@@ -50,6 +52,9 @@ def main() -> None:
                 )
                 if not name:
                     continue
+                team = normalize_name(event.get("team_name") or event.get("club_name"))
+                if team:
+                    team_votes[name][team] += 1
                 key = name
                 if key not in player_map:
                     player_map[key] = {
@@ -70,6 +75,10 @@ def main() -> None:
                 elif etype == "red_card":
                     row["red_cards"] += 1
 
+    for name, row in player_map.items():
+        if team_votes.get(name):
+            row["team_name"] = team_votes[name].most_common(1)[0][0]
+
     rows = sorted(
         player_map.values(),
         key=lambda x: (-int(x.get("goals", 0)), -int(x.get("assists", 0)), x.get("player_name", "")),
@@ -85,6 +94,7 @@ def main() -> None:
             "count": len(rows),
             "notes": [
                 "Built from match event streams to guarantee player names.",
+                "team_name is the majority vote from event.team_name / club_name when present (e.g. CFL API goals/cards by side).",
                 "Assist metric is set to 0 when unavailable in event feed.",
             ],
         },

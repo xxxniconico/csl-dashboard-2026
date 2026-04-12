@@ -174,7 +174,7 @@ class CFLApiEventCrawler:
             "minute": item.get("time_min"),
         }
 
-    def _fetch_events(self, match_id: str) -> List[Dict[str, Any]]:
+    def _fetch_events(self, match_id: str, home_club: str = "", away_club: str = "") -> List[Dict[str, Any]]:
         goals_url = f"{API_BASE}/matches/match/event/goals?match_id={match_id}"
         cards_url = f"{API_BASE}/matches/match/event/cards?match_id={match_id}"
         goals_data = self._get_json(goals_url).get("data", {})
@@ -182,11 +182,17 @@ class CFLApiEventCrawler:
 
         events: List[Dict[str, Any]] = []
         for side in ("home", "away"):
+            club = (home_club or "").strip() if side == "home" else (away_club or "").strip()
             for item in goals_data.get(side, []) or []:
-                events.append(self._normalize_goal_event(item))
+                ev = self._normalize_goal_event(item)
+                if club:
+                    ev["team_name"] = club
+                events.append(ev)
             for item in cards_data.get(side, []) or []:
                 norm = self._normalize_card_event(item)
                 if norm:
+                    if club:
+                        norm["team_name"] = club
                     events.append(norm)
 
         events = [e for e in events if e.get("type")]
@@ -243,7 +249,11 @@ class CFLApiEventCrawler:
                 errors: List[str] = []
                 events: List[Dict[str, Any]] = []
                 try:
-                    events = self._fetch_events(match_id)
+                    events = self._fetch_events(
+                        match_id,
+                        str(match.get("home_club") or ""),
+                        str(match.get("away_club") or ""),
+                    )
                     if not events:
                         errors.append("no_events_from_cfl_api")
                 except Exception as exc:
