@@ -42,7 +42,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 16:46 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 17:00 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -122,20 +122,14 @@
           <div id="playersSubviewList" class="space-y-3 sm:space-y-4">
             <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
               <h2 class="mb-1 text-base font-bold sm:mb-2 sm:text-lg">球员榜</h2>
-              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">点击球员姓名查看赛季数据与中足联注册档案（二级页面）</p>
-              <div id="playerList" class="max-h-[min(480px,calc(100dvh-14rem))] overflow-auto pr-1 sm:max-h-[560px]"></div>
-            </div>
-            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-                <h2 class="mb-2 text-base font-bold sm:text-lg">射手榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
-                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按进球数排序；点击球员名查看档案</p>
-                <div id="scorerRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
+              <p class="mb-3 text-[11px] text-slate-500 sm:text-xs">先按俱乐部筛选（可选），点击球员姓名查看赛季数据与中足联注册档案（二级页面）</p>
+              <div class="mb-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+                <label for="playerClubFilter" class="text-xs font-medium text-slate-400 sm:shrink-0">俱乐部筛选</label>
+                <select id="playerClubFilter" class="min-h-[40px] w-full max-w-lg rounded-lg border border-slate-600 bg-slate-800/90 px-3 py-2 text-sm text-slate-100 shadow-inner sm:min-w-[240px]">
+                  <option value="">全部俱乐部</option>
+                </select>
               </div>
-              <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-                <h2 class="mb-2 text-base font-bold sm:text-lg">助攻榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
-                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按助攻数排序；点击球员名查看档案</p>
-                <div id="assistRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
-              </div>
+              <div id="playerList" class="max-h-[min(70dvh,calc(100dvh-12rem))] overflow-auto pr-1 sm:max-h-[min(720px,75vh)]"></div>
             </div>
           </div>
           <div id="playersSubviewProfile" class="hidden">
@@ -203,8 +197,7 @@
     const clubFilterNameEl = document.getElementById("clubFilterName");
     const clearClubFilterBtn = document.getElementById("clearClubFilterBtn");
     const playerListEl = document.getElementById("playerList");
-    const scorerRankListEl = document.getElementById("scorerRankList");
-    const assistRankListEl = document.getElementById("assistRankList");
+    const playerClubFilterEl = document.getElementById("playerClubFilter");
     const playerProfileTitleEl = document.getElementById("playerProfileTitle");
     const playerProfileBodyEl = document.getElementById("playerProfileBody");
     const playersSubviewListEl = document.getElementById("playersSubviewList");
@@ -219,6 +212,7 @@
 
     let currentView = "standings";
     let selectedClub = "";
+    let selectedPlayerClub = "";
     let standingsSortMode = "official";
 
     function safeArr(v){ return Array.isArray(v) ? v : []; }
@@ -719,38 +713,8 @@
       if (playerProfileBodyEl) playerProfileBodyEl.innerHTML = html;
     }
 
-    function renderMiniStatTable(container, rows, valueKey, valueLabel){
-      if (!container) return;
-      if (!rows.length){
-        container.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/50 p-3 text-sm text-slate-400">暂无数据</div>';
-        return;
-      }
-      const head = `<thead class="sticky top-0 z-10 bg-slate-900/95 text-left text-[10px] uppercase tracking-wide text-slate-500 sm:text-xs">
-        <tr><th class="px-1 py-1.5 sm:px-2">#</th><th class="px-1 py-1.5 sm:px-2">球员</th><th class="px-1 py-1.5 sm:px-2">所属俱乐部</th><th class="px-1 py-1.5 text-right sm:px-2">${esc(valueLabel)}</th></tr></thead>`;
-      const body = rows.map((p, i) => `
-        <tr class="border-b border-slate-800/80 hover:bg-slate-800/40">
-          <td class="px-1 py-1.5 font-mono text-slate-500 sm:px-2">${i + 1}</td>
-          <td class="max-w-[7rem] truncate px-1 py-1.5 sm:max-w-none sm:px-2">
-            <button type="button" class="mini-player-open-profile max-w-full truncate text-left text-[11px] font-medium text-accent underline-offset-2 hover:underline sm:text-sm">${esc(p.player_name)}</button>
-          </td>
-          <td class="max-w-[6rem] truncate px-1 py-1.5 text-slate-400 sm:max-w-none sm:px-2" title="所属俱乐部">${esc(listPlayerClubDisplay(p))}</td>
-          <td class="px-1 py-1.5 text-right font-mono font-semibold text-accent sm:px-2">${n(p[valueKey])}</td>
-        </tr>`).join("");
-      container.innerHTML = `<table class="w-full border-collapse text-[11px] sm:text-sm">${head}<tbody>${body}</tbody></table>`;
-      container.querySelectorAll(".mini-player-open-profile").forEach((btn, i) => {
-        btn.addEventListener("click", () => {
-          const p = rows[i];
-          if (p) showPlayerProfileSubview(p);
-        });
-      });
-    }
-
-    function renderGoalAssistRankings(players){
-      const topN = 20;
-      const byGoals = [...players].sort((a,b) => (b.goals - a.goals) || (b.assists - a.assists) || a.player_name.localeCompare(b.player_name)).slice(0, topN);
-      const byAssists = [...players].sort((a,b) => (n(b.assists) - n(a.assists)) || (b.goals - a.goals) || a.player_name.localeCompare(b.player_name)).slice(0, topN);
-      renderMiniStatTable(scorerRankListEl, byGoals, "goals", "进球");
-      renderMiniStatTable(assistRankListEl, byAssists, "assists", "助攻");
+    function optionValueAttr(s){
+      return String(s ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
     }
 
     function renderPlayers(){
@@ -759,8 +723,28 @@
       if (!players.length){
         players = buildPlayerStats(league.matches);
       }
-      renderGoalAssistRankings(players);
-      playerListEl.innerHTML = players.map((p, idx) => {
+      const clubLabels = [...new Set(players.map(p => listPlayerClubDisplay(p)))].filter(c => c && c !== "—");
+      clubLabels.sort((a, b) => a.localeCompare(b, "zh-Hans-CN"));
+      if (playerClubFilterEl){
+        const prev = (selectedPlayerClub || playerClubFilterEl.value || "").trim();
+        playerClubFilterEl.innerHTML =
+          '<option value="">全部俱乐部</option>' +
+          clubLabels.map(c => `<option value="${optionValueAttr(c)}">${esc(c)}</option>`).join("");
+        if (prev && clubLabels.includes(prev)){
+          playerClubFilterEl.value = prev;
+          selectedPlayerClub = prev;
+        } else {
+          playerClubFilterEl.value = "";
+          selectedPlayerClub = "";
+        }
+      }
+      const sel = (playerClubFilterEl && playerClubFilterEl.value) ? playerClubFilterEl.value.trim() : "";
+      const filtered = sel ? players.filter(p => listPlayerClubDisplay(p) === sel) : players.slice();
+      if (!filtered.length){
+        playerListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/50 p-3 text-sm text-slate-400">该筛选下暂无球员</div>';
+        return;
+      }
+      playerListEl.innerHTML = filtered.map((p, idx) => {
         const clubLine = listPlayerClubDisplay(p);
         return `
         <div class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 sm:p-3">
@@ -777,7 +761,7 @@
       playerListEl.querySelectorAll(".player-name-open-profile").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.playerIndex);
-          showPlayerProfileSubview(players[idx]);
+          showPlayerProfileSubview(filtered[idx]);
         });
       });
     }
@@ -827,6 +811,10 @@
     });
 
     viewButtons.forEach(btn => btn.addEventListener("click", () => switchView(btn.dataset.view)));
+    if (playerClubFilterEl) playerClubFilterEl.addEventListener("change", () => {
+      selectedPlayerClub = (playerClubFilterEl.value || "").trim();
+      renderPlayers();
+    });
     if (backToPlayerListBtn) backToPlayerListBtn.addEventListener("click", showPlayersListSubview);
     clearClubFilterBtn.addEventListener("click", () => {
       selectedClub = "";
@@ -860,7 +848,7 @@
       let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "1776012414");
+        embedUrl.searchParams.set("v", "1776013208");
         triedUrl = embedUrl.toString();
         const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
