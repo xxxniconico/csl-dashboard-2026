@@ -29,8 +29,14 @@
   </script>
   <style>
     html { -webkit-text-size-adjust: 100%; }
-    /* 移动端横向滚动更跟手 */
-    .touch-pan-x { touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+    /*
+     * 积分榜横向滚动：勿用 touch-action: pan-x —— 会禁止该区域的纵向滑动，
+     * 导致整页无法上下滚动、赛程页月历滚不到视区内。
+     */
+    .touch-pan-x {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
     /* 积分榜数字列：等宽数字更易扫读 */
     .tabular-nums { font-variant-numeric: tabular-nums; }
   </style>
@@ -46,7 +52,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 18:16 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 18:25 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -120,10 +126,10 @@
               </button>
             </div>
             <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:gap-5">
-              <div id="matchListWrap" class="order-1 min-w-0 flex-1 lg:order-none">
-                <div id="matchList" class="max-h-[min(52dvh,calc(100dvh-14rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,70vh)] sm:pr-1"></div>
+              <div id="matchListWrap" class="order-2 min-w-0 lg:order-none lg:min-h-0 lg:flex-1">
+                <div id="matchList" class="max-h-[min(42dvh,calc(100dvh-18rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,70vh)] sm:pr-1"></div>
               </div>
-              <div id="matchCalendarPanel" class="order-2 shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-2.5 sm:p-3 lg:order-none lg:w-[min(100%,360px)]">
+              <div id="matchCalendarPanel" class="order-1 shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-2.5 sm:p-3 lg:order-none lg:w-[min(100%,360px)]">
                 <div class="mb-2 flex items-center justify-between gap-2">
                   <button type="button" id="matchCalPrev" class="min-h-[40px] min-w-[40px] rounded-lg border border-slate-600 bg-slate-800/90 text-lg leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:px-2 sm:py-1" aria-label="上一月">‹</button>
                   <div id="matchCalTitle" class="min-w-0 flex-1 text-center text-sm font-semibold text-slate-100"></div>
@@ -133,7 +139,7 @@
                   <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
                 </div>
                 <div id="matchCalCells" class="mt-1 grid grid-cols-7 gap-1"></div>
-                <p class="mt-2 text-[10px] leading-snug text-slate-500 sm:hidden">提示：以今日为界展示相邻两个有赛日；可筛选俱乐部；点日期看单场。</p>
+                <p class="mt-2 text-[10px] leading-snug text-slate-500 sm:hidden">提示：以今日为界展示相邻两个有赛日；点日期看单场；赛程列表在下方。</p>
                 <p class="mt-2 hidden text-[10px] leading-relaxed text-slate-500 sm:block">全部赛程：以系统当日为界，展示「早于今日最近一个有赛日」与「晚于今日最近一个有赛日」的全部场次。选俱乐部：该队已赛与未赛全景，并定位最近一场已赛。换月/点某日规则不变。</p>
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
                   显示整月赛程
