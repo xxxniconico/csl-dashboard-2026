@@ -66,6 +66,13 @@ jobs:
           PYTHONIOENCODING: utf-8
           CI: true
 
+      # 4a. 中足联 CFL 官方 API：进球/黄牌/红牌均带球员姓名；data_enricher 用此文件回填事件（懂球帝页常超时/反爬导致 events 为空）
+      - name: Fetch CFL API match events
+        continue-on-error: true
+        run: python src/crawler/cfl_api_event_crawler.py --output data/csl_matches_enriched_cfl.json
+        env:
+          PYTHONIOENCODING: utf-8
+
       # 4b. 爬虫成功后立即写入缓存（后续 enrich/render/deploy 失败时仍会保留，避免下次全量重爬）
       - name: Save crawl data cache
         if: steps.crawl.outcome == 'success'

@@ -269,7 +269,11 @@ class CFLApiEventCrawler:
 def main() -> None:
     root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(description="CFL API based CSL event crawler")
-    parser.add_argument("--output", default=str(root / "data" / "csl_matches_enriched.json"))
+    parser.add_argument(
+        "--output",
+        default=str(root / "data" / "csl_matches_enriched_cfl.json"),
+        help="写入此文件（默认与懂球帝 batch 输出的 csl_matches_enriched.json 分离，避免覆盖）",
+    )
     parser.add_argument("--checkpoint", default=str(root / "data" / "cfl_api_event_checkpoint.json"))
     parser.add_argument("--season", default="2026")
     parser.add_argument("--chunk-size", type=int, default=10)
