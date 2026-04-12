@@ -82,6 +82,8 @@ def main() -> None:
                 etype = normalize_name(event.get("type")).lower()
                 if etype == "goal":
                     row["goals"] += 1
+                elif etype == "assist":
+                    row["assists"] += 1
                 elif etype == "yellow_card":
                     row["yellow_cards"] += 1
                 elif etype == "red_card":
@@ -116,7 +118,7 @@ def main() -> None:
             "notes": [
                 "Built from match event streams to guarantee player names.",
                 "team_name is the majority vote from event.team_name / club_name when present (e.g. CFL API goals/cards by side).",
-                "Assist metric is set to 0 when unavailable in event feed.",
+                "Assists: counted from event.type == assist when present (e.g. CFL goal payload with assist fields); otherwise 0.",
             ],
         },
         "player_stats": rows,

@@ -147,14 +147,40 @@ class CFLApiEventCrawler:
             return en
         return ""
 
-    def _normalize_goal_event(self, item: Dict[str, Any]) -> Dict[str, Any]:
+    def _assist_label_from_goal_item(self, item: Dict[str, Any]) -> str:
+        for key in (
+            "assist_player_name",
+            "assist_name",
+            "assister_name",
+            "assist_player_name_en",
+            "second_assist_player_name",
+        ):
+            v = item.get(key)
+            if v is not None and str(v).strip():
+                return str(v).strip()
+        return ""
+
+    def _normalize_goal_events(self, item: Dict[str, Any]) -> List[Dict[str, Any]]:
         label = self._goal_player_label(item)
-        return {
+        minute = item.get("time_min")
+        goal_ev: Dict[str, Any] = {
             "type": "goal",
             "player": label,
             "player_name": label,
-            "minute": item.get("time_min"),
+            "minute": minute,
         }
+        out: List[Dict[str, Any]] = [goal_ev]
+        assist = self._assist_label_from_goal_item(item)
+        if assist:
+            out.append(
+                {
+                    "type": "assist",
+                    "player": assist,
+                    "player_name": assist,
+                    "minute": minute,
+                }
+            )
+        return out
 
     def _normalize_card_event(self, item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         card_type = str(item.get("card_type") or "").upper()
@@ -184,10 +210,10 @@ class CFLApiEventCrawler:
         for side in ("home", "away"):
             club = (home_club or "").strip() if side == "home" else (away_club or "").strip()
             for item in goals_data.get(side, []) or []:
-                ev = self._normalize_goal_event(item)
-                if club:
-                    ev["team_name"] = club
-                events.append(ev)
+                for ev in self._normalize_goal_events(item):
+                    if club:
+                        ev["team_name"] = club
+                    events.append(ev)
             for item in cards_data.get(side, []) or []:
                 norm = self._normalize_card_event(item)
                 if norm:

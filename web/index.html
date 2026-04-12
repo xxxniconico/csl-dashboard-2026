@@ -43,7 +43,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 10:06 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 15:39 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -120,29 +120,37 @@
         </section>
 
         <section id="view-players" class="view-panel hidden space-y-3 sm:space-y-4">
-          <div class="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:gap-4">
+          <div id="playersSubviewList" class="space-y-3 sm:space-y-4">
             <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-              <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">球员榜</h2>
+              <h2 class="mb-1 text-base font-bold sm:mb-2 sm:text-lg">球员榜</h2>
+              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">点击球员姓名进入能力雷达（二级页面）</p>
               <div id="playerList" class="max-h-[min(480px,calc(100dvh-14rem))] overflow-auto pr-1 sm:max-h-[560px]"></div>
             </div>
-            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-              <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">能力雷达</h2>
-              <div id="radarTitle" class="mb-2 text-xs text-slate-400 sm:text-sm">在上方选择球员</div>
-              <div class="h-[min(320px,55vw)] sm:h-[380px] xl:h-[420px]">
-                <canvas id="playerRadar"></canvas>
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+                <h2 class="mb-2 text-base font-bold sm:text-lg">射手榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
+                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按进球数排序；点击球员名查看雷达</p>
+                <div id="scorerRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
+              </div>
+              <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+                <h2 class="mb-2 text-base font-bold sm:text-lg">助攻榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
+                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按助攻数排序；点击球员名查看雷达</p>
+                <div id="assistRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div id="playersSubviewRadar" class="hidden">
             <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-              <h2 class="mb-2 text-base font-bold sm:text-lg">射手榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
-              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按进球数排序，与数据源一致</p>
-              <div id="scorerRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
-            </div>
-            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-              <h2 class="mb-2 text-base font-bold sm:text-lg">助攻榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
-              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按助攻数排序</p>
-              <div id="assistRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
+              <div class="mb-3 flex flex-wrap items-center gap-2">
+                <button type="button" id="backToPlayerListBtn" class="min-h-[40px] rounded-lg border border-slate-600 bg-slate-800/80 px-3 py-2 text-sm font-semibold text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0">
+                  ← 返回球员榜
+                </button>
+              </div>
+              <h2 class="mb-2 text-base font-bold sm:text-lg">能力雷达</h2>
+              <div id="radarTitle" class="mb-2 text-xs text-slate-400 sm:text-sm"></div>
+              <div class="h-[min(50dvh,420px)] sm:h-[420px]">
+                <canvas id="playerRadar"></canvas>
+              </div>
             </div>
           </div>
         </section>
@@ -201,6 +209,9 @@
     const scorerRankListEl = document.getElementById("scorerRankList");
     const assistRankListEl = document.getElementById("assistRankList");
     const radarTitleEl = document.getElementById("radarTitle");
+    const playersSubviewListEl = document.getElementById("playersSubviewList");
+    const playersSubviewRadarEl = document.getElementById("playersSubviewRadar");
+    const backToPlayerListBtn = document.getElementById("backToPlayerListBtn");
     const viewButtons = document.querySelectorAll(".view-btn");
     const viewPanels = document.querySelectorAll(".view-panel");
     const sortOfficialBtn = document.getElementById("sortOfficialBtn");
@@ -574,6 +585,22 @@
       return [...merged.values()].sort((a,b)=> (b.goals-a.goals) || (b.assists-a.assists) || (a.red_card-b.red_card) || a.player_name.localeCompare(b.player_name));
     }
 
+    function showPlayersListSubview(){
+      if (playersSubviewListEl) playersSubviewListEl.classList.remove("hidden");
+      if (playersSubviewRadarEl) playersSubviewRadarEl.classList.add("hidden");
+      if (radarChart){
+        radarChart.destroy();
+        radarChart = null;
+      }
+    }
+
+    function showPlayerRadarSubview(player){
+      if (!player) return;
+      if (playersSubviewListEl) playersSubviewListEl.classList.add("hidden");
+      if (playersSubviewRadarEl) playersSubviewRadarEl.classList.remove("hidden");
+      drawRadar(player);
+    }
+
     function renderMiniStatTable(container, rows, valueKey, valueLabel){
       if (!container) return;
       if (!rows.length){
@@ -585,11 +612,19 @@
       const body = rows.map((p, i) => `
         <tr class="border-b border-slate-800/80 hover:bg-slate-800/40">
           <td class="px-1 py-1.5 font-mono text-slate-500 sm:px-2">${i + 1}</td>
-          <td class="max-w-[7rem] truncate px-1 py-1.5 font-medium text-slate-100 sm:max-w-none sm:px-2">${esc(p.player_name)}</td>
+          <td class="max-w-[7rem] truncate px-1 py-1.5 sm:max-w-none sm:px-2">
+            <button type="button" class="mini-player-open-radar max-w-full truncate text-left text-[11px] font-medium text-accent underline-offset-2 hover:underline sm:text-sm">${esc(p.player_name)}</button>
+          </td>
           <td class="max-w-[5rem] truncate px-1 py-1.5 text-slate-400 sm:max-w-none sm:px-2">${esc(p.team_name || "—")}</td>
           <td class="px-1 py-1.5 text-right font-mono font-semibold text-accent sm:px-2">${n(p[valueKey])}</td>
         </tr>`).join("");
       container.innerHTML = `<table class="w-full border-collapse text-[11px] sm:text-sm">${head}<tbody>${body}</tbody></table>`;
+      container.querySelectorAll(".mini-player-open-radar").forEach((btn, i) => {
+        btn.addEventListener("click", () => {
+          const p = rows[i];
+          if (p) showPlayerRadarSubview(p);
+        });
+      });
     }
 
     function renderGoalAssistRankings(players){
@@ -608,24 +643,24 @@
       }
       renderGoalAssistRankings(players);
       playerListEl.innerHTML = players.map((p, idx) => `
-        <button type="button" data-player-index="${idx}" class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
+        <div class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 sm:p-3">
           <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
-            <span class="text-sm font-semibold">${idx+1}. ${esc(p.player_name)}</span>
+            <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span class="font-mono text-xs text-slate-500">${idx + 1}.</span>
+              <button type="button" class="player-name-open-radar text-left text-sm font-semibold text-accent underline-offset-2 hover:underline" data-player-index="${idx}">${esc(p.player_name)}</button>
+            </div>
             <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "—")}</span>
           </div>
           <div class="mt-1 text-[11px] text-slate-300 sm:text-xs">进球 ${p.goals} · 助攻 ${n(p.assists)} · 黄 ${p.yellow_card} · 红 ${p.red_card}</div>
-        </button>
+        </div>
       `).join("");
 
-      const rows = document.querySelectorAll(".player-row");
-      rows.forEach(btn => {
+      playerListEl.querySelectorAll(".player-name-open-radar").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.playerIndex);
-          drawRadar(players[idx]);
+          showPlayerRadarSubview(players[idx]);
         });
       });
-      if (players.length) drawRadar(players[0]);
-      else drawRadar(null);
     }
 
     function drawRadar(player){
@@ -674,6 +709,9 @@
 
     function switchView(name){
       currentView = name;
+      if (name === "players"){
+        showPlayersListSubview();
+      }
       viewPanels.forEach(panel => panel.classList.toggle("hidden", panel.id !== `view-${name}`));
       viewButtons.forEach(btn => {
         const active = btn.dataset.view === name;
@@ -714,13 +752,23 @@
     });
 
     viewButtons.forEach(btn => btn.addEventListener("click", () => switchView(btn.dataset.view)));
+    if (backToPlayerListBtn) backToPlayerListBtn.addEventListener("click", showPlayersListSubview);
     clearClubFilterBtn.addEventListener("click", () => {
       selectedClub = "";
       renderMatches();
     });
     closeModalBtn.addEventListener("click", closeMatchModal);
     matchModalOverlay.addEventListener("click", closeMatchModal);
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMatchModal(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (!matchModal.classList.contains("hidden")){
+        closeMatchModal();
+        return;
+      }
+      if (currentView === "players" && playersSubviewRadarEl && !playersSubviewRadarEl.classList.contains("hidden")){
+        showPlayersListSubview();
+      }
+    });
 
     /** 与 dashboard_embed.json 同目录；兼容 GitHub Pages 项目站无末尾 / 的地址（避免解析到站点根导致 404） */
     function resolveEmbedJsonUrl(){
@@ -737,7 +785,7 @@
       let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "1775988396");
+        embedUrl.searchParams.set("v", "1776008346");
         triedUrl = embedUrl.toString();
         const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
