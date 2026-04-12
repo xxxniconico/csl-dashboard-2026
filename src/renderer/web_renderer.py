@@ -495,14 +495,15 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
             <div class="mb-2 flex flex-col gap-2 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <h2 class="text-base font-bold sm:text-lg">赛程与事件</h2>
-              <div id="clubFilterBar" class="hidden flex-col gap-2 sm:flex sm:flex-row sm:items-center">
-                <span class="rounded-full border border-accent/40 bg-accent/15 px-3 py-1.5 text-xs text-accent">
-                  筛选：<span id="clubFilterName"></span>
-                </span>
-                <button id="clearClubFilterBtn" type="button" class="min-h-[44px] rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-xs hover:border-accent/40 sm:min-h-0 sm:py-1">
-                  清除筛选
-                </button>
-              </div>
+            </div>
+            <div class="mb-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+              <label for="matchClubFilter" class="text-xs font-medium text-slate-400 sm:shrink-0">俱乐部筛选</label>
+              <select id="matchClubFilter" class="min-h-[40px] w-full max-w-lg rounded-lg border border-slate-600 bg-slate-800/90 px-3 py-2 text-sm text-slate-100 shadow-inner sm:min-w-[220px]">
+                <option value="">全部俱乐部</option>
+              </select>
+              <button id="clearClubFilterBtn" type="button" class="hidden min-h-[40px] rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-xs hover:border-accent/40 sm:min-h-0 sm:py-1">
+                清除筛选
+              </button>
             </div>
             <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-5">
               <div id="matchCalendarPanel" class="shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-3 lg:w-[min(100%,360px)]">
@@ -515,9 +516,9 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
                   <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
                 </div>
                 <div id="matchCalCells" class="mt-1 grid grid-cols-7 gap-1"></div>
-                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">圆点表示当日有比赛；点击日期查看该日场次（类似英超/德甲赛程页）。</p>
+                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">先选俱乐部（可选），再与日历联动：圆点表示当日有比赛；首次进入按今天定位最近赛日；换月显示当月；点某日只看该日。</p>
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
-                  显示全部日期
+                  显示整月赛程
                 </button>
               </div>
               <div id="matchListWrap" class="min-w-0 flex-1">
@@ -602,9 +603,8 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     const closeModalBtn = document.getElementById("closeModalBtn");
     const modalTitleEl = document.getElementById("modalTitle");
     const modalTimelineEl = document.getElementById("modalTimeline");
-    const clubFilterBarEl = document.getElementById("clubFilterBar");
-    const clubFilterNameEl = document.getElementById("clubFilterName");
     const clearClubFilterBtn = document.getElementById("clearClubFilterBtn");
+    const matchClubFilterEl = document.getElementById("matchClubFilter");
     const playerListEl = document.getElementById("playerList");
     const playerClubFilterEl = document.getElementById("playerClubFilter");
     const playerProfileTitleEl = document.getElementById("playerProfileTitle");
@@ -626,7 +626,9 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     let calendarViewYear = new Date().getFullYear();
     let calendarViewMonth = new Date().getMonth();
     let selectedMatchDate = "";
-    let matchCalDidInitialMonth = false;
+    /** 俱乐部/数据源切换后需重新按「最近赛日」锚定 */
+    let matchViewNeedsDateAnchor = true;
+    let lastScheduleAnchorClubSig = "__unset__";
 
     const matchCalTitleEl = document.getElementById("matchCalTitle");
     const matchCalCellsEl = document.getElementById("matchCalCells");
@@ -637,6 +639,10 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     function safeArr(v){ return Array.isArray(v) ? v : []; }
     function n(v){ const x = Number(v); return Number.isFinite(x) ? x : 0; }
     function esc(s){ return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;"); }
+
+    function optionValueAttr(s){
+      return String(s ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+    }
 
     function eventPlayerName(e){
       if (!e || typeof e !== "object") return "";
@@ -890,6 +896,27 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       return `${t.getFullYear()}-${pad2(t.getMonth() + 1)}-${pad2(t.getDate())}`;
     }
 
+    /** 优先今日有赛，否则最近未来赛日，否则已赛最后一日（均相对系统日期） */
+    function nearestMatchDateYmd(matches){
+      const dates = [...new Set(matches.map(matchDateKey).filter(k => k.length === 10))].sort();
+      if (!dates.length) return "";
+      const today = todayYmd();
+      if (dates.includes(today)) return today;
+      const next = dates.find(d => d >= today);
+      if (next) return next;
+      return dates[dates.length - 1];
+    }
+
+    function monthPrefixYm(y, m0){
+      return `${y}-${pad2(m0 + 1)}`;
+    }
+
+    function matchInCalendarMonth(m, y, m0){
+      const k = matchDateKey(m);
+      if (k.length < 7) return false;
+      return k.slice(0, 7) === monthPrefixYm(y, m0);
+    }
+
     function matchStatusLabel(status){
       const s = String(status || "").toLowerCase();
       if (s === "finished") return "已结束";
@@ -984,8 +1011,37 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       }
     }
 
+    function collectMatchClubNames(league){
+      const names = new Set();
+      for (const row of safeArr(league.standings)){
+        const c = String(row.club_name || "").trim();
+        if (c) names.add(c);
+      }
+      for (const m of safeArr(league.matches)){
+        const h = String(m.home_club || "").trim();
+        const a = String(m.away_club || "").trim();
+        if (h) names.add(h);
+        if (a) names.add(a);
+      }
+      return [...names].sort((a, b) => a.localeCompare(b, "zh-Hans-CN"));
+    }
+
     function renderMatches(){
       const league = getLeague();
+      if (matchClubFilterEl){
+        const clubs = collectMatchClubNames(league);
+        const want = selectedClub;
+        matchClubFilterEl.innerHTML =
+          '<option value="">全部俱乐部</option>' +
+          clubs.map(c => `<option value="${optionValueAttr(c)}">${esc(c)}</option>`).join("");
+        if (want && clubs.includes(want)){
+          selectedClub = want;
+          matchClubFilterEl.value = want;
+        } else {
+          selectedClub = "";
+          matchClubFilterEl.value = "";
+        }
+      }
       let matches = safeArr(league.matches).slice();
       if (selectedClub){
         matches = matches.filter(m => m.home_club === selectedClub || m.away_club === selectedClub);
@@ -997,38 +1053,40 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         return String(a.date||"").localeCompare(String(b.date||""));
       });
 
-      if (!matchCalDidInitialMonth && matches.length){
-        const tkey = todayYmd();
-        const upcoming = matches.find(m => { const k = matchDateKey(m); return k && k >= tkey; });
-        const pick = upcoming || matches[0];
-        const k = matchDateKey(pick);
-        if (k.length === 10){
-          calendarViewYear = Number(k.slice(0, 4));
-          calendarViewMonth = Number(k.slice(5, 7)) - 1;
+      const clubSig = selectedClub || "__all__";
+      if (lastScheduleAnchorClubSig !== clubSig){
+        matchViewNeedsDateAnchor = true;
+        lastScheduleAnchorClubSig = clubSig;
+      }
+      if (matchViewNeedsDateAnchor && matches.length){
+        const anchor = nearestMatchDateYmd(matches);
+        if (anchor && anchor.length === 10){
+          calendarViewYear = Number(anchor.slice(0, 4));
+          calendarViewMonth = Number(anchor.slice(5, 7)) - 1;
+          selectedMatchDate = anchor;
         }
-        matchCalDidInitialMonth = true;
+        matchViewNeedsDateAnchor = false;
       }
 
       const matchDatesSet = new Set();
       for (const m of matches){
         const k = matchDateKey(m);
-        if (k.length === 10) matchDatesSet.add(k);
+        if (k.length === 10 && matchInCalendarMonth(m, calendarViewYear, calendarViewMonth)){
+          matchDatesSet.add(k);
+        }
       }
       renderMatchCalendar(matchDatesSet);
 
-      if (selectedClub){
-        clubFilterBarEl.classList.remove("hidden");
-        clubFilterBarEl.classList.add("flex");
-        clubFilterNameEl.textContent = selectedClub;
-      } else {
-        clubFilterBarEl.classList.add("hidden");
-        clubFilterBarEl.classList.remove("flex");
-        clubFilterNameEl.textContent = "";
+      if (clearClubFilterBtn){
+        clearClubFilterBtn.classList.toggle("hidden", !selectedClub);
       }
 
-      let displayMatches = matches;
+      const monthMatches = matches.filter(m => matchInCalendarMonth(m, calendarViewYear, calendarViewMonth));
+      let displayMatches;
       if (selectedMatchDate){
         displayMatches = matches.filter(m => matchDateKey(m) === selectedMatchDate);
+      } else {
+        displayMatches = monthMatches.slice();
       }
 
       if (!matches.length){
@@ -1038,7 +1096,12 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       }
 
       if (selectedMatchDate && !displayMatches.length){
-        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">该日暂无比赛。可换一天或点击「显示全部日期」。</div>';
+        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">该日暂无比赛。可换一天或点击「显示整月赛程」。</div>';
+        return;
+      }
+
+      if (!selectedMatchDate && !monthMatches.length){
+        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">当前月份暂无比赛（可切换月份查看其他赛程）。</div>';
         return;
       }
 
@@ -1052,7 +1115,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         });
       } else {
         const dateGroups = new Map();
-        for (const m of matches){
+        for (const m of displayMatches){
           const dk = matchDateKey(m) || "_unknown";
           if (!dateGroups.has(dk)) dateGroups.set(dk, []);
           dateGroups.get(dk).push(m);
@@ -1273,10 +1336,6 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       if (playerProfileBodyEl) playerProfileBodyEl.innerHTML = html;
     }
 
-    function optionValueAttr(s){
-      return String(s ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-    }
-
     function renderPlayers(){
       const league = getLeague();
       let players = buildPlayerStatsFromNormalized();
@@ -1379,14 +1438,22 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     clearClubFilterBtn.addEventListener("click", () => {
       selectedClub = "";
       selectedMatchDate = "";
+      if (matchClubFilterEl) matchClubFilterEl.value = "";
+      renderMatches();
+    });
+    if (matchClubFilterEl) matchClubFilterEl.addEventListener("change", () => {
+      selectedClub = (matchClubFilterEl.value || "").trim();
+      selectedMatchDate = "";
       renderMatches();
     });
     if (matchCalPrevBtn) matchCalPrevBtn.addEventListener("click", () => {
+      selectedMatchDate = "";
       calendarViewMonth -= 1;
       if (calendarViewMonth < 0){ calendarViewMonth = 11; calendarViewYear -= 1; }
       renderMatches();
     });
     if (matchCalNextBtn) matchCalNextBtn.addEventListener("click", () => {
+      selectedMatchDate = "";
       calendarViewMonth += 1;
       if (calendarViewMonth > 11){ calendarViewMonth = 0; calendarViewYear += 1; }
       renderMatches();
