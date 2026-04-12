@@ -42,7 +42,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 17:00 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 17:13 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -114,7 +114,26 @@
                 </button>
               </div>
             </div>
-            <div id="matchList" class="max-h-[min(640px,calc(100dvh-11rem))] overflow-auto pr-1 sm:max-h-[640px]"></div>
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-5">
+              <div id="matchCalendarPanel" class="shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-3 lg:w-[min(100%,360px)]">
+                <div class="mb-2 flex items-center justify-between gap-2">
+                  <button type="button" id="matchCalPrev" class="min-h-[40px] min-w-[40px] rounded-lg border border-slate-600 bg-slate-800/90 text-lg leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:px-2 sm:py-1" aria-label="上一月">‹</button>
+                  <div id="matchCalTitle" class="min-w-0 flex-1 text-center text-sm font-semibold text-slate-100"></div>
+                  <button type="button" id="matchCalNext" class="min-h-[40px] min-w-[40px] rounded-lg border border-slate-600 bg-slate-800/90 text-lg leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:px-2 sm:py-1" aria-label="下一月">›</button>
+                </div>
+                <div class="grid grid-cols-7 gap-0.5 text-center text-[10px] font-medium uppercase tracking-wide text-slate-500">
+                  <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+                </div>
+                <div id="matchCalCells" class="mt-1 grid grid-cols-7 gap-1"></div>
+                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">圆点表示当日有比赛；点击日期查看该日场次（类似英超/德甲赛程页）。</p>
+                <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
+                  显示全部日期
+                </button>
+              </div>
+              <div id="matchListWrap" class="min-w-0 flex-1">
+                <div id="matchList" class="max-h-[min(640px,calc(100dvh-11rem))] overflow-auto pr-1 sm:max-h-[min(720px,70vh)]"></div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -214,6 +233,16 @@
     let selectedClub = "";
     let selectedPlayerClub = "";
     let standingsSortMode = "official";
+    let calendarViewYear = new Date().getFullYear();
+    let calendarViewMonth = new Date().getMonth();
+    let selectedMatchDate = "";
+    let matchCalDidInitialMonth = false;
+
+    const matchCalTitleEl = document.getElementById("matchCalTitle");
+    const matchCalCellsEl = document.getElementById("matchCalCells");
+    const matchCalPrevBtn = document.getElementById("matchCalPrev");
+    const matchCalNextBtn = document.getElementById("matchCalNext");
+    const matchCalResetDayBtn = document.getElementById("matchCalResetDay");
 
     function safeArr(v){ return Array.isArray(v) ? v : []; }
     function n(v){ const x = Number(v); return Number.isFinite(x) ? x : 0; }
@@ -458,6 +487,113 @@
       document.body.style.overflow = "";
     }
 
+    function matchDateKey(m){
+      const raw = String(m?.date || "").trim();
+      if (raw.length >= 10) return raw.slice(0, 10);
+      return "";
+    }
+
+    function pad2(n){ return String(n).padStart(2, "0"); }
+
+    function todayYmd(){
+      const t = new Date();
+      return `${t.getFullYear()}-${pad2(t.getMonth() + 1)}-${pad2(t.getDate())}`;
+    }
+
+    function matchStatusLabel(status){
+      const s = String(status || "").toLowerCase();
+      if (s === "finished") return "已结束";
+      if (s === "live" || s === "in_progress" || s === "playing") return "进行中";
+      if (s === "postponed") return "延期";
+      if (s === "cancelled" || s === "canceled") return "取消";
+      return "未开始";
+    }
+
+    function matchStatusUi(status){
+      const s = String(status || "").toLowerCase();
+      let cls = "bg-warn/20 text-warn";
+      if (s === "finished") cls = "bg-success/20 text-success";
+      else if (s === "live" || s === "in_progress" || s === "playing") cls = "bg-danger/25 text-red-200";
+      return { cls, label: matchStatusLabel(status) };
+    }
+
+    function formatDateSectionTitle(ymd){
+      if (ymd === "_unknown") return "日期待定";
+      if (ymd.length < 10) return ymd;
+      const y = Number(ymd.slice(0, 4)), mo = Number(ymd.slice(5, 7)), d = Number(ymd.slice(8, 10));
+      if (!Number.isFinite(y) || !Number.isFinite(mo) || !Number.isFinite(d)) return ymd;
+      const dt = new Date(y, mo - 1, d);
+      const wk = ["周日","周一","周二","周三","周四","周五","周六"][dt.getDay()];
+      return `${y}年${mo}月${d}日 ${wk}`;
+    }
+
+    function matchListItemHtml(m, idx){
+      const sui = matchStatusUi(m.status);
+      const st = venueStadium(m);
+      const stadiumTxt = st ? `体育场：${esc(st)}` : "体育场：待公布";
+      const raw = String(m.date || "").trim();
+      const kick = raw.length >= 16 ? raw.slice(11, 16) : "";
+      const metaLine = [String(m.round || "").trim(), kick || (raw.length > 10 ? raw : "")].filter(Boolean).join(" · ");
+      return `
+        <button type="button" data-match-index="${idx}" class="match-item mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
+          <div class="mb-1 flex flex-wrap items-center justify-between gap-1">
+            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(metaLine || "—")}</span>
+            <span class="rounded px-2 py-0.5 text-[10px] ${sui.cls} sm:text-xs">${esc(sui.label)}</span>
+          </div>
+          <div class="mb-1.5 text-[11px] leading-snug text-slate-500 sm:text-xs">${stadiumTxt}</div>
+          <div class="grid grid-cols-1 items-center gap-2 min-[380px]:grid-cols-[1fr_auto_1fr]">
+            <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-end">
+              <span class="max-w-[45%] truncate text-right text-xs font-medium sm:text-sm">${esc(m.home_club)}</span>
+              ${clubImg(m.home_club)}
+            </div>
+            <div class="flex justify-center">
+              <div class="rounded bg-slate-800 px-3 py-1.5 font-mono text-base font-bold text-accent sm:px-2 sm:py-1 sm:text-sm">${esc(fmtScore(m))}</div>
+            </div>
+            <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-start">
+              ${clubImg(m.away_club)}
+              <span class="max-w-[45%] truncate text-xs font-medium sm:text-sm">${esc(m.away_club)}</span>
+            </div>
+          </div>
+        </button>
+      `;
+    }
+
+    function renderMatchCalendar(matchDatesSet){
+      if (!matchCalTitleEl || !matchCalCellsEl) return;
+      matchCalTitleEl.textContent = `${calendarViewYear}年${calendarViewMonth + 1}月`;
+      const first = new Date(calendarViewYear, calendarViewMonth, 1);
+      const startPad = first.getDay();
+      const lastDay = new Date(calendarViewYear, calendarViewMonth + 1, 0).getDate();
+      const todayKey = todayYmd();
+      const cells = [];
+      for (let i = 0; i < startPad; i++){
+        cells.push('<div class="min-h-[2.25rem]" aria-hidden="true"></div>');
+      }
+      for (let d = 1; d <= lastDay; d++){
+        const ymd = `${calendarViewYear}-${pad2(calendarViewMonth + 1)}-${pad2(d)}`;
+        const has = matchDatesSet.has(ymd);
+        const isToday = ymd === todayKey;
+        const isSel = selectedMatchDate === ymd;
+        let cls = "relative flex min-h-[2.25rem] flex-col items-center justify-center rounded-lg border text-xs font-medium transition-colors";
+        if (isSel) cls += " border-accent bg-accent/20 text-accent";
+        else cls += " border-transparent bg-slate-800/50 text-slate-200 hover:border-slate-600";
+        if (isToday && !isSel) cls += " ring-1 ring-accent/45";
+        const dot = has ? '<span class="absolute bottom-1 h-1 w-1 rounded-full bg-accent" aria-hidden="true"></span>' : "";
+        const dis = !has ? " opacity-60" : "";
+        cells.push(`<button type="button" data-cal-date="${ymd}" class="${cls}${dis}" title="${has ? "查看当日比赛" : "当日无比赛"}">${d}${dot}</button>`);
+      }
+      matchCalCellsEl.innerHTML = cells.join("");
+      matchCalCellsEl.querySelectorAll("[data-cal-date]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedMatchDate = btn.getAttribute("data-cal-date") || "";
+          renderMatches();
+        });
+      });
+      if (matchCalResetDayBtn){
+        matchCalResetDayBtn.classList.toggle("hidden", !selectedMatchDate);
+      }
+    }
+
     function renderMatches(){
       const league = getLeague();
       let matches = safeArr(league.matches).slice();
@@ -471,6 +607,25 @@
         return String(a.date||"").localeCompare(String(b.date||""));
       });
 
+      if (!matchCalDidInitialMonth && matches.length){
+        const tkey = todayYmd();
+        const upcoming = matches.find(m => { const k = matchDateKey(m); return k && k >= tkey; });
+        const pick = upcoming || matches[0];
+        const k = matchDateKey(pick);
+        if (k.length === 10){
+          calendarViewYear = Number(k.slice(0, 4));
+          calendarViewMonth = Number(k.slice(5, 7)) - 1;
+        }
+        matchCalDidInitialMonth = true;
+      }
+
+      const matchDatesSet = new Set();
+      for (const m of matches){
+        const k = matchDateKey(m);
+        if (k.length === 10) matchDatesSet.add(k);
+      }
+      renderMatchCalendar(matchDatesSet);
+
       if (selectedClub){
         clubFilterBarEl.classList.remove("hidden");
         clubFilterBarEl.classList.add("flex");
@@ -481,46 +636,61 @@
         clubFilterNameEl.textContent = "";
       }
 
-      matchListEl.innerHTML = matches.map((m, idx) => {
-        const status = String(m.status || "").toLowerCase();
-        const statusCls = status === "finished" ? "bg-success/20 text-success" : "bg-warn/20 text-warn";
-        const st = venueStadium(m);
-        const stadiumTxt = st ? `体育场：${esc(st)}` : "体育场：待公布";
-        return `
-          <button type="button" data-match-index="${idx}" class="match-item mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
-            <div class="mb-1 flex flex-wrap items-center justify-between gap-1">
-              <span class="text-[11px] text-slate-400 sm:text-xs">${esc(m.round || "")} · ${esc(m.date || "")}</span>
-              <span class="rounded px-2 py-0.5 text-[10px] ${statusCls} sm:text-xs">${esc(status || "scheduled")}</span>
-            </div>
-            <div class="mb-1.5 text-[11px] leading-snug text-slate-500 sm:text-xs">${stadiumTxt}</div>
-            <div class="grid grid-cols-1 items-center gap-2 min-[380px]:grid-cols-[1fr_auto_1fr]">
-              <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-end">
-                <span class="max-w-[45%] truncate text-right text-xs font-medium sm:text-sm">${esc(m.home_club)}</span>
-                ${clubImg(m.home_club)}
-              </div>
-              <div class="flex justify-center">
-                <div class="rounded bg-slate-800 px-3 py-1.5 font-mono text-base font-bold text-accent sm:px-2 sm:py-1 sm:text-sm">${esc(fmtScore(m))}</div>
-              </div>
-              <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-start">
-                ${clubImg(m.away_club)}
-                <span class="max-w-[45%] truncate text-xs font-medium sm:text-sm">${esc(m.away_club)}</span>
-              </div>
-            </div>
-          </button>
-        `;
-      }).join("");
-
-      const items = document.querySelectorAll(".match-item");
-      items.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const idx = Number(btn.dataset.matchIndex);
-          openMatchModal(matches[idx]);
-        });
-      });
+      let displayMatches = matches;
+      if (selectedMatchDate){
+        displayMatches = matches.filter(m => matchDateKey(m) === selectedMatchDate);
+      }
 
       if (!matches.length){
-        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">该球队暂无比赛记录。</div>';
+        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">' +
+          (selectedClub ? "该球队暂无比赛记录。" : "暂无赛程数据。") + "</div>";
+        return;
       }
+
+      if (selectedMatchDate && !displayMatches.length){
+        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-400">该日暂无比赛。可换一天或点击「显示全部日期」。</div>';
+        return;
+      }
+
+      let html = "";
+      const flat = [];
+      if (selectedMatchDate){
+        displayMatches.forEach(m => {
+          const idx = flat.length;
+          flat.push(m);
+          html += matchListItemHtml(m, idx);
+        });
+      } else {
+        const dateGroups = new Map();
+        for (const m of matches){
+          const dk = matchDateKey(m) || "_unknown";
+          if (!dateGroups.has(dk)) dateGroups.set(dk, []);
+          dateGroups.get(dk).push(m);
+        }
+        const order = [...dateGroups.keys()].sort((a, b) => {
+          if (a === "_unknown") return 1;
+          if (b === "_unknown") return -1;
+          return a.localeCompare(b);
+        });
+        for (const dk of order){
+          const list = dateGroups.get(dk);
+          if (!list.length) continue;
+          html += `<div class="sticky top-0 z-[1] mb-2 border-b border-slate-700 bg-slate-900/95 py-1.5 pl-0.5 text-xs font-semibold text-accent backdrop-blur-sm">${esc(formatDateSectionTitle(dk))}</div>`;
+          for (const m of list){
+            const idx = flat.length;
+            flat.push(m);
+            html += matchListItemHtml(m, idx);
+          }
+        }
+      }
+
+      matchListEl.innerHTML = html;
+      matchListEl.querySelectorAll(".match-item").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.matchIndex);
+          openMatchModal(flat[idx]);
+        });
+      });
     }
 
     function eventBadge(type){
@@ -818,6 +988,21 @@
     if (backToPlayerListBtn) backToPlayerListBtn.addEventListener("click", showPlayersListSubview);
     clearClubFilterBtn.addEventListener("click", () => {
       selectedClub = "";
+      selectedMatchDate = "";
+      renderMatches();
+    });
+    if (matchCalPrevBtn) matchCalPrevBtn.addEventListener("click", () => {
+      calendarViewMonth -= 1;
+      if (calendarViewMonth < 0){ calendarViewMonth = 11; calendarViewYear -= 1; }
+      renderMatches();
+    });
+    if (matchCalNextBtn) matchCalNextBtn.addEventListener("click", () => {
+      calendarViewMonth += 1;
+      if (calendarViewMonth > 11){ calendarViewMonth = 0; calendarViewYear += 1; }
+      renderMatches();
+    });
+    if (matchCalResetDayBtn) matchCalResetDayBtn.addEventListener("click", () => {
+      selectedMatchDate = "";
       renderMatches();
     });
     closeModalBtn.addEventListener("click", closeMatchModal);
@@ -848,7 +1033,7 @@
       let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "1776013208");
+        embedUrl.searchParams.set("v", "1776013991");
         triedUrl = embedUrl.toString();
         const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
