@@ -42,7 +42,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 16:05 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 16:36 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -817,7 +817,7 @@
       let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "1776009959");
+        embedUrl.searchParams.set("v", "1776011815");
         triedUrl = embedUrl.toString();
         const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);

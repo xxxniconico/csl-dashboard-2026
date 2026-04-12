@@ -409,14 +409,14 @@ def _read_cfa_file(path: Path) -> Tuple[Dict[str, int], Dict[str, Any], Dict[str
 
 def load_cfa_preseason_merged(root: Path) -> Tuple[Dict[str, int], Dict[str, Any], Dict[str, str]]:
     """
-    合并 config（仓库内基准）与 data（本地/CI 抓取覆盖）。
-    data 中的分值覆盖 config 同队名。
+    合并 config（仓库内基准）与 data（本地/CI 抓取补充）。
+    同队名时以 config 为准，避免抓取误解析（如全文「10 支球队」）覆盖已核对的基准分值。
     """
     cfg_path = root / "config" / "csl_cfa_2026_official_deductions.json"
     data_path = root / "data" / "csl_cfa_2026_official_deductions.json"
     cfg_d, cfg_m, cfg_a = _read_cfa_file(cfg_path)
     data_d, data_m, data_a = _read_cfa_file(data_path)
-    merged: Dict[str, int] = {**cfg_d, **data_d}
+    merged: Dict[str, int] = {**data_d, **cfg_d}
     merged_aliases: Dict[str, str] = {**cfg_a, **data_a}
     meta: Dict[str, Any] = {**cfg_m, **data_m}
     sources: List[str] = []

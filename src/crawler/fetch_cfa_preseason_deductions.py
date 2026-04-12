@@ -76,7 +76,9 @@ def merge_and_write(
     base_d = baseline.get("deductions_by_club")
     if not isinstance(base_d, dict):
         base_d = {}
-    merged_clubs = {**{k: int(v) for k, v in base_d.items() if str(k).strip()}, **scraped}
+    # 基准 config 覆盖同队名抓取结果，避免报道中「10 支球队」等噪声被误记为扣 10 分
+    base_norm = {k: int(v) for k, v in base_d.items() if str(k).strip()}
+    merged_clubs = {**scraped, **base_norm}
     out_obj = dict(baseline)
     out_obj["deductions_by_club"] = merged_clubs
     out_obj["meta_scrape"] = {

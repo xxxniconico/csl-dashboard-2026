@@ -133,6 +133,114 @@
             "goal_difference": -8
           },
           {
+            "club_id": "club_浙江",
+            "club_name": "浙江",
+            "points": 7,
+            "penalty_points": 5,
+            "effective_points": 2,
+            "played": 5,
+            "w_d_l": [
+              2,
+              1,
+              2
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 6
+            },
+            "goal_difference": 1
+          },
+          {
+            "club_id": "club_上海海港",
+            "club_name": "上海海港",
+            "points": 6,
+            "penalty_points": 5,
+            "effective_points": 1,
+            "played": 4,
+            "w_d_l": [
+              2,
+              0,
+              2
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 5
+            },
+            "goal_difference": 2
+          },
+          {
+            "club_id": "club_河南",
+            "club_name": "河南",
+            "points": 7,
+            "penalty_points": 6,
+            "effective_points": 1,
+            "played": 4,
+            "w_d_l": [
+              2,
+              1,
+              1
+            ],
+            "summary": {
+              "goals_for": 5,
+              "goals_against": 4
+            },
+            "goal_difference": 1
+          },
+          {
+            "club_id": "club_山东泰山",
+            "club_name": "山东泰山",
+            "points": 6,
+            "penalty_points": 6,
+            "effective_points": 0,
+            "played": 4,
+            "w_d_l": [
+              2,
+              0,
+              2
+            ],
+            "summary": {
+              "goals_for": 6,
+              "goals_against": 7
+            },
+            "goal_difference": -1
+          },
+          {
+            "club_id": "club_北京国安",
+            "club_name": "北京国安",
+            "points": 4,
+            "penalty_points": 5,
+            "effective_points": -1,
+            "played": 4,
+            "w_d_l": [
+              1,
+              1,
+              2
+            ],
+            "summary": {
+              "goals_for": 5,
+              "goals_against": 5
+            },
+            "goal_difference": 0
+          },
+          {
+            "club_id": "club_武汉三镇",
+            "club_name": "武汉三镇",
+            "points": 4,
+            "penalty_points": 5,
+            "effective_points": -1,
+            "played": 4,
+            "w_d_l": [
+              1,
+              1,
+              2
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 9
+            },
+            "goal_difference": -2
+          },
+          {
             "club_id": "club_上海申花",
             "club_name": "上海申花",
             "points": 8,
@@ -151,119 +259,11 @@
             "goal_difference": 3
           },
           {
-            "club_id": "club_浙江",
-            "club_name": "浙江",
-            "points": 7,
-            "penalty_points": 10,
-            "effective_points": -3,
-            "played": 5,
-            "w_d_l": [
-              2,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 6
-            },
-            "goal_difference": 1
-          },
-          {
-            "club_id": "club_河南",
-            "club_name": "河南",
-            "points": 7,
-            "penalty_points": 10,
-            "effective_points": -3,
-            "played": 4,
-            "w_d_l": [
-              2,
-              1,
-              1
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 4
-            },
-            "goal_difference": 1
-          },
-          {
-            "club_id": "club_上海海港",
-            "club_name": "上海海港",
-            "points": 6,
-            "penalty_points": 10,
-            "effective_points": -4,
-            "played": 4,
-            "w_d_l": [
-              2,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 5
-            },
-            "goal_difference": 2
-          },
-          {
-            "club_id": "club_山东泰山",
-            "club_name": "山东泰山",
-            "points": 6,
-            "penalty_points": 10,
-            "effective_points": -4,
-            "played": 4,
-            "w_d_l": [
-              2,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 6,
-              "goals_against": 7
-            },
-            "goal_difference": -1
-          },
-          {
-            "club_id": "club_北京国安",
-            "club_name": "北京国安",
-            "points": 4,
-            "penalty_points": 10,
-            "effective_points": -6,
-            "played": 4,
-            "w_d_l": [
-              1,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 5
-            },
-            "goal_difference": 0
-          },
-          {
-            "club_id": "club_武汉三镇",
-            "club_name": "武汉三镇",
-            "points": 4,
-            "penalty_points": 10,
-            "effective_points": -6,
-            "played": 4,
-            "w_d_l": [
-              1,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 9
-            },
-            "goal_difference": -2
-          },
-          {
             "club_id": "club_青岛海牛",
             "club_name": "青岛海牛",
             "points": 3,
-            "penalty_points": 10,
-            "effective_points": -7,
+            "penalty_points": 7,
+            "effective_points": -4,
             "played": 4,
             "w_d_l": [
               1,
@@ -6253,18 +6253,9 @@
         }
       ],
       "meta_scrape": {
-        "scraped_keys": [
-          "天津津门虎",
-          "上海申花",
-          "青岛海牛",
-          "山东泰山",
-          "北京国安",
-          "上海海港",
-          "武汉三镇",
-          "河南",
-          "浙江"
-        ],
-        "merged_total": 9
+        "scraped_keys": [],
+        "merged_total": 9,
+        "note": "deductions_by_club 已与 config 对齐；合并时以 config 优先。"
       },
       "deduction_config_sources": [
         "C:/Users/xxxsu/.openclaw/workspace/csl_project_v2/config/csl_cfa_2026_official_deductions.json",
@@ -6278,7 +6269,7 @@
       "clubs_with_deduction": 9
     },
     "meta": {
-      "generated_at_utc": "2026-04-12T09:55:14.305027+00:00",
+      "generated_at_utc": "2026-04-12T16:36:30.756808+00:00",
       "source": "all_seasons_unified_index.json",
       "cfl_backfill_source": "csl_matches_enriched_cfl.json",
       "fixtures_source": "csl_season_fixtures_cfl.json",
