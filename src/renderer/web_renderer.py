@@ -196,24 +196,74 @@ def _collect_club_names(data: Dict[str, Any]) -> Set[str]:
     return names
 
 
+def _player_stats_rows_from_payload(payload: Any) -> list:
+    rows = payload.get("player_stats") if isinstance(payload, dict) else None
+    if not isinstance(rows, list):
+        return []
+    out = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        name = _norm_name(row.get("player_name") or row.get("name") or row.get("player"))
+        if name:
+            out.append(row)
+    return out
+
+
 def load_normalized_player_stats(root: Path) -> list:
-    path = root / "data" / "csl_normalized.json"
-    if not path.exists():
-        return []
-    try:
-        with path.open("r", encoding="utf-8") as f:
-            payload = json.load(f)
-    except Exception:
-        return []
-    rows = payload.get("player_stats")
-    return rows if isinstance(rows, list) else []
+    """优先 csl_normalized.json；为空则回退到事件汇总表（CI 上 normalize 偶发空时仍可有球员名）。"""
+    data_dir = root / "data"
+    for fname in ("csl_normalized.json", "csl_player_stats_events_raw.json"):
+        path = data_dir / fname
+        if not path.is_file():
+            continue
+        try:
+            with path.open("r", encoding="utf-8") as f:
+                payload = json.load(f)
+        except Exception:
+            continue
+        rows = _player_stats_rows_from_payload(payload)
+        if rows:
+            return rows
+    return []
+
+
+def _safe_json_for_script(obj: Any) -> str:
+    """嵌入 <script> 时避免 </script>、U+2028 等打断解析导致整页脚本失效。"""
+    s = json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
+    s = s.replace("<", "\\u003c")
+    for ch in ("\u2028", "\u2029"):
+        s = s.replace(ch, "")
+    return s
+
+
+def _ensure_match_events_player_fields(data: Dict[str, Any]) -> None:
+    """保证每条 event 同时有 player / player_name，与 event_names 一致。"""
+    for league in data.get("leagues") or []:
+        if not isinstance(league, dict):
+            continue
+        for m in league.get("matches") or []:
+            if not isinstance(m, dict):
+                continue
+            for e in m.get("events") or []:
+                if not isinstance(e, dict):
+                    continue
+                p = resolve_event_player_name(e) or _norm_name(e.get("player") or e.get("player_name"))
+                e["player"] = p
+                e["player_name"] = p
 
 
 def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> str:
     data = _merge_same_competition(data)
-    dataset_json = json.dumps(data, ensure_ascii=False)
-    player_stats_json = json.dumps(data.get("_normalized_player_stats", []), ensure_ascii=False)
-    team_logos_json = json.dumps(team_logos, ensure_ascii=False)
+    _ensure_match_events_player_fields(data)
+    # 避免把大段重复球员数据塞进 RAW_DATA（仅保留联赛与政策等）
+    lean = {k: v for k, v in data.items() if k != "_normalized_player_stats"}
+    stats = data.get("_normalized_player_stats")
+    if not isinstance(stats, list):
+        stats = []
+    dataset_json = _safe_json_for_script(lean)
+    player_stats_json = _safe_json_for_script(stats)
+    team_logos_json = _safe_json_for_script(team_logos)
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     source_file = data.get("_source_file", "unknown")
 
@@ -745,8 +795,8 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
           team_name: team,
           goals: n(row.goals),
           assists: n(row.assists),
-          yellow_card: n(row.yellow_cards),
-          red_card: n(row.red_cards),
+          yellow_card: n(row.yellow_cards ?? row.yellow_card),
+          red_card: n(row.red_cards ?? row.red_card),
           matches: 0,
         };
         const prev = merged.get(key);
