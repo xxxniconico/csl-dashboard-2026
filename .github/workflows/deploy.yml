@@ -94,7 +94,7 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
 
-      # 7. 部署到 GitHub Pages
+      # 7. 部署到 GitHub Pages（首次必须在仓库 Settings → Pages 将 Source 设为 GitHub Actions，否则会 Not Found）
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

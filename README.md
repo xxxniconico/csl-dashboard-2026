@@ -14,6 +14,18 @@
 - **球员统计**：进球榜、助攻榜、红黄牌榜，配合 Chart.js 雷达图可视化
 - **自动更新**：每日凌晨 2 点自动抓取最新数据并部署
 
+## 📌 GitHub Pages 首次配置（必做）
+
+若 Actions 在 `configure-pages` 步骤报 **Get Pages site failed / Not Found**，说明仓库还未启用 Pages 或未使用 Actions 发布：
+
+1. 打开 GitHub 仓库 → **Settings** → **Pages**
+2. **Build and deployment** 里将 **Source** 选为 **GitHub Actions**（不要选 “Deploy from a branch” 作为长期方案，否则与本 workflow 不匹配）
+3. 保存后回到 **Actions** 重新运行工作流
+
+可选：若使用 **Environment** `github-pages` 且首次需审批，请到 **Settings → Environments → github-pages** 查看保护规则。
+
+官方说明：<https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow>
+
 ## 🚀 技术栈
 
 - **爬虫**: Playwright (Python)
