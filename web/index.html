@@ -30,18 +30,19 @@
   <style>
     html { -webkit-text-size-adjust: 100%; }
     /*
-     * 积分榜横向滚动：勿用 touch-action: pan-x —— 会禁止该区域的纵向滑动，
-     * 导致整页无法上下滚动、赛程页月历滚不到视区内。
+     * 积分榜宽表横向滚动：禁止单独 pan-x（会吃掉纵向滑动手势）。
+     * 显式允许横纵平移，避免 iOS/WebView 把该区域当成只能横滑。
      */
-    .touch-pan-x {
+    .standings-table-scroll {
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
+      touch-action: pan-x pan-y;
     }
     /* 积分榜数字列：等宽数字更易扫读 */
     .tabular-nums { font-variant-numeric: tabular-nums; }
   </style>
 </head>
-<body class="bg-midnight text-slate-100 min-h-screen touch-manipulation pb-[max(4.5rem,calc(3.75rem+env(safe-area-inset-bottom,0px)))] lg:pb-0">
+<body class="bg-midnight text-slate-100 min-h-screen pb-[max(4.5rem,calc(3.75rem+env(safe-area-inset-bottom,0px)))] lg:pb-0">
   <div class="mx-auto max-w-[1600px] px-2 py-2 sm:p-4 md:p-6">
     <header class="mb-2 rounded-xl border border-slate-800 bg-surface/90 p-2.5 sm:mb-3 sm:rounded-2xl sm:p-4 md:p-6">
       <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
@@ -52,7 +53,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 18:25 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 18:35 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -89,7 +90,7 @@
             </summary>
             <div id="officialPolicyBody" class="space-y-2 border-t border-slate-800 px-3 py-2 leading-relaxed"></div>
           </details>
-          <div class="touch-pan-x overflow-x-auto overscroll-x-contain -mx-1 rounded-lg px-1 sm:mx-0 sm:px-0">
+          <div class="standings-table-scroll overflow-x-auto overscroll-x-contain -mx-1 rounded-lg px-1 sm:mx-0 sm:px-0">
             <table class="min-w-[520px] w-full text-[10px] sm:min-w-0 sm:text-sm">
               <thead class="bg-slate-900/60 text-[10px] text-slate-300 sm:text-xs">
                 <tr>
@@ -126,10 +127,8 @@
               </button>
             </div>
             <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:gap-5">
-              <div id="matchListWrap" class="order-2 min-w-0 lg:order-none lg:min-h-0 lg:flex-1">
-                <div id="matchList" class="max-h-[min(42dvh,calc(100dvh-18rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,70vh)] sm:pr-1"></div>
-              </div>
-              <div id="matchCalendarPanel" class="order-1 shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-2.5 sm:p-3 lg:order-none lg:w-[min(100%,360px)]">
+              <!-- 源码顺序：月历在上（移动端首屏）；lg:order 让桌面仍为左列表右月历 -->
+              <div id="matchCalendarPanel" class="shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-2.5 sm:p-3 lg:order-2 lg:w-[min(100%,360px)]">
                 <div class="mb-2 flex items-center justify-between gap-2">
                   <button type="button" id="matchCalPrev" class="min-h-[40px] min-w-[40px] rounded-lg border border-slate-600 bg-slate-800/90 text-lg leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:px-2 sm:py-1" aria-label="上一月">‹</button>
                   <div id="matchCalTitle" class="min-w-0 flex-1 text-center text-sm font-semibold text-slate-100"></div>
@@ -144,6 +143,9 @@
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
                   显示整月赛程
                 </button>
+              </div>
+              <div id="matchListWrap" class="min-w-0 lg:order-1 lg:min-h-0 lg:flex-1">
+                <div id="matchList" class="max-h-[min(42dvh,calc(100dvh-18rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,70vh)] sm:pr-1"></div>
               </div>
             </div>
           </div>
