@@ -14,6 +14,14 @@
 - **球员统计**：进球榜、助攻榜、红黄牌榜，配合 Chart.js 雷达图可视化
 - **自动更新**：每日凌晨 2 点自动抓取最新数据并部署
 
+## 官方积分（赛前扣分）
+
+积分榜中的 **官方** 列 = 赛场累计积分 − **赛季开赛前** 中国足协纪律处罚所扣联赛积分。
+
+- **基准表（随仓库发布）**：`config/csl_cfa_2026_official_deductions.json`（`deductions_by_club` + `club_aliases` 别称）
+- **抓取覆盖**：运行 `python src/crawler/fetch_cfa_preseason_deductions.py` 可尝试从 `references` 中的公开报道拉取并写入 `data/csl_cfa_2026_official_deductions.json`（CI 在数据处理前会执行，失败则仅用 `config/`）
+- **合并规则**：`data/` 中同队名分值覆盖 `config/`，再由 `data_enricher` 重算 `penalty_points` / `effective_points`
+
 ## 📌 GitHub Pages 首次配置（必做）
 
 若 Actions 在 `configure-pages` 步骤报 **Get Pages site failed / Not Found**，说明仓库还未启用 Pages 或未使用 Actions 发布：

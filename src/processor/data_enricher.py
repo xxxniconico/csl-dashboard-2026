@@ -355,13 +355,8 @@ def inject_events_for_match(
     return len(generated)
 
 
-def load_cfa_preseason_deductions(path: Path) -> Tuple[Dict[str, int], Dict[str, Any]]:
-    """中国足协公布的赛季开赛前联赛积分扣分（俱乐部简称 -> 扣分，正数表示要减去的分值）。"""
-    if not path.exists():
-        return {}, {}
-    obj = load_json(path)
-    if not isinstance(obj, dict):
-        return {}, {}
+def _parse_cfa_document(obj: Dict[str, Any]) -> Tuple[Dict[str, int], Dict[str, Any], Dict[str, str]]:
+    """deductions_by_club、政策 meta、club_aliases（别称 -> 标准队名键）。"""
     raw = obj.get("deductions_by_club")
     if not isinstance(raw, dict):
         raw = {}
@@ -370,13 +365,80 @@ def load_cfa_preseason_deductions(path: Path) -> Tuple[Dict[str, int], Dict[str,
         nm = norm_name(k)
         if nm:
             out[nm] = to_int(v)
-    meta = {k: v for k, v in obj.items() if k != "deductions_by_club"}
-    return out, meta
+    aliases: Dict[str, str] = {}
+    ar = obj.get("club_aliases")
+    if isinstance(ar, dict):
+        for k, v in ar.items():
+            nk, vv = norm_name(k), norm_name(v)
+            if nk and vv:
+                aliases[nk] = vv
+    meta = {k: v for k, v in obj.items() if k not in ("deductions_by_club", "club_aliases")}
+    return out, meta, aliases
+
+
+def _read_cfa_file(path: Path) -> Tuple[Dict[str, int], Dict[str, Any], Dict[str, str]]:
+    if not path.is_file():
+        return {}, {}, {}
+    obj = load_json(path)
+    if not isinstance(obj, dict):
+        return {}, {}, {}
+    return _parse_cfa_document(obj)
+
+
+def load_cfa_preseason_merged(root: Path) -> Tuple[Dict[str, int], Dict[str, Any], Dict[str, str]]:
+    """
+    合并 config（仓库内基准）与 data（本地/CI 抓取覆盖）。
+    data 中的分值覆盖 config 同队名。
+    """
+    cfg_path = root / "config" / "csl_cfa_2026_official_deductions.json"
+    data_path = root / "data" / "csl_cfa_2026_official_deductions.json"
+    cfg_d, cfg_m, cfg_a = _read_cfa_file(cfg_path)
+    data_d, data_m, data_a = _read_cfa_file(data_path)
+    merged: Dict[str, int] = {**cfg_d, **data_d}
+    merged_aliases: Dict[str, str] = {**cfg_a, **data_a}
+    meta: Dict[str, Any] = {**cfg_m, **data_m}
+    sources: List[str] = []
+    if cfg_d or cfg_m:
+        sources.append(str(cfg_path.as_posix()))
+    if data_d or data_m:
+        sources.append(str(data_path.as_posix()))
+    meta["deduction_config_sources"] = sources
+    meta["deduction_counts"] = {"config_clubs": len(cfg_d), "data_overlay_clubs": len(data_d), "merged_clubs": len(merged)}
+    return merged, meta, merged_aliases
+
+
+def lookup_preseason_penalty(
+    club_name: str,
+    deductions: Dict[str, int],
+    aliases: Dict[str, str],
+) -> int:
+    """按队名查找赛前扣分：精确表、别称、去后缀、前缀与标准名一致。"""
+    n = norm_name(club_name)
+    if not n:
+        return 0
+    if n in deductions:
+        return deductions[n]
+    if n in aliases:
+        canon = norm_name(aliases[n])
+        return deductions.get(canon, 0)
+    for suffix in ("足球俱乐部", "俱乐部", "足球队", "FC"):
+        if len(n) > len(suffix) and n.endswith(suffix):
+            short = n[: -len(suffix)].strip()
+            if short in deductions:
+                return deductions[short]
+            if short in aliases:
+                return deductions.get(norm_name(aliases[short]), 0)
+    for canon in sorted((c for c in deductions if c), key=len, reverse=True):
+        pts = deductions[canon]
+        if n.startswith(canon) and len(n) <= len(canon) + 6:
+            return pts
+    return 0
 
 
 def recalc_standings_for_league(
     league: Dict[str, Any],
     cfa_deductions: Dict[str, int],
+    club_aliases: Dict[str, str],
 ) -> Dict[str, Any]:
     matches = league.get("matches", []) if isinstance(league.get("matches"), list) else []
     old_standings = league.get("standings", []) if isinstance(league.get("standings"), list) else []
@@ -394,8 +456,9 @@ def recalc_standings_for_league(
     table: Dict[str, Dict[str, Any]] = {}
 
     def preseason_penalty_for(name: str) -> int:
-        if name in cfa_deductions:
-            return cfa_deductions[name]
+        v = lookup_preseason_penalty(name, cfa_deductions, club_aliases)
+        if v > 0:
+            return v
         return penalties_fallback.get(name, 0)
 
     def ensure_club(name: str) -> Dict[str, Any]:
@@ -491,8 +554,7 @@ def main() -> None:
         )
 
     payload = load_json(in_path)
-    cfa_path = root / "data" / "csl_cfa_2026_official_deductions.json"
-    cfa_deductions, cfa_meta = load_cfa_preseason_deductions(cfa_path)
+    cfa_deductions, cfa_meta, club_aliases = load_cfa_preseason_merged(root)
     cfl_best = load_cfl_best_by_natural_key(cfl_path)
     fixture_rows = load_season_fixtures(fixtures_path)
     scorers = load_scorers_by_team(normalized_path)
@@ -535,13 +597,13 @@ def main() -> None:
 
         lid = str(league.get("league_id") or "")
         cfa_for_league = cfa_deductions if lid == "csl" else {}
-        recalc = recalc_standings_for_league(league, cfa_for_league)
+        recalc = recalc_standings_for_league(league, cfa_for_league, club_aliases)
         league["standings"] = recalc["standings"]
 
+    with_deduction = sum(1 for pts in cfa_deductions.values() if to_int(pts) > 0)
     payload["official_points_policy"] = {
         **cfa_meta,
-        "source_file": str(cfa_path.name),
-        "clubs_with_deduction": len(cfa_deductions),
+        "clubs_with_deduction": with_deduction,
     }
 
     payload["meta"] = {

@@ -80,6 +80,13 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
 
+      # 4d. 尝试从公开报道更新赛前扣分表（写入 data/；失败则仍使用仓库内 config/ 基准）
+      - name: Fetch CFA preseason deductions
+        continue-on-error: true
+        run: python src/crawler/fetch_cfa_preseason_deductions.py
+        env:
+          PYTHONIOENCODING: utf-8
+
       # 5. 运行数据处理 (更新积分榜)
       - name: Process Data
         run: |
