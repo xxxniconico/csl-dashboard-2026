@@ -11,6 +11,8 @@ def resolve_event_player_name(event: Any) -> str:
         "player",
         "player_name",
         "name",
+        "eventPlayerName",
+        "event_player_name",
         "athleteName",
         "playerName",
         "athlete_name",

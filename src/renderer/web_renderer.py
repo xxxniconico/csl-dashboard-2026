@@ -259,7 +259,7 @@ def prepare_dashboard_embed_payload(
     return lean, stats, team_logos, source_file
 
 
-def build_dashboard_html(source_file: str, generated_at: str) -> str:
+def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: str) -> str:
     html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -465,7 +465,7 @@ def build_dashboard_html(source_file: str, generated_at: str) -> str:
 
     function eventPlayerName(e){
       if (!e || typeof e !== "object") return "";
-      const raw = e.player ?? e.player_name ?? e.name ?? e.playerName ?? e.athleteName ?? e.athlete_name ?? e.label ?? "";
+      const raw = e.player ?? e.player_name ?? e.eventPlayerName ?? e.event_player_name ?? e.name ?? e.playerName ?? e.athleteName ?? e.athlete_name ?? e.label ?? "";
       return String(raw).trim();
     }
 
@@ -936,9 +936,12 @@ def build_dashboard_html(source_file: str, generated_at: str) -> str:
     }
 
     async function bootDashboard(){
+      let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        const res = await fetch(embedUrl.toString(), { cache: "no-store" });
+        embedUrl.searchParams.set("v", "__EMBED_V__");
+        triedUrl = embedUrl.toString();
+        const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);
         const bundle = await res.json();
         RAW_DATA = bundle.raw_data || { leagues: [] };
@@ -946,10 +949,10 @@ def build_dashboard_html(source_file: str, generated_at: str) -> str:
         TEAM_LOGOS = bundle.team_logos && typeof bundle.team_logos === "object" ? bundle.team_logos : {};
         renderAll();
       } catch (err) {
-        console.error("bootDashboard", err);
+        console.error("bootDashboard failed, url=", triedUrl, err);
         const bar = document.createElement("div");
         bar.className = "fixed left-0 right-0 top-0 z-[100] bg-red-900 px-3 py-2 text-center text-sm text-white";
-        bar.textContent = "数据加载失败（请检查是否已部署 dashboard_embed.json 或强制刷新）";
+        bar.textContent = "数据加载失败（请检查是否已部署 dashboard_embed.json，或强制刷新 Ctrl+F5；控制台可见请求 URL）";
         document.body.insertBefore(bar, document.body.firstChild);
       }
     }
@@ -961,6 +964,7 @@ def build_dashboard_html(source_file: str, generated_at: str) -> str:
 
     html = html.replace("__GENERATED__", generated_at)
     html = html.replace("__SOURCE_FILE__", source_file)
+    html = html.replace("__EMBED_V__", embed_cache_bust)
     return html
 
 
@@ -980,7 +984,8 @@ def main() -> None:
 
     lean, stats, logos_embed, source_file = prepare_dashboard_embed_payload(data, team_logos)
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    html = build_dashboard_html(source_file, generated_at)
+    embed_cache_bust = str(int(datetime.now(timezone.utc).timestamp()))
+    html = build_dashboard_html(source_file, generated_at, embed_cache_bust)
 
     bundle = {"raw_data": lean, "player_stats": stats, "team_logos": logos_embed}
     embed_path = web_dir / "dashboard_embed.json"
