@@ -73,6 +73,13 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
 
+      # 4a1. 中足联注册球员名单（players/page）→ cfl_players_page_raw.json，仪表盘球员档案与头像
+      - name: Fetch CFL players page roster
+        continue-on-error: true
+        run: python src/crawler/cfl_players_page_crawler.py --output data/cfl_players_page_raw.json
+        env:
+          PYTHONIOENCODING: utf-8
+
       # 4a2. 懂球帝 legacy 射手榜 + 助攻榜 → csl_player_stats_raw.json（normalize 合并助攻用）
       - name: Fetch player goal and assist rankings
         continue-on-error: true

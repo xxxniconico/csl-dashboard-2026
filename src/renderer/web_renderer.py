@@ -5,7 +5,7 @@ import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple
 
 _RENDERER_DIR = Path(__file__).resolve().parent
 if str(_RENDERER_DIR) not in sys.path:
@@ -234,6 +234,72 @@ def load_normalized_player_stats(root: Path) -> list:
     return []
 
 
+_CFL_PROFILE_KEEP_KEYS = (
+    "player_id",
+    "player_name",
+    "player_name_en",
+    "playerNameEn",
+    "contestant_id",
+    "contestant_name",
+    "contestant_short_name",
+    "contestant_name_en",
+    "position",
+    "position_name",
+    "position_name_en",
+    "position_code",
+    "player_shirt_number",
+    "height",
+    "weight",
+    "nationality",
+    "nationality_en",
+    "date_of_birth",
+    "player_icon",
+    "clubIcon",
+    "contestant_icon",
+    "tournament_calendar_name",
+    "player_status",
+    "start_date",
+)
+
+
+def _trim_cfl_profile_row(row: Dict[str, Any]) -> Dict[str, Any]:
+    out: Dict[str, Any] = {}
+    for k in _CFL_PROFILE_KEEP_KEYS:
+        if k not in row:
+            continue
+        v = row.get(k)
+        if v is None or v == "":
+            continue
+        out[k] = v
+    for ik in ("player_icon", "clubIcon", "contestant_icon"):
+        u = out.get(ik)
+        if isinstance(u, str) and u.startswith("//"):
+            out[ik] = "https:" + u
+    return out
+
+
+def load_cfl_player_profiles_for_embed(root: Path) -> List[Dict[str, Any]]:
+    """中足联 players/page 快照，供前端匹配展示档案与头像。"""
+    path = root / "data" / "cfl_players_page_raw.json"
+    if not path.is_file():
+        return []
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            payload = json.load(f)
+    except Exception:
+        return []
+    raw = payload.get("players") if isinstance(payload, dict) else None
+    if not isinstance(raw, list):
+        return []
+    out: List[Dict[str, Any]] = []
+    for row in raw:
+        if isinstance(row, dict):
+            trimmed = _trim_cfl_profile_row(row)
+            if trimmed.get("player_name") or trimmed.get("player_id"):
+                out.append(trimmed)
+    return out
+
+
 def _ensure_match_events_player_fields(data: Dict[str, Any]) -> None:
     """保证每条 event 同时有 player / player_name；保留 team_name / club_name（俱乐部展示）。"""
     for league in data.get("leagues") or []:
@@ -329,7 +395,6 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>Ultimate Football Dashboard 2026</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous" onerror="this.onerror=null;this.src='https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -361,7 +426,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         <div class="min-w-0">
           <p class="text-[10px] uppercase tracking-[0.15em] text-accent sm:text-xs sm:tracking-[0.2em]">China Football Season Monitor 2026</p>
           <h1 class="text-xl font-black sm:text-2xl md:text-3xl">Ultimate CSL Dashboard</h1>
-          <p class="hidden text-sm text-slate-400 sm:block">Match timeline drilldown + penalty-adjusted standings + player radar</p>
+          <p class="hidden text-sm text-slate-400 sm:block">Match timeline drilldown + penalty-adjusted standings + CFL player profiles</p>
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
@@ -445,34 +510,32 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           <div id="playersSubviewList" class="space-y-3 sm:space-y-4">
             <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
               <h2 class="mb-1 text-base font-bold sm:mb-2 sm:text-lg">球员榜</h2>
-              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">点击球员姓名进入能力雷达（二级页面）</p>
+              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">点击球员姓名查看赛季数据与中足联注册档案（二级页面）</p>
               <div id="playerList" class="max-h-[min(480px,calc(100dvh-14rem))] overflow-auto pr-1 sm:max-h-[560px]"></div>
             </div>
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
                 <h2 class="mb-2 text-base font-bold sm:text-lg">射手榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
-                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按进球数排序；点击球员名查看雷达</p>
+                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按进球数排序；点击球员名查看档案</p>
                 <div id="scorerRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
               </div>
               <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
                 <h2 class="mb-2 text-base font-bold sm:text-lg">助攻榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
-                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按助攻数排序；点击球员名查看雷达</p>
+                <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按助攻数排序；点击球员名查看档案</p>
                 <div id="assistRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
               </div>
             </div>
           </div>
-          <div id="playersSubviewRadar" class="hidden">
+          <div id="playersSubviewProfile" class="hidden">
             <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
               <div class="mb-3 flex flex-wrap items-center gap-2">
                 <button type="button" id="backToPlayerListBtn" class="min-h-[40px] rounded-lg border border-slate-600 bg-slate-800/80 px-3 py-2 text-sm font-semibold text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0">
                   ← 返回球员榜
                 </button>
               </div>
-              <h2 class="mb-2 text-base font-bold sm:text-lg">能力雷达</h2>
-              <div id="radarTitle" class="mb-2 text-xs text-slate-400 sm:text-sm"></div>
-              <div class="h-[min(50dvh,420px)] sm:h-[420px]">
-                <canvas id="playerRadar"></canvas>
-              </div>
+              <h2 class="mb-2 text-base font-bold sm:text-lg">球员档案</h2>
+              <div id="playerProfileTitle" class="mb-3 text-xs text-slate-400 sm:text-sm"></div>
+              <div id="playerProfileBody" class="max-h-[min(70dvh,560px)] overflow-y-auto pr-1 text-sm"></div>
             </div>
           </div>
         </section>
@@ -513,7 +576,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
   <script>
     /** 数据从同目录 dashboard_embed.json 加载，避免内联巨型 JSON 被 HTML/浏览器截断或误解析 */
-    var RAW_DATA, RAW_PLAYER_STATS, TEAM_LOGOS;
+    var RAW_DATA, RAW_PLAYER_STATS, TEAM_LOGOS, RAW_CFL_PROFILES;
 
     const leagueNavEl = document.getElementById("leagueNav");
     const leagueNavMobileEl = document.getElementById("leagueNavMobile");
@@ -530,9 +593,10 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     const playerListEl = document.getElementById("playerList");
     const scorerRankListEl = document.getElementById("scorerRankList");
     const assistRankListEl = document.getElementById("assistRankList");
-    const radarTitleEl = document.getElementById("radarTitle");
+    const playerProfileTitleEl = document.getElementById("playerProfileTitle");
+    const playerProfileBodyEl = document.getElementById("playerProfileBody");
     const playersSubviewListEl = document.getElementById("playersSubviewList");
-    const playersSubviewRadarEl = document.getElementById("playersSubviewRadar");
+    const playersSubviewProfileEl = document.getElementById("playersSubviewProfile");
     const backToPlayerListBtn = document.getElementById("backToPlayerListBtn");
     const viewButtons = document.querySelectorAll(".view-btn");
     const viewPanels = document.querySelectorAll(".view-panel");
@@ -543,7 +607,6 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
     let currentView = "standings";
     let selectedClub = "";
-    let radarChart = null;
     let standingsSortMode = "official";
 
     function safeArr(v){ return Array.isArray(v) ? v : []; }
@@ -732,6 +795,11 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       const away = match.away_club || "";
       const stadium = venueStadium(match);
       const stadiumLine = stadium ? `体育场：${esc(stadium)}` : "体育场：待公布";
+      const hf = String(match.home_formation_used || "").trim();
+      const af = String(match.away_formation_used || "").trim();
+      const formLine = (hf || af)
+        ? `<div class="mb-3 rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 text-[11px] text-slate-300 sm:text-xs"><span class="text-slate-500">阵型</span> 主 ${esc(hf || "—")} · 客 ${esc(af || "—")}</div>`
+        : "";
       modalTitleEl.innerHTML = `
         <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-slate-300 sm:gap-x-2">
           ${clubImg(home)}
@@ -744,10 +812,11 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         </div>
       `;
       const events = safeArr(match.events).slice().sort((a,b)=>n(a.minute)-n(b.minute));
+      let body = formLine;
       if (!events.length){
-        modalTimelineEl.innerHTML = '<div class="text-sm text-slate-400">本场比赛暂无事件数据（未赛或数据源未更新）。</div>';
+        body += '<div class="text-sm text-slate-400">本场比赛暂无事件数据（未赛或数据源未更新）。</div>';
       } else {
-        modalTimelineEl.innerHTML = events.map(e => `
+        body += events.map(e => `
           <div class="relative pl-6 sm:pl-7">
             <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-accent"></span>
             <div class="rounded-lg border border-slate-700 bg-slate-800/70 p-2.5 sm:p-3">
@@ -760,6 +829,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           </div>
         `).join("");
       }
+      modalTimelineEl.innerHTML = body;
       matchModal.classList.remove("hidden");
       document.body.style.overflow = "hidden";
     }
@@ -836,6 +906,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
     function eventBadge(type){
       if (type === "goal") return "bg-success/20 text-success";
+      if (type === "assist") return "bg-accent/20 text-accent";
       if (type === "yellow_card") return "bg-warn/20 text-warn";
       return "bg-danger/20 text-danger";
     }
@@ -851,7 +922,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         vm.set(t, (vm.get(t) || 0) + 1);
       };
       const touch = (name) => {
-        if (!map.has(name)) map.set(name, {player_name:name, team_name:"", goals:0, yellow_card:0, red_card:0, matches:0, assists:0});
+        if (!map.has(name)) map.set(name, {player_name:name, team_name:"", goals:0, assists:0, yellow_card:0, red_card:0, matches:0});
         return map.get(name);
       };
       for (const m of safeArr(matches)){
@@ -863,6 +934,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           bumpTeam(name, team);
           const p = touch(name);
           if (e.type === "goal") p.goals += 1;
+          if (e.type === "assist") p.assists += 1;
           if (e.type === "yellow_card") p.yellow_card += 1;
           if (e.type === "red_card") p.red_card += 1;
           seenInMatch.add(name);
@@ -909,18 +981,88 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
     function showPlayersListSubview(){
       if (playersSubviewListEl) playersSubviewListEl.classList.remove("hidden");
-      if (playersSubviewRadarEl) playersSubviewRadarEl.classList.add("hidden");
-      if (radarChart){
-        radarChart.destroy();
-        radarChart = null;
-      }
+      if (playersSubviewProfileEl) playersSubviewProfileEl.classList.add("hidden");
     }
 
-    function showPlayerRadarSubview(player){
+    function absImgUrl(u){
+      if (!u) return "";
+      const s = String(u).trim();
+      if (s.startsWith("//")) return "https:" + s;
+      return s;
+    }
+
+    function teamRoughMatch(statTeam, row){
+      const a = String(statTeam || "").trim();
+      const shortN = String(row.contestant_short_name || "").trim();
+      const longN = String(row.contestant_name || "").trim();
+      if (!a) return true;
+      if (shortN && (a === shortN || a.includes(shortN) || shortN.includes(a))) return true;
+      if (longN && (a === longN || a.includes(longN) || longN.includes(a))) return true;
+      return false;
+    }
+
+    function findCflProfile(player){
+      const rows = safeArr(RAW_CFL_PROFILES);
+      const name = String(player.player_name || "").trim();
+      const team = String(player.team_name || "").trim();
+      if (!name) return null;
+      const byName = rows.filter(r => String(r.player_name || "").trim() === name);
+      if (byName.length === 1) return byName[0];
+      const withTeam = byName.filter(r => teamRoughMatch(team, r));
+      if (withTeam.length === 1) return withTeam[0];
+      if (withTeam.length > 0) return withTeam[0];
+      return byName[0] || null;
+    }
+
+    function showPlayerProfileSubview(player){
       if (!player) return;
       if (playersSubviewListEl) playersSubviewListEl.classList.add("hidden");
-      if (playersSubviewRadarEl) playersSubviewRadarEl.classList.remove("hidden");
-      drawRadar(player);
+      if (playersSubviewProfileEl) playersSubviewProfileEl.classList.remove("hidden");
+      const prof = findCflProfile(player);
+      if (playerProfileTitleEl){
+        playerProfileTitleEl.textContent = prof
+          ? `${player.player_name} · 中足联注册信息（赛季 ${prof.tournament_calendar_name || ""}）`
+          : `${player.player_name} · 赛季汇总（未匹配到注册档案时可先运行 CFL 球员同步）`;
+      }
+      const icon = prof ? absImgUrl(prof.player_icon || prof.clubIcon || prof.contestant_icon) : "";
+      let html = "";
+      html += `<div class="mb-4 rounded-lg border border-slate-700 bg-slate-800/60 p-3">
+        <div class="mb-2 font-semibold text-slate-200">本页赛季统计</div>
+        <ul class="grid grid-cols-2 gap-2 text-xs text-slate-300 sm:grid-cols-3 sm:text-sm">
+          <li>进球 <span class="font-mono text-accent">${n(player.goals)}</span></li>
+          <li>助攻 <span class="font-mono text-accent">${n(player.assists)}</span></li>
+          <li>出场 <span class="font-mono text-accent">${n(player.matches)}</span></li>
+          <li>黄牌 <span class="font-mono text-warn">${n(player.yellow_card)}</span></li>
+          <li>红牌 <span class="font-mono text-danger">${n(player.red_card)}</span></li>
+          <li>球队 <span class="text-slate-200">${esc(player.team_name || "—")}</span></li>
+        </ul></div>`;
+      if (icon){
+        html += `<div class="mb-4 flex justify-center"><img src="${esc(icon)}" alt="" class="h-28 w-28 rounded-xl border border-slate-600 bg-slate-900 object-cover sm:h-36 sm:w-36" loading="lazy" onerror="this.style.display='none'" /></div>`;
+      }
+      if (prof){
+        const rows = [
+          ["俱乐部", prof.contestant_short_name || prof.contestant_name],
+          ["位置", prof.position_name || prof.position],
+          ["号码", prof.player_shirt_number],
+          ["身高 / 体重", [prof.height, prof.weight].filter(Boolean).join(" / ")],
+          ["国籍", prof.nationality],
+          ["出生日期", prof.date_of_birth],
+          ["英文名", prof.player_name_en || prof.playerNameEn],
+          ["注册状态", prof.player_status],
+          ["球员 ID", prof.player_id],
+        ];
+        html += `<dl class="space-y-2">`;
+        for (const pair of rows){
+          const k = pair[0];
+          const v = pair[1];
+          if (v === undefined || v === null || v === "") continue;
+          html += `<div class="flex gap-2 border-b border-slate-800/80 pb-2 text-sm"><dt class="w-28 shrink-0 text-slate-500">${esc(k)}</dt><dd class="min-w-0 break-words text-slate-200">${esc(String(v))}</dd></div>`;
+        }
+        html += `</dl>`;
+      } else {
+        html += `<p class="text-sm leading-relaxed text-slate-400">未在 <code class="rounded bg-slate-800 px-1 text-xs">cfl_players_page_raw.json</code> 中匹配到该球员。部署流水线中运行 <code class="rounded bg-slate-800 px-1 text-xs">cfl_players_page_crawler.py</code> 后可显示位置、号码、头像等注册信息。</p>`;
+      }
+      if (playerProfileBodyEl) playerProfileBodyEl.innerHTML = html;
     }
 
     function renderMiniStatTable(container, rows, valueKey, valueLabel){
@@ -935,16 +1077,16 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         <tr class="border-b border-slate-800/80 hover:bg-slate-800/40">
           <td class="px-1 py-1.5 font-mono text-slate-500 sm:px-2">${i + 1}</td>
           <td class="max-w-[7rem] truncate px-1 py-1.5 sm:max-w-none sm:px-2">
-            <button type="button" class="mini-player-open-radar max-w-full truncate text-left text-[11px] font-medium text-accent underline-offset-2 hover:underline sm:text-sm">${esc(p.player_name)}</button>
+            <button type="button" class="mini-player-open-profile max-w-full truncate text-left text-[11px] font-medium text-accent underline-offset-2 hover:underline sm:text-sm">${esc(p.player_name)}</button>
           </td>
           <td class="max-w-[5rem] truncate px-1 py-1.5 text-slate-400 sm:max-w-none sm:px-2">${esc(p.team_name || "—")}</td>
           <td class="px-1 py-1.5 text-right font-mono font-semibold text-accent sm:px-2">${n(p[valueKey])}</td>
         </tr>`).join("");
       container.innerHTML = `<table class="w-full border-collapse text-[11px] sm:text-sm">${head}<tbody>${body}</tbody></table>`;
-      container.querySelectorAll(".mini-player-open-radar").forEach((btn, i) => {
+      container.querySelectorAll(".mini-player-open-profile").forEach((btn, i) => {
         btn.addEventListener("click", () => {
           const p = rows[i];
-          if (p) showPlayerRadarSubview(p);
+          if (p) showPlayerProfileSubview(p);
         });
       });
     }
@@ -969,7 +1111,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <span class="font-mono text-xs text-slate-500">${idx + 1}.</span>
-              <button type="button" class="player-name-open-radar text-left text-sm font-semibold text-accent underline-offset-2 hover:underline" data-player-index="${idx}">${esc(p.player_name)}</button>
+              <button type="button" class="player-name-open-profile text-left text-sm font-semibold text-accent underline-offset-2 hover:underline" data-player-index="${idx}">${esc(p.player_name)}</button>
             </div>
             <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "—")}</span>
           </div>
@@ -977,55 +1119,11 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         </div>
       `).join("");
 
-      playerListEl.querySelectorAll(".player-name-open-radar").forEach((btn) => {
+      playerListEl.querySelectorAll(".player-name-open-profile").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.playerIndex);
-          showPlayerRadarSubview(players[idx]);
+          showPlayerProfileSubview(players[idx]);
         });
-      });
-    }
-
-    function drawRadar(player){
-      const ctx = document.getElementById("playerRadar");
-      if (!ctx) return;
-      if (radarChart) radarChart.destroy();
-      if (!player){
-        radarTitleEl.textContent = "暂无球员数据";
-        return;
-      }
-      radarTitleEl.textContent = `${player.player_name} · 能力雷达`;
-      radarChart = new Chart(ctx, {
-        type: "radar",
-        data: {
-          labels: ["进球", "黄牌", "红牌", "场次", "影响"],
-          datasets: [{
-            label: player.player_name,
-            data: [
-              player.goals,
-              player.yellow_card,
-              player.red_card,
-              player.matches,
-              player.goals * 2 + n(player.assists) + player.matches - player.red_card * 2
-            ],
-            backgroundColor: "rgba(56,189,248,0.25)",
-            borderColor: "rgba(56,189,248,0.95)",
-            pointBackgroundColor: "rgba(56,189,248,0.95)",
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            r: {
-              angleLines: { color: "rgba(148,163,184,0.25)" },
-              grid: { color: "rgba(148,163,184,0.25)" },
-              pointLabels: { color: "#cbd5e1", font: { size: typeof window !== "undefined" && window.innerWidth < 640 ? 10 : 12 } },
-              ticks: { color: "#94a3b8", backdropColor: "transparent", font: { size: typeof window !== "undefined" && window.innerWidth < 640 ? 9 : 11 } }
-            }
-          },
-          plugins: { legend: { labels: { color: "#f8fafc", font: { size: typeof window !== "undefined" && window.innerWidth < 640 ? 11 : 12 } } } }
-        }
       });
     }
 
@@ -1087,7 +1185,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         closeMatchModal();
         return;
       }
-      if (currentView === "players" && playersSubviewRadarEl && !playersSubviewRadarEl.classList.contains("hidden")){
+      if (currentView === "players" && playersSubviewProfileEl && !playersSubviewProfileEl.classList.contains("hidden")){
         showPlayersListSubview();
       }
     });
@@ -1115,6 +1213,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         RAW_DATA = bundle.raw_data || { leagues: [] };
         RAW_PLAYER_STATS = Array.isArray(bundle.player_stats) ? bundle.player_stats : [];
         TEAM_LOGOS = bundle.team_logos && typeof bundle.team_logos === "object" ? bundle.team_logos : {};
+        RAW_CFL_PROFILES = Array.isArray(bundle.cfl_player_profiles) ? bundle.cfl_player_profiles : [];
         renderAll();
       } catch (err) {
         console.error("bootDashboard failed, url=", triedUrl, err);
@@ -1151,11 +1250,17 @@ def main() -> None:
         team_logos = apply_team_logo_public_base(team_logos, pub_base)
 
     lean, stats, logos_embed, source_file = prepare_dashboard_embed_payload(data, team_logos)
+    cfl_profiles = load_cfl_player_profiles_for_embed(root)
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     embed_cache_bust = str(int(datetime.now(timezone.utc).timestamp()))
     html = build_dashboard_html(source_file, generated_at, embed_cache_bust)
 
-    bundle = {"raw_data": lean, "player_stats": stats, "team_logos": logos_embed}
+    bundle = {
+        "raw_data": lean,
+        "player_stats": stats,
+        "team_logos": logos_embed,
+        "cfl_player_profiles": cfl_profiles,
+    }
     embed_path = web_dir / "dashboard_embed.json"
     web_dir.mkdir(parents=True, exist_ok=True)
     embed_path.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")

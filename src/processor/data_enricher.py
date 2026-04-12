@@ -212,6 +212,25 @@ def ensure_player_fields_on_events(match: Dict[str, Any]) -> None:
             e["team_name"] = tn
 
 
+def merge_cfl_match_extras_from_cfl(
+    match: Dict[str, Any], cfl_best: Dict[str, Dict[str, Any]]
+) -> None:
+    """从 CFL 场次拷贝阵型、队徽等元数据（与是否替换 events 无关）。"""
+    key = natural_match_key(match)
+    if not key or key not in cfl_best:
+        return
+    src = cfl_best[key]
+    for k in (
+        "home_formation_used",
+        "away_formation_used",
+        "home_contestant_icon",
+        "away_contestant_icon",
+    ):
+        v = src.get(k)
+        if v is not None and v != "":
+            match[k] = v
+
+
 def backfill_events_from_cfl(match: Dict[str, Any], cfl_best: Dict[str, Dict[str, Any]]) -> bool:
     key = natural_match_key(match)
     if not key or key not in cfl_best:
@@ -588,6 +607,7 @@ def main() -> None:
         for match in matches:
             if not isinstance(match, dict):
                 continue
+            merge_cfl_match_extras_from_cfl(match, cfl_best)
             if backfill_events_from_cfl(match, cfl_best):
                 backfilled_matches += 1
             ensure_player_fields_on_events(match)

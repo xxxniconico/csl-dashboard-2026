@@ -135,6 +135,10 @@ class CFLApiEventCrawler:
                 "name": row.get("venue_short_name") or row.get("venue_long_name"),
                 "city": None,
             },
+            "home_formation_used": row.get("home_formation_used"),
+            "away_formation_used": row.get("away_formation_used"),
+            "home_contestant_icon": row.get("home_contestant_icon"),
+            "away_contestant_icon": row.get("away_contestant_icon"),
             "detail_path": f"/zh/fixtures/details.html?competition_code={COMPETITION_CODE}&id={row.get('id')}",
         }
 
