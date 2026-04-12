@@ -441,16 +441,30 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           </div>
         </section>
 
-        <section id="view-players" class="view-panel hidden grid grid-cols-1 gap-3 sm:gap-4 xl:grid-cols-[1fr_1fr]">
-          <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-            <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">球员榜</h2>
-            <div id="playerList" class="max-h-[min(480px,calc(100dvh-14rem))] overflow-auto pr-1 sm:max-h-[560px]"></div>
+        <section id="view-players" class="view-panel hidden space-y-3 sm:space-y-4">
+          <div class="grid grid-cols-1 gap-3 xl:grid-cols-2 xl:gap-4">
+            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+              <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">球员榜</h2>
+              <div id="playerList" class="max-h-[min(480px,calc(100dvh-14rem))] overflow-auto pr-1 sm:max-h-[560px]"></div>
+            </div>
+            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+              <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">能力雷达</h2>
+              <div id="radarTitle" class="mb-2 text-xs text-slate-400 sm:text-sm">在上方选择球员</div>
+              <div class="h-[min(320px,55vw)] sm:h-[380px] xl:h-[420px]">
+                <canvas id="playerRadar"></canvas>
+              </div>
+            </div>
           </div>
-          <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-            <h2 class="mb-2 text-base font-bold sm:mb-3 sm:text-lg">能力雷达</h2>
-            <div id="radarTitle" class="mb-2 text-xs text-slate-400 sm:text-sm">在上方选择球员</div>
-            <div class="h-[min(320px,55vw)] sm:h-[380px] xl:h-[420px]">
-              <canvas id="playerRadar"></canvas>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+              <h2 class="mb-2 text-base font-bold sm:text-lg">射手榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
+              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按进球数排序，与数据源一致</p>
+              <div id="scorerRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
+            </div>
+            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+              <h2 class="mb-2 text-base font-bold sm:text-lg">助攻榜 <span class="text-xs font-normal text-slate-500">TOP 20</span></h2>
+              <p class="mb-2 text-[11px] text-slate-500 sm:text-xs">按助攻数排序</p>
+              <div id="assistRankList" class="max-h-[min(320px,50vh)] overflow-auto pr-1 sm:max-h-[380px]"></div>
             </div>
           </div>
         </section>
@@ -506,6 +520,8 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
     const clubFilterNameEl = document.getElementById("clubFilterName");
     const clearClubFilterBtn = document.getElementById("clearClubFilterBtn");
     const playerListEl = document.getElementById("playerList");
+    const scorerRankListEl = document.getElementById("scorerRankList");
+    const assistRankListEl = document.getElementById("assistRankList");
     const radarTitleEl = document.getElementById("radarTitle");
     const viewButtons = document.querySelectorAll(".view-btn");
     const viewPanels = document.querySelectorAll(".view-panel");
@@ -880,12 +896,39 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       return [...merged.values()].sort((a,b)=> (b.goals-a.goals) || (b.assists-a.assists) || (a.red_card-b.red_card) || a.player_name.localeCompare(b.player_name));
     }
 
+    function renderMiniStatTable(container, rows, valueKey, valueLabel){
+      if (!container) return;
+      if (!rows.length){
+        container.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/50 p-3 text-sm text-slate-400">暂无数据</div>';
+        return;
+      }
+      const head = `<thead class="sticky top-0 z-10 bg-slate-900/95 text-left text-[10px] uppercase tracking-wide text-slate-500 sm:text-xs">
+        <tr><th class="px-1 py-1.5 sm:px-2">#</th><th class="px-1 py-1.5 sm:px-2">球员</th><th class="px-1 py-1.5 sm:px-2">球队</th><th class="px-1 py-1.5 text-right sm:px-2">${esc(valueLabel)}</th></tr></thead>`;
+      const body = rows.map((p, i) => `
+        <tr class="border-b border-slate-800/80 hover:bg-slate-800/40">
+          <td class="px-1 py-1.5 font-mono text-slate-500 sm:px-2">${i + 1}</td>
+          <td class="max-w-[7rem] truncate px-1 py-1.5 font-medium text-slate-100 sm:max-w-none sm:px-2">${esc(p.player_name)}</td>
+          <td class="max-w-[5rem] truncate px-1 py-1.5 text-slate-400 sm:max-w-none sm:px-2">${esc(p.team_name || "—")}</td>
+          <td class="px-1 py-1.5 text-right font-mono font-semibold text-accent sm:px-2">${n(p[valueKey])}</td>
+        </tr>`).join("");
+      container.innerHTML = `<table class="w-full border-collapse text-[11px] sm:text-sm">${head}<tbody>${body}</tbody></table>`;
+    }
+
+    function renderGoalAssistRankings(players){
+      const topN = 20;
+      const byGoals = [...players].sort((a,b) => (b.goals - a.goals) || (b.assists - a.assists) || a.player_name.localeCompare(b.player_name)).slice(0, topN);
+      const byAssists = [...players].sort((a,b) => (n(b.assists) - n(a.assists)) || (b.goals - a.goals) || a.player_name.localeCompare(b.player_name)).slice(0, topN);
+      renderMiniStatTable(scorerRankListEl, byGoals, "goals", "进球");
+      renderMiniStatTable(assistRankListEl, byAssists, "assists", "助攻");
+    }
+
     function renderPlayers(){
       const league = getLeague();
       let players = buildPlayerStatsFromNormalized();
       if (!players.length){
         players = buildPlayerStats(league.matches);
       }
+      renderGoalAssistRankings(players);
       playerListEl.innerHTML = players.map((p, idx) => `
         <button type="button" data-player-index="${idx}" class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
           <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
