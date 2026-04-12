@@ -240,6 +240,8 @@ _CFL_PROFILE_KEEP_KEYS = (
     "player_name_en",
     "playerNameEn",
     "contestant_id",
+    "contestant_club_name",
+    "contestant_club_name_en",
     "contestant_name",
     "contestant_short_name",
     "contestant_name_en",
@@ -1006,12 +1008,30 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
 
     function teamRoughMatch(statTeam, row){
       const a = String(statTeam || "").trim();
+      const club = String(row.contestant_club_name || "").trim();
       const shortN = String(row.contestant_short_name || "").trim();
       const longN = String(row.contestant_name || "").trim();
       if (!a) return true;
+      if (club && (a === club || a.includes(club) || club.includes(a))) return true;
       if (shortN && (a === shortN || a.includes(shortN) || shortN.includes(a))) return true;
       if (longN && (a === longN || a.includes(longN) || longN.includes(a))) return true;
       return false;
+    }
+
+    function resolvePlayerClub(player, prof){
+      const fromStats = String(player.team_name || "").trim();
+      if (prof){
+        const primary = String(prof.contestant_club_name || "").trim();
+        const official = String(prof.contestant_name || "").trim();
+        const shortN = String(prof.contestant_short_name || "").trim();
+        if (primary){
+          const sub = official && official !== primary ? official : "";
+          return { display: primary, sub, shortLabel: shortN };
+        }
+        if (official) return { display: official, sub: "", shortLabel: shortN };
+        if (shortN) return { display: shortN, sub: "", shortLabel: "" };
+      }
+      return { display: fromStats || "—", sub: "", shortLabel: "" };
     }
 
     function findCflProfile(player){
@@ -1027,6 +1047,11 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       return byName[0] || null;
     }
 
+    function listPlayerClubDisplay(p){
+      const prof = findCflProfile(p);
+      return resolvePlayerClub(p, prof).display;
+    }
+
     function showPlayerProfileSubview(player){
       if (!player) return;
       if (playersSubviewListEl) playersSubviewListEl.classList.add("hidden");
@@ -1038,7 +1063,15 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           : `${player.player_name} · 赛季汇总（未匹配到注册档案时可先运行 CFL 球员同步）`;
       }
       const icon = prof ? absImgUrl(prof.player_icon || prof.clubIcon || prof.contestant_icon) : "";
+      const clubInfo = resolvePlayerClub(player, prof);
       let html = "";
+      html += `<div class="mb-4 rounded-xl border border-accent/35 bg-gradient-to-br from-slate-800/90 to-slate-900/80 p-3 sm:p-4">
+        <div class="text-[11px] font-medium uppercase tracking-wide text-slate-500">所属俱乐部</div>
+        <div class="mt-1 text-lg font-bold leading-snug text-slate-50 sm:text-xl">${esc(clubInfo.display)}</div>
+        ${clubInfo.sub ? `<div class="mt-1 text-xs text-slate-400">${esc(clubInfo.sub)}</div>` : ""}
+        ${clubInfo.shortLabel && clubInfo.display && !String(clubInfo.display).includes(clubInfo.shortLabel) ? `<div class="mt-0.5 text-sm text-accent">${esc(clubInfo.shortLabel)}</div>` : ""}
+        ${prof && String(prof.contestant_club_name_en || prof.contestant_name_en || "").trim() ? `<div class="mt-1.5 text-xs italic text-slate-500">${esc(String(prof.contestant_club_name_en || prof.contestant_name_en || "").trim())}</div>` : ""}
+      </div>`;
       html += `<div class="mb-4 rounded-lg border border-slate-700 bg-slate-800/60 p-3">
         <div class="mb-2 font-semibold text-slate-200">本页赛季统计</div>
         <ul class="grid grid-cols-2 gap-2 text-xs text-slate-300 sm:grid-cols-3 sm:text-sm">
@@ -1047,14 +1080,12 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
           <li>出场 <span class="font-mono text-accent">${n(player.matches)}</span></li>
           <li>黄牌 <span class="font-mono text-warn">${n(player.yellow_card)}</span></li>
           <li>红牌 <span class="font-mono text-danger">${n(player.red_card)}</span></li>
-          <li>球队 <span class="text-slate-200">${esc(player.team_name || "—")}</span></li>
         </ul></div>`;
       if (icon){
         html += `<div class="mb-4 flex justify-center"><img src="${esc(icon)}" alt="" class="h-28 w-28 rounded-xl border border-slate-600 bg-slate-900 object-cover sm:h-36 sm:w-36" loading="lazy" onerror="this.style.display='none'" /></div>`;
       }
       if (prof){
         const rows = [
-          ["俱乐部", prof.contestant_short_name || prof.contestant_name],
           ["位置", prof.position_name || prof.position],
           ["号码", prof.player_shirt_number],
           ["身高 / 体重", [prof.height, prof.weight].filter(Boolean).join(" / ")],
@@ -1085,14 +1116,14 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         return;
       }
       const head = `<thead class="sticky top-0 z-10 bg-slate-900/95 text-left text-[10px] uppercase tracking-wide text-slate-500 sm:text-xs">
-        <tr><th class="px-1 py-1.5 sm:px-2">#</th><th class="px-1 py-1.5 sm:px-2">球员</th><th class="px-1 py-1.5 sm:px-2">球队</th><th class="px-1 py-1.5 text-right sm:px-2">${esc(valueLabel)}</th></tr></thead>`;
+        <tr><th class="px-1 py-1.5 sm:px-2">#</th><th class="px-1 py-1.5 sm:px-2">球员</th><th class="px-1 py-1.5 sm:px-2">所属俱乐部</th><th class="px-1 py-1.5 text-right sm:px-2">${esc(valueLabel)}</th></tr></thead>`;
       const body = rows.map((p, i) => `
         <tr class="border-b border-slate-800/80 hover:bg-slate-800/40">
           <td class="px-1 py-1.5 font-mono text-slate-500 sm:px-2">${i + 1}</td>
           <td class="max-w-[7rem] truncate px-1 py-1.5 sm:max-w-none sm:px-2">
             <button type="button" class="mini-player-open-profile max-w-full truncate text-left text-[11px] font-medium text-accent underline-offset-2 hover:underline sm:text-sm">${esc(p.player_name)}</button>
           </td>
-          <td class="max-w-[5rem] truncate px-1 py-1.5 text-slate-400 sm:max-w-none sm:px-2">${esc(p.team_name || "—")}</td>
+          <td class="max-w-[6rem] truncate px-1 py-1.5 text-slate-400 sm:max-w-none sm:px-2" title="所属俱乐部">${esc(listPlayerClubDisplay(p))}</td>
           <td class="px-1 py-1.5 text-right font-mono font-semibold text-accent sm:px-2">${n(p[valueKey])}</td>
         </tr>`).join("");
       container.innerHTML = `<table class="w-full border-collapse text-[11px] sm:text-sm">${head}<tbody>${body}</tbody></table>`;
@@ -1119,18 +1150,19 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         players = buildPlayerStats(league.matches);
       }
       renderGoalAssistRankings(players);
-      playerListEl.innerHTML = players.map((p, idx) => `
+      playerListEl.innerHTML = players.map((p, idx) => {
+        const clubLine = listPlayerClubDisplay(p);
+        return `
         <div class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 sm:p-3">
-          <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
-            <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-              <span class="font-mono text-xs text-slate-500">${idx + 1}.</span>
-              <button type="button" class="player-name-open-profile text-left text-sm font-semibold text-accent underline-offset-2 hover:underline" data-player-index="${idx}">${esc(p.player_name)}</button>
-            </div>
-            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "—")}</span>
+          <div class="flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
+            <span class="font-mono text-xs text-slate-500">${idx + 1}.</span>
+            <button type="button" class="player-name-open-profile shrink-0 text-left text-sm font-semibold text-accent underline-offset-2 hover:underline" data-player-index="${idx}">${esc(p.player_name)}</button>
+            <span class="text-slate-600" aria-hidden="true">·</span>
+            <span class="min-w-0 max-w-[min(100%,14rem)] truncate text-[11px] text-slate-400 sm:max-w-[20rem] sm:text-sm" title="所属俱乐部">${esc(clubLine)}</span>
           </div>
           <div class="mt-1 text-[11px] text-slate-300 sm:text-xs">进球 ${p.goals} · 助攻 ${n(p.assists)} · 黄 ${p.yellow_card} · 红 ${p.red_card}</div>
-        </div>
-      `).join("");
+        </div>`;
+      }).join("");
 
       playerListEl.querySelectorAll(".player-name-open-profile").forEach((btn) => {
         btn.addEventListener("click", () => {
