@@ -52,7 +52,7 @@ python src/crawler/schedule_indexer.py
 python src/crawler/batch_event_crawler.py
 
 # 4. 处理数据
-python src/processor/data_enrichor.py
+python src/processor/data_enricher.py
 
 # 5. 生成页面
 python src/renderer/web_renderer.py

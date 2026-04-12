@@ -87,7 +87,7 @@ try {
         Write-Log "SKIP cfl_event_crawler"
     }
 
-    Invoke-PyStep "data_enrichor" @("src\processor\data_enrichor.py")
+    Invoke-PyStep "data_enricher" @("src\processor\data_enricher.py")
     Invoke-PyStep "web_renderer" @("src\renderer\web_renderer.py")
 
     Write-Log "======== Done ========"

@@ -77,7 +77,7 @@ jobs:
       # 5. 运行数据处理 (更新积分榜)
       - name: Process Data
         run: |
-          python src/processor/data_enrichor.py
+          python src/processor/data_enricher.py
         env:
           PYTHONIOENCODING: utf-8
 

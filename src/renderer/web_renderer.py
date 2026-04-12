@@ -56,7 +56,7 @@ def _norm_name(name: Any) -> str:
 
 
 def _is_synthetic_player_label(name: str) -> bool:
-    """Placeholder names from data_enrichor (e.g. 上海海港球员3) or empty."""
+    """Placeholder names from data_enricher (e.g. 上海海港球员3) or empty."""
     n = _norm_name(name)
     if not n or n == "Unknown":
         return True
