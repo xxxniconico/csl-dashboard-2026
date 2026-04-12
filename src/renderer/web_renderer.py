@@ -18,6 +18,11 @@ _PROC = _SRC_ROOT / "processor"
 if str(_PROC) not in sys.path:
     sys.path.insert(0, str(_PROC))
 from event_names import resolve_event_player_name
+from player_team_utils import (
+    collect_ranking_player_rows,
+    exact_team_lookup_from_rows,
+    fuzzy_team_substring_match,
+)
 
 
 def apply_team_logo_public_base(logos: Dict[str, str], base: str) -> Dict[str, str]:
@@ -276,6 +281,27 @@ def _enrich_player_stats_teams_from_match_events(data: Dict[str, Any], stats: li
             row["team_name"] = votes[pn].most_common(1)[0][0]
 
 
+def _enrich_player_stats_teams_from_ranking_files(stats: list) -> None:
+    """射手/助攻榜等本地 JSON 常带 team_name；支持全名包含短名的模糊匹配。"""
+    data_dir = Path(__file__).resolve().parents[2] / "data"
+    ranking_rows = collect_ranking_player_rows(data_dir)
+    exact = exact_team_lookup_from_rows(ranking_rows)
+    for row in stats:
+        if not isinstance(row, dict):
+            continue
+        if _norm_name(row.get("team_name")):
+            continue
+        pn = _norm_name(row.get("player_name"))
+        if not pn:
+            continue
+        if pn in exact:
+            row["team_name"] = exact[pn]
+            continue
+        fz = fuzzy_team_substring_match(pn, ranking_rows)
+        if fz:
+            row["team_name"] = fz
+
+
 def prepare_dashboard_embed_payload(
     data: Dict[str, Any], team_logos: Dict[str, str]
 ) -> Tuple[Dict[str, Any], list, Dict[str, str], str]:
@@ -287,6 +313,7 @@ def prepare_dashboard_embed_payload(
     if not isinstance(stats, list):
         stats = []
     _enrich_player_stats_teams_from_match_events(work, stats)
+    _enrich_player_stats_teams_from_ranking_files(stats)
     lean = {k: v for k, v in work.items() if k != "_normalized_player_stats"}
     source_file = str(work.get("_source_file") or "unknown")
     return lean, stats, team_logos, source_file
@@ -863,7 +890,7 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
         <button type="button" data-player-index="${idx}" class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
           <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
             <span class="text-sm font-semibold">${idx+1}. ${esc(p.player_name)}</span>
-            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "球队待补全")}</span>
+            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "—")}</span>
           </div>
           <div class="mt-1 text-[11px] text-slate-300 sm:text-xs">进球 ${p.goals} · 助攻 ${n(p.assists)} · 黄 ${p.yellow_card} · 红 ${p.red_card}</div>
         </button>

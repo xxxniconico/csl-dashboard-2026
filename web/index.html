@@ -43,7 +43,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 09:38 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 10:00 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -568,7 +568,7 @@
         <button type="button" data-player-index="${idx}" class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
           <div class="flex flex-col gap-0.5 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
             <span class="text-sm font-semibold">${idx+1}. ${esc(p.player_name)}</span>
-            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "球队待补全")}</span>
+            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(p.team_name || "—")}</span>
           </div>
           <div class="mt-1 text-[11px] text-slate-300 sm:text-xs">进球 ${p.goals} · 助攻 ${n(p.assists)} · 黄 ${p.yellow_card} · 红 ${p.red_card}</div>
         </button>
@@ -694,7 +694,7 @@
       let triedUrl = "";
       try {
         const embedUrl = resolveEmbedJsonUrl();
-        embedUrl.searchParams.set("v", "1775986733");
+        embedUrl.searchParams.set("v", "1775988041");
         triedUrl = embedUrl.toString();
         const res = await fetch(triedUrl, { cache: "no-store" });
         if (!res.ok) throw new Error("dashboard_embed.json HTTP " + res.status);

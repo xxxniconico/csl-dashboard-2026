@@ -133,114 +133,6 @@
             "goal_difference": -8
           },
           {
-            "club_id": "club_浙江",
-            "club_name": "浙江",
-            "points": 7,
-            "penalty_points": 5,
-            "effective_points": 2,
-            "played": 5,
-            "w_d_l": [
-              2,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 6
-            },
-            "goal_difference": 1
-          },
-          {
-            "club_id": "club_上海海港",
-            "club_name": "上海海港",
-            "points": 6,
-            "penalty_points": 5,
-            "effective_points": 1,
-            "played": 4,
-            "w_d_l": [
-              2,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 5
-            },
-            "goal_difference": 2
-          },
-          {
-            "club_id": "club_河南",
-            "club_name": "河南",
-            "points": 7,
-            "penalty_points": 6,
-            "effective_points": 1,
-            "played": 4,
-            "w_d_l": [
-              2,
-              1,
-              1
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 4
-            },
-            "goal_difference": 1
-          },
-          {
-            "club_id": "club_山东泰山",
-            "club_name": "山东泰山",
-            "points": 6,
-            "penalty_points": 6,
-            "effective_points": 0,
-            "played": 4,
-            "w_d_l": [
-              2,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 6,
-              "goals_against": 7
-            },
-            "goal_difference": -1
-          },
-          {
-            "club_id": "club_北京国安",
-            "club_name": "北京国安",
-            "points": 4,
-            "penalty_points": 5,
-            "effective_points": -1,
-            "played": 4,
-            "w_d_l": [
-              1,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 5
-            },
-            "goal_difference": 0
-          },
-          {
-            "club_id": "club_武汉三镇",
-            "club_name": "武汉三镇",
-            "points": 4,
-            "penalty_points": 5,
-            "effective_points": -1,
-            "played": 4,
-            "w_d_l": [
-              1,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 9
-            },
-            "goal_difference": -2
-          },
-          {
             "club_id": "club_上海申花",
             "club_name": "上海申花",
             "points": 8,
@@ -259,11 +151,119 @@
             "goal_difference": 3
           },
           {
+            "club_id": "club_浙江",
+            "club_name": "浙江",
+            "points": 7,
+            "penalty_points": 10,
+            "effective_points": -3,
+            "played": 5,
+            "w_d_l": [
+              2,
+              1,
+              2
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 6
+            },
+            "goal_difference": 1
+          },
+          {
+            "club_id": "club_河南",
+            "club_name": "河南",
+            "points": 7,
+            "penalty_points": 10,
+            "effective_points": -3,
+            "played": 4,
+            "w_d_l": [
+              2,
+              1,
+              1
+            ],
+            "summary": {
+              "goals_for": 5,
+              "goals_against": 4
+            },
+            "goal_difference": 1
+          },
+          {
+            "club_id": "club_上海海港",
+            "club_name": "上海海港",
+            "points": 6,
+            "penalty_points": 10,
+            "effective_points": -4,
+            "played": 4,
+            "w_d_l": [
+              2,
+              0,
+              2
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 5
+            },
+            "goal_difference": 2
+          },
+          {
+            "club_id": "club_山东泰山",
+            "club_name": "山东泰山",
+            "points": 6,
+            "penalty_points": 10,
+            "effective_points": -4,
+            "played": 4,
+            "w_d_l": [
+              2,
+              0,
+              2
+            ],
+            "summary": {
+              "goals_for": 6,
+              "goals_against": 7
+            },
+            "goal_difference": -1
+          },
+          {
+            "club_id": "club_北京国安",
+            "club_name": "北京国安",
+            "points": 4,
+            "penalty_points": 10,
+            "effective_points": -6,
+            "played": 4,
+            "w_d_l": [
+              1,
+              1,
+              2
+            ],
+            "summary": {
+              "goals_for": 5,
+              "goals_against": 5
+            },
+            "goal_difference": 0
+          },
+          {
+            "club_id": "club_武汉三镇",
+            "club_name": "武汉三镇",
+            "points": 4,
+            "penalty_points": 10,
+            "effective_points": -6,
+            "played": 4,
+            "w_d_l": [
+              1,
+              1,
+              2
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 9
+            },
+            "goal_difference": -2
+          },
+          {
             "club_id": "club_青岛海牛",
             "club_name": "青岛海牛",
             "points": 3,
-            "penalty_points": 7,
-            "effective_points": -4,
+            "penalty_points": 10,
+            "effective_points": -7,
             "played": 4,
             "w_d_l": [
               1,
@@ -314,50 +314,50 @@
               {
                 "type": "goal",
                 "player": "阿代米",
-                "minute": 5,
-                "player_name": "阿代米"
+                "player_name": "阿代米",
+                "minute": 5
               },
               {
                 "type": "red_card",
                 "player": "姜至鹏",
-                "minute": 18,
-                "player_name": "姜至鹏"
+                "player_name": "姜至鹏",
+                "minute": 18
               },
               {
                 "type": "goal",
                 "player": "席尔瓦",
-                "minute": 20,
-                "player_name": "席尔瓦"
+                "player_name": "席尔瓦",
+                "minute": 20
               },
               {
                 "type": "goal",
                 "player": "费利佩",
-                "minute": 31,
-                "player_name": "费利佩"
+                "player_name": "费利佩",
+                "minute": 31
               },
               {
                 "type": "goal",
                 "player": "胡荷韬",
-                "minute": 46,
-                "player_name": "胡荷韬"
+                "player_name": "胡荷韬",
+                "minute": 46
               },
               {
                 "type": "goal",
                 "player": "席尔瓦",
-                "minute": 63,
-                "player_name": "席尔瓦"
+                "player_name": "席尔瓦",
+                "minute": 63
               },
               {
                 "type": "yellow_card",
                 "player": "杨明洋",
-                "minute": 75,
-                "player_name": "杨明洋"
+                "player_name": "杨明洋",
+                "minute": 75
               },
               {
                 "type": "goal",
                 "player": "廖荣祥",
-                "minute": 79,
-                "player_name": "廖荣祥"
+                "player_name": "廖荣祥",
+                "minute": 79
               }
             ]
           },
@@ -379,38 +379,38 @@
               {
                 "type": "yellow_card",
                 "player": "阿马杜",
-                "minute": 26,
-                "player_name": "阿马杜"
+                "player_name": "阿马杜",
+                "minute": 26
               },
               {
                 "type": "yellow_card",
                 "player": "王献钧",
-                "minute": 47,
-                "player_name": "王献钧"
+                "player_name": "王献钧",
+                "minute": 47
               },
               {
                 "type": "yellow_card",
                 "player": "黄嘉辉",
-                "minute": 79,
-                "player_name": "黄嘉辉"
+                "player_name": "黄嘉辉",
+                "minute": 79
               },
               {
                 "type": "yellow_card",
                 "player": "刘建业",
-                "minute": 79,
-                "player_name": "刘建业"
+                "player_name": "刘建业",
+                "minute": 79
               },
               {
                 "type": "yellow_card",
                 "player": "肯帕努",
-                "minute": 83,
-                "player_name": "肯帕努"
+                "player_name": "肯帕努",
+                "minute": 83
               },
               {
                 "type": "yellow_card",
                 "player": "恩加德乌",
-                "minute": 85,
-                "player_name": "恩加德乌"
+                "player_name": "恩加德乌",
+                "minute": 85
               }
             ]
           },
@@ -432,50 +432,50 @@
               {
                 "type": "goal",
                 "player": "谢文能",
-                "minute": 8,
-                "player_name": "谢文能"
+                "player_name": "谢文能",
+                "minute": 8
               },
               {
                 "type": "goal",
                 "player": "克雷桑",
-                "minute": 18,
-                "player_name": "克雷桑"
+                "player_name": "克雷桑",
+                "minute": 18
               },
               {
                 "type": "yellow_card",
                 "player": "泽卡",
-                "minute": 51,
-                "player_name": "泽卡"
+                "player_name": "泽卡",
+                "minute": 51
               },
               {
                 "type": "goal",
                 "player": "泽卡",
-                "minute": 73,
-                "player_name": "泽卡"
+                "player_name": "泽卡",
+                "minute": 73
               },
               {
                 "type": "yellow_card",
                 "player": "安以恩",
-                "minute": 81,
-                "player_name": "安以恩"
+                "player_name": "安以恩",
+                "minute": 81
               },
               {
                 "type": "yellow_card",
                 "player": "热菲尼奥",
-                "minute": 90,
-                "player_name": "热菲尼奥"
+                "player_name": "热菲尼奥",
+                "minute": 90
               },
               {
                 "type": "yellow_card",
                 "player": "费利佩",
-                "minute": 90,
-                "player_name": "费利佩"
+                "player_name": "费利佩",
+                "minute": 90
               },
               {
                 "type": "yellow_card",
                 "player": "许东",
-                "minute": 91,
-                "player_name": "许东"
+                "player_name": "许东",
+                "minute": 91
               }
             ]
           },
@@ -497,74 +497,74 @@
               {
                 "type": "goal",
                 "player": "马莱莱",
-                "minute": 5,
-                "player_name": "马莱莱"
+                "player_name": "马莱莱",
+                "minute": 5
               },
               {
                 "type": "yellow_card",
                 "player": "温家宝",
-                "minute": 6,
-                "player_name": "温家宝"
+                "player_name": "温家宝",
+                "minute": 6
               },
               {
                 "type": "goal",
                 "player": "特谢拉",
-                "minute": 8,
-                "player_name": "特谢拉"
+                "player_name": "特谢拉",
+                "minute": 8
               },
               {
                 "type": "yellow_card",
                 "player": "金顺凯",
-                "minute": 24,
-                "player_name": "金顺凯"
+                "player_name": "金顺凯",
+                "minute": 24
               },
               {
                 "type": "goal",
                 "player": "盖伊",
-                "minute": 45,
-                "player_name": "盖伊"
+                "player_name": "盖伊",
+                "minute": 45
               },
               {
                 "type": "goal",
                 "player": "拉唐",
-                "minute": 49,
-                "player_name": "拉唐"
+                "player_name": "拉唐",
+                "minute": 49
               },
               {
                 "type": "goal",
                 "player": "盖伊",
-                "minute": 63,
-                "player_name": "盖伊"
+                "player_name": "盖伊",
+                "minute": 63
               },
               {
                 "type": "yellow_card",
                 "player": "廖锦涛",
-                "minute": 70,
-                "player_name": "廖锦涛"
+                "player_name": "廖锦涛",
+                "minute": 70
               },
               {
                 "type": "goal",
                 "player": "阿奇姆彭",
-                "minute": 82,
-                "player_name": "阿奇姆彭"
+                "player_name": "阿奇姆彭",
+                "minute": 82
               },
               {
                 "type": "goal",
                 "player": "拉唐",
-                "minute": 88,
-                "player_name": "拉唐"
+                "player_name": "拉唐",
+                "minute": 88
               },
               {
                 "type": "goal",
                 "player": "冯劲",
-                "minute": 90,
-                "player_name": "冯劲"
+                "player_name": "冯劲",
+                "minute": 90
               },
               {
                 "type": "yellow_card",
                 "player": "冯劲",
-                "minute": 92,
-                "player_name": "冯劲"
+                "player_name": "冯劲",
+                "minute": 92
               }
             ]
           },
@@ -586,32 +586,32 @@
               {
                 "type": "goal",
                 "player": "钟义浩",
-                "minute": 1,
-                "player_name": "钟义浩"
+                "player_name": "钟义浩",
+                "minute": 1
               },
               {
                 "type": "goal",
                 "player": "迈达纳",
-                "minute": 16,
-                "player_name": "迈达纳"
+                "player_name": "迈达纳",
+                "minute": 16
               },
               {
                 "type": "yellow_card",
                 "player": "黄锐烽",
-                "minute": 48,
-                "player_name": "黄锐烽"
+                "player_name": "黄锐烽",
+                "minute": 48
               },
               {
                 "type": "goal",
                 "player": "加布里埃尔",
-                "minute": 49,
-                "player_name": "加布里埃尔"
+                "player_name": "加布里埃尔",
+                "minute": 49
               },
               {
                 "type": "yellow_card",
                 "player": "蒯纪闻",
-                "minute": 62,
-                "player_name": "蒯纪闻"
+                "player_name": "蒯纪闻",
+                "minute": 62
               }
             ]
           },
@@ -633,44 +633,44 @@
               {
                 "type": "goal",
                 "player": "克莱伯",
-                "minute": 12,
-                "player_name": "克莱伯"
+                "player_name": "克莱伯",
+                "minute": 12
               },
               {
                 "type": "goal",
                 "player": "弋腾",
-                "minute": 16,
-                "player_name": "弋腾"
+                "player_name": "弋腾",
+                "minute": 16
               },
               {
                 "type": "goal",
                 "player": "侯永永",
-                "minute": 47,
-                "player_name": "侯永永"
+                "player_name": "侯永永",
+                "minute": 47
               },
               {
                 "type": "goal",
                 "player": "叶博亚",
-                "minute": 58,
-                "player_name": "叶博亚"
+                "player_name": "叶博亚",
+                "minute": 58
               },
               {
                 "type": "yellow_card",
                 "player": "杨梓豪",
-                "minute": 71,
-                "player_name": "杨梓豪"
+                "player_name": "杨梓豪",
+                "minute": 71
               },
               {
                 "type": "yellow_card",
                 "player": "乔迪",
-                "minute": 80,
-                "player_name": "乔迪"
+                "player_name": "乔迪",
+                "minute": 80
               },
               {
                 "type": "yellow_card",
                 "player": "邓涵文",
-                "minute": 86,
-                "player_name": "邓涵文"
+                "player_name": "邓涵文",
+                "minute": 86
               }
             ]
           },
@@ -692,44 +692,44 @@
               {
                 "type": "goal",
                 "player": "瓜里拉帕",
-                "minute": 18,
-                "player_name": "瓜里拉帕"
+                "player_name": "瓜里拉帕",
+                "minute": 18
               },
               {
                 "type": "yellow_card",
                 "player": "瓜里拉帕",
-                "minute": 29,
-                "player_name": "瓜里拉帕"
+                "player_name": "瓜里拉帕",
+                "minute": 29
               },
               {
                 "type": "goal",
                 "player": "米特里策",
-                "minute": 40,
-                "player_name": "米特里策"
+                "player_name": "米特里策",
+                "minute": 40
               },
               {
                 "type": "yellow_card",
                 "player": "宋浩宇",
-                "minute": 46,
-                "player_name": "宋浩宇"
+                "player_name": "宋浩宇",
+                "minute": 46
               },
               {
                 "type": "yellow_card",
                 "player": "朴镇燮",
-                "minute": 72,
-                "player_name": "朴镇燮"
+                "player_name": "朴镇燮",
+                "minute": 72
               },
               {
                 "type": "yellow_card",
                 "player": "雷森德",
-                "minute": 76,
-                "player_name": "雷森德"
+                "player_name": "雷森德",
+                "minute": 76
               },
               {
                 "type": "yellow_card",
                 "player": "贾伟伟",
-                "minute": 98,
-                "player_name": "贾伟伟"
+                "player_name": "贾伟伟",
+                "minute": 98
               }
             ]
           },
@@ -751,26 +751,26 @@
               {
                 "type": "yellow_card",
                 "player": "恩科洛洛",
-                "minute": 40,
-                "player_name": "恩科洛洛"
+                "player_name": "恩科洛洛",
+                "minute": 40
               },
               {
                 "type": "goal",
                 "player": "法比奥",
-                "minute": 45,
-                "player_name": "法比奥"
+                "player_name": "法比奥",
+                "minute": 45
               },
               {
                 "type": "goal",
                 "player": "张玉宁",
-                "minute": 52,
-                "player_name": "张玉宁"
+                "player_name": "张玉宁",
+                "minute": 52
               },
               {
                 "type": "yellow_card",
                 "player": "阿不都海米提·阿不都格尼",
-                "minute": 73,
-                "player_name": "阿不都海米提·阿不都格尼"
+                "player_name": "阿不都海米提·阿不都格尼",
+                "minute": 73
               }
             ]
           },
@@ -792,68 +792,68 @@
               {
                 "type": "goal",
                 "player": "卡迪斯",
-                "minute": 24,
-                "player_name": "卡迪斯"
+                "player_name": "卡迪斯",
+                "minute": 24
               },
               {
                 "type": "yellow_card",
                 "player": "熊继政",
-                "minute": 28,
-                "player_name": "熊继政"
+                "player_name": "熊继政",
+                "minute": 28
               },
               {
                 "type": "goal",
                 "player": "绍尔",
-                "minute": 31,
-                "player_name": "绍尔"
+                "player_name": "绍尔",
+                "minute": 31
               },
               {
                 "type": "goal",
                 "player": "贝维斯",
-                "minute": 47,
-                "player_name": "贝维斯"
+                "player_name": "贝维斯",
+                "minute": 47
               },
               {
                 "type": "yellow_card",
                 "player": "亚姆卡姆",
-                "minute": 51,
-                "player_name": "亚姆卡姆"
+                "player_name": "亚姆卡姆",
+                "minute": 51
               },
               {
                 "type": "goal",
                 "player": "斯坦丘",
-                "minute": 52,
-                "player_name": "斯坦丘"
+                "player_name": "斯坦丘",
+                "minute": 52
               },
               {
                 "type": "yellow_card",
                 "player": "郑浩乾",
-                "minute": 57,
-                "player_name": "郑浩乾"
+                "player_name": "郑浩乾",
+                "minute": 57
               },
               {
                 "type": "yellow_card",
                 "player": "朱鹏宇",
-                "minute": 67,
-                "player_name": "朱鹏宇"
+                "player_name": "朱鹏宇",
+                "minute": 67
               },
               {
                 "type": "goal",
                 "player": "汪晋贤",
-                "minute": 73,
-                "player_name": "汪晋贤"
+                "player_name": "汪晋贤",
+                "minute": 73
               },
               {
                 "type": "yellow_card",
                 "player": "汪晋贤",
-                "minute": 84,
-                "player_name": "汪晋贤"
+                "player_name": "汪晋贤",
+                "minute": 84
               },
               {
                 "type": "yellow_card",
                 "player": "本杰明·莫拉",
-                "minute": 92,
-                "player_name": "本杰明·莫拉"
+                "player_name": "本杰明·莫拉",
+                "minute": 92
               }
             ]
           },
@@ -875,44 +875,44 @@
               {
                 "type": "yellow_card",
                 "player": "克雷桑",
-                "minute": 21,
-                "player_name": "克雷桑"
+                "player_name": "克雷桑",
+                "minute": 21
               },
               {
                 "type": "yellow_card",
                 "player": "拉莫斯",
-                "minute": 28,
-                "player_name": "拉莫斯"
+                "player_name": "拉莫斯",
+                "minute": 28
               },
               {
                 "type": "yellow_card",
                 "player": "李源一",
-                "minute": 39,
-                "player_name": "李源一"
+                "player_name": "李源一",
+                "minute": 39
               },
               {
                 "type": "goal",
                 "player": "谢文能",
-                "minute": 49,
-                "player_name": "谢文能"
+                "player_name": "谢文能",
+                "minute": 49
               },
               {
                 "type": "yellow_card",
                 "player": "马德鲁加",
-                "minute": 57,
-                "player_name": "马德鲁加"
+                "player_name": "马德鲁加",
+                "minute": 57
               },
               {
                 "type": "goal",
                 "player": "张玉宁",
-                "minute": 86,
-                "player_name": "张玉宁"
+                "player_name": "张玉宁",
+                "minute": 86
               },
               {
                 "type": "goal",
                 "player": "克雷桑",
-                "minute": 88,
-                "player_name": "克雷桑"
+                "player_name": "克雷桑",
+                "minute": 88
               }
             ]
           },
@@ -934,44 +934,44 @@
               {
                 "type": "goal",
                 "player": "特谢拉",
-                "minute": 10,
-                "player_name": "特谢拉"
+                "player_name": "特谢拉",
+                "minute": 10
               },
               {
                 "type": "yellow_card",
                 "player": "拉唐",
-                "minute": 35,
-                "player_name": "拉唐"
+                "player_name": "拉唐",
+                "minute": 35
               },
               {
                 "type": "yellow_card",
                 "player": "特谢拉",
-                "minute": 39,
-                "player_name": "特谢拉"
+                "player_name": "特谢拉",
+                "minute": 39
               },
               {
                 "type": "yellow_card",
                 "player": "刘浩帆",
-                "minute": 44,
-                "player_name": "刘浩帆"
+                "player_name": "刘浩帆",
+                "minute": 44
               },
               {
                 "type": "yellow_card",
                 "player": "杨皓宇",
-                "minute": 61,
-                "player_name": "杨皓宇"
+                "player_name": "杨皓宇",
+                "minute": 61
               },
               {
                 "type": "goal",
                 "player": "王钰栋",
-                "minute": 66,
-                "player_name": "王钰栋"
+                "player_name": "王钰栋",
+                "minute": 66
               },
               {
                 "type": "yellow_card",
                 "player": "朴镇燮",
-                "minute": 77,
-                "player_name": "朴镇燮"
+                "player_name": "朴镇燮",
+                "minute": 77
               }
             ]
           },
@@ -993,44 +993,44 @@
               {
                 "type": "yellow_card",
                 "player": "热菲尼奥",
-                "minute": 18,
-                "player_name": "热菲尼奥"
+                "player_name": "热菲尼奥",
+                "minute": 18
               },
               {
                 "type": "yellow_card",
                 "player": "严鼎皓",
-                "minute": 25,
-                "player_name": "严鼎皓"
+                "player_name": "严鼎皓",
+                "minute": 25
               },
               {
                 "type": "red_card",
                 "player": "瓦吉奇",
-                "minute": 55,
-                "player_name": "瓦吉奇"
+                "player_name": "瓦吉奇",
+                "minute": 55
               },
               {
                 "type": "goal",
                 "player": "肯帕努",
-                "minute": 58,
-                "player_name": "肯帕努"
+                "player_name": "肯帕努",
+                "minute": 58
               },
               {
                 "type": "yellow_card",
                 "player": "费利佩",
-                "minute": 69,
-                "player_name": "费利佩"
+                "player_name": "费利佩",
+                "minute": 69
               },
               {
                 "type": "yellow_card",
                 "player": "阿马杜",
-                "minute": 71,
-                "player_name": "阿马杜"
+                "player_name": "阿马杜",
+                "minute": 71
               },
               {
                 "type": "yellow_card",
                 "player": "高嘉润",
-                "minute": 92,
-                "player_name": "高嘉润"
+                "player_name": "高嘉润",
+                "minute": 92
               }
             ]
           },
@@ -1052,38 +1052,38 @@
               {
                 "type": "yellow_card",
                 "player": "韦斯利",
-                "minute": 12,
-                "player_name": "韦斯利"
+                "player_name": "韦斯利",
+                "minute": 12
               },
               {
                 "type": "yellow_card",
                 "player": "本科维奇",
-                "minute": 34,
-                "player_name": "本科维奇"
+                "player_name": "本科维奇",
+                "minute": 34
               },
               {
                 "type": "yellow_card",
                 "player": "胡睿宝",
-                "minute": 38,
-                "player_name": "胡睿宝"
+                "player_name": "胡睿宝",
+                "minute": 38
               },
               {
                 "type": "yellow_card",
                 "player": "王献钧",
-                "minute": 47,
-                "player_name": "王献钧"
+                "player_name": "王献钧",
+                "minute": 47
               },
               {
                 "type": "yellow_card",
                 "player": "谢维军",
-                "minute": 79,
-                "player_name": "谢维军"
+                "player_name": "谢维军",
+                "minute": 79
               },
               {
                 "type": "goal",
                 "player": "韦斯利",
-                "minute": 84,
-                "player_name": "韦斯利"
+                "player_name": "韦斯利",
+                "minute": 84
               }
             ]
           },
@@ -1105,38 +1105,38 @@
               {
                 "type": "goal",
                 "player": "姆布拉",
-                "minute": 30,
-                "player_name": "姆布拉"
+                "player_name": "姆布拉",
+                "minute": 30
               },
               {
                 "type": "yellow_card",
                 "player": "邓涵文",
-                "minute": 49,
-                "player_name": "邓涵文"
+                "player_name": "邓涵文",
+                "minute": 49
               },
               {
                 "type": "goal",
                 "player": "奥斯卡",
-                "minute": 50,
-                "player_name": "奥斯卡"
+                "player_name": "奥斯卡",
+                "minute": 50
               },
               {
                 "type": "yellow_card",
                 "player": "布尔克",
-                "minute": 68,
-                "player_name": "布尔克"
+                "player_name": "布尔克",
+                "minute": 68
               },
               {
                 "type": "goal",
                 "player": "克莱伯",
-                "minute": 69,
-                "player_name": "克莱伯"
+                "player_name": "克莱伯",
+                "minute": 69
               },
               {
                 "type": "yellow_card",
                 "player": "韩子龙",
-                "minute": 91,
-                "player_name": "韩子龙"
+                "player_name": "韩子龙",
+                "minute": 91
               }
             ]
           },
@@ -1158,56 +1158,56 @@
               {
                 "type": "goal",
                 "player": "让·克劳德",
-                "minute": 47,
-                "player_name": "让·克劳德"
+                "player_name": "让·克劳德",
+                "minute": 47
               },
               {
                 "type": "yellow_card",
                 "player": "方海洋",
-                "minute": 57,
-                "player_name": "方海洋"
+                "player_name": "方海洋",
+                "minute": 57
               },
               {
                 "type": "goal",
                 "player": "莱昂纳多",
-                "minute": 61,
-                "player_name": "莱昂纳多"
+                "player_name": "莱昂纳多",
+                "minute": 61
               },
               {
                 "type": "yellow_card",
                 "player": "丁海峰",
-                "minute": 64,
-                "player_name": "丁海峰"
+                "player_name": "丁海峰",
+                "minute": 64
               },
               {
                 "type": "goal",
                 "player": "武磊",
-                "minute": 70,
-                "player_name": "武磊"
+                "player_name": "武磊",
+                "minute": 70
               },
               {
                 "type": "goal",
                 "player": "武磊",
-                "minute": 78,
-                "player_name": "武磊"
+                "player_name": "武磊",
+                "minute": 78
               },
               {
                 "type": "goal",
                 "player": "梅米舍维奇",
-                "minute": 80,
-                "player_name": "梅米舍维奇"
+                "player_name": "梅米舍维奇",
+                "minute": 80
               },
               {
                 "type": "yellow_card",
                 "player": "王鹏",
-                "minute": 85,
-                "player_name": "王鹏"
+                "player_name": "王鹏",
+                "minute": 85
               },
               {
                 "type": "yellow_card",
                 "player": "武磊",
-                "minute": 95,
-                "player_name": "武磊"
+                "player_name": "武磊",
+                "minute": 95
               }
             ]
           },
@@ -1229,20 +1229,20 @@
               {
                 "type": "yellow_card",
                 "player": "杨明洋",
-                "minute": 60,
-                "player_name": "杨明洋"
+                "player_name": "杨明洋",
+                "minute": 60
               },
               {
                 "type": "yellow_card",
                 "player": "安杰尔科维奇",
-                "minute": 66,
-                "player_name": "安杰尔科维奇"
+                "player_name": "安杰尔科维奇",
+                "minute": 66
               },
               {
                 "type": "goal",
                 "player": "罗慕洛",
-                "minute": 79,
-                "player_name": "罗慕洛"
+                "player_name": "罗慕洛",
+                "minute": 79
               }
             ]
           },
@@ -1264,32 +1264,32 @@
               {
                 "type": "yellow_card",
                 "player": "吾米提江·玉苏普",
-                "minute": 22,
-                "player_name": "吾米提江·玉苏普"
+                "player_name": "吾米提江·玉苏普",
+                "minute": 22
               },
               {
                 "type": "goal",
                 "player": "阿奇姆彭",
-                "minute": 47,
-                "player_name": "阿奇姆彭"
+                "player_name": "阿奇姆彭",
+                "minute": 47
               },
               {
                 "type": "yellow_card",
                 "player": "毕津浩",
-                "minute": 57,
-                "player_name": "毕津浩"
+                "player_name": "毕津浩",
+                "minute": 57
               },
               {
                 "type": "yellow_card",
                 "player": "吕焯毅",
-                "minute": 64,
-                "player_name": "吕焯毅"
+                "player_name": "吕焯毅",
+                "minute": 64
               },
               {
                 "type": "yellow_card",
                 "player": "刘祝润",
-                "minute": 82,
-                "player_name": "刘祝润"
+                "player_name": "刘祝润",
+                "minute": 82
               }
             ]
           },
@@ -1311,44 +1311,44 @@
               {
                 "type": "goal",
                 "player": "埃朱玛",
-                "minute": 13,
-                "player_name": "埃朱玛"
+                "player_name": "埃朱玛",
+                "minute": 13
               },
               {
                 "type": "yellow_card",
                 "player": "瓜里拉帕",
-                "minute": 46,
-                "player_name": "瓜里拉帕"
+                "player_name": "瓜里拉帕",
+                "minute": 46
               },
               {
                 "type": "goal",
                 "player": "王钰栋",
-                "minute": 54,
-                "player_name": "王钰栋"
+                "player_name": "王钰栋",
+                "minute": 54
               },
               {
                 "type": "goal",
                 "player": "瓜里拉帕",
-                "minute": 55,
-                "player_name": "瓜里拉帕"
+                "player_name": "瓜里拉帕",
+                "minute": 55
               },
               {
                 "type": "yellow_card",
                 "player": "金洋洋",
-                "minute": 67,
-                "player_name": "金洋洋"
+                "player_name": "金洋洋",
+                "minute": 67
               },
               {
                 "type": "goal",
                 "player": "王钰栋",
-                "minute": 70,
-                "player_name": "王钰栋"
+                "player_name": "王钰栋",
+                "minute": 70
               },
               {
                 "type": "goal",
                 "player": "陶强龙",
-                "minute": 93,
-                "player_name": "陶强龙"
+                "player_name": "陶强龙",
+                "minute": 93
               }
             ]
           },
@@ -1370,50 +1370,50 @@
               {
                 "type": "goal",
                 "player": "张玉宁",
-                "minute": 23,
-                "player_name": "张玉宁"
+                "player_name": "张玉宁",
+                "minute": 23
               },
               {
                 "type": "yellow_card",
                 "player": "法比奥",
-                "minute": 44,
-                "player_name": "法比奥"
+                "player_name": "法比奥",
+                "minute": 44
               },
               {
                 "type": "yellow_card",
                 "player": "斯卢茨基",
-                "minute": 46,
-                "player_name": "斯卢茨基"
+                "player_name": "斯卢茨基",
+                "minute": 46
               },
               {
                 "type": "yellow_card",
                 "player": "王世龙",
-                "minute": 48,
-                "player_name": "王世龙"
+                "player_name": "王世龙",
+                "minute": 48
               },
               {
                 "type": "yellow_card",
                 "player": "阿不都海米提·阿不都格尼",
-                "minute": 66,
-                "player_name": "阿不都海米提·阿不都格尼"
+                "player_name": "阿不都海米提·阿不都格尼",
+                "minute": 66
               },
               {
                 "type": "goal",
                 "player": "陈晋一",
-                "minute": 68,
-                "player_name": "陈晋一"
+                "player_name": "陈晋一",
+                "minute": 68
               },
               {
                 "type": "yellow_card",
                 "player": "高天意",
-                "minute": 74,
-                "player_name": "高天意"
+                "player_name": "高天意",
+                "minute": 74
               },
               {
                 "type": "yellow_card",
                 "player": "杨泽翔",
-                "minute": 85,
-                "player_name": "杨泽翔"
+                "player_name": "杨泽翔",
+                "minute": 85
               }
             ]
           },
@@ -1435,38 +1435,38 @@
               {
                 "type": "goal",
                 "player": "姆本扎",
-                "minute": 23,
-                "player_name": "姆本扎"
+                "player_name": "姆本扎",
+                "minute": 23
               },
               {
                 "type": "yellow_card",
                 "player": "高嘉润",
-                "minute": 44,
-                "player_name": "高嘉润"
+                "player_name": "高嘉润",
+                "minute": 44
               },
               {
                 "type": "yellow_card",
                 "player": "豪梅·格劳",
-                "minute": 44,
-                "player_name": "豪梅·格劳"
+                "player_name": "豪梅·格劳",
+                "minute": 44
               },
               {
                 "type": "goal",
                 "player": "安以恩",
-                "minute": 77,
-                "player_name": "安以恩"
+                "player_name": "安以恩",
+                "minute": 77
               },
               {
                 "type": "red_card",
                 "player": "王献钧",
-                "minute": 97,
-                "player_name": "王献钧"
+                "player_name": "王献钧",
+                "minute": 97
               },
               {
                 "type": "goal",
                 "player": "邦本宜裕",
-                "minute": 98,
-                "player_name": "邦本宜裕"
+                "player_name": "邦本宜裕",
+                "minute": 98
               }
             ]
           },
@@ -1488,38 +1488,38 @@
               {
                 "type": "yellow_card",
                 "player": "何超",
-                "minute": 45,
-                "player_name": "何超"
+                "player_name": "何超",
+                "minute": 45
               },
               {
                 "type": "goal",
                 "player": "古斯塔沃",
-                "minute": 54,
-                "player_name": "古斯塔沃"
+                "player_name": "古斯塔沃",
+                "minute": 54
               },
               {
                 "type": "goal",
                 "player": "绍尔",
-                "minute": 66,
-                "player_name": "绍尔"
+                "player_name": "绍尔",
+                "minute": 66
               },
               {
                 "type": "yellow_card",
                 "player": "汪晋贤",
-                "minute": 76,
-                "player_name": "汪晋贤"
+                "player_name": "汪晋贤",
+                "minute": 76
               },
               {
                 "type": "yellow_card",
                 "player": "王上源",
-                "minute": 81,
-                "player_name": "王上源"
+                "player_name": "王上源",
+                "minute": 81
               },
               {
                 "type": "yellow_card",
                 "player": "陈哲超",
-                "minute": 88,
-                "player_name": "陈哲超"
+                "player_name": "陈哲超",
+                "minute": 88
               }
             ]
           },
@@ -1541,68 +1541,68 @@
               {
                 "type": "yellow_card",
                 "player": "韦世豪",
-                "minute": 19,
-                "player_name": "韦世豪"
+                "player_name": "韦世豪",
+                "minute": 19
               },
               {
                 "type": "yellow_card",
                 "player": "阮奇龙",
-                "minute": 27,
-                "player_name": "阮奇龙"
+                "player_name": "阮奇龙",
+                "minute": 27
               },
               {
                 "type": "goal",
                 "player": "韦世豪",
-                "minute": 29,
-                "player_name": "韦世豪"
+                "player_name": "韦世豪",
+                "minute": 29
               },
               {
                 "type": "yellow_card",
                 "player": "胡荷韬",
-                "minute": 33,
-                "player_name": "胡荷韬"
+                "player_name": "胡荷韬",
+                "minute": 33
               },
               {
                 "type": "goal",
                 "player": "席尔瓦",
-                "minute": 40,
-                "player_name": "席尔瓦"
+                "player_name": "席尔瓦",
+                "minute": 40
               },
               {
                 "type": "yellow_card",
                 "player": "恩加德乌",
-                "minute": 47,
-                "player_name": "恩加德乌"
+                "player_name": "恩加德乌",
+                "minute": 47
               },
               {
                 "type": "yellow_card",
                 "player": "约翰·阿洛伊西",
-                "minute": 73,
-                "player_name": "约翰·阿洛伊西"
+                "player_name": "约翰·阿洛伊西",
+                "minute": 73
               },
               {
                 "type": "goal",
                 "player": "肯帕努",
-                "minute": 74,
-                "player_name": "肯帕努"
+                "player_name": "肯帕努",
+                "minute": 74
               },
               {
                 "type": "goal",
                 "player": "迪马塔",
-                "minute": 81,
-                "player_name": "迪马塔"
+                "player_name": "迪马塔",
+                "minute": 81
               },
               {
                 "type": "goal",
                 "player": "迪马塔",
-                "minute": 86,
-                "player_name": "迪马塔"
+                "player_name": "迪马塔",
+                "minute": 86
               },
               {
                 "type": "goal",
                 "player": "拜合拉木·阿卜杜外力",
-                "minute": 94,
-                "player_name": "拜合拉木·阿卜杜外力"
+                "player_name": "拜合拉木·阿卜杜外力",
+                "minute": 94
               }
             ]
           },
@@ -1624,44 +1624,44 @@
               {
                 "type": "yellow_card",
                 "player": "宋浩宇",
-                "minute": 48,
-                "player_name": "宋浩宇"
+                "player_name": "宋浩宇",
+                "minute": 48
               },
               {
                 "type": "yellow_card",
                 "player": "孟敬朝",
-                "minute": 50,
-                "player_name": "孟敬朝"
+                "player_name": "孟敬朝",
+                "minute": 50
               },
               {
                 "type": "yellow_card",
                 "player": "南松",
-                "minute": 69,
-                "player_name": "南松"
+                "player_name": "南松",
+                "minute": 69
               },
               {
                 "type": "yellow_card",
                 "player": "卡尔采夫",
-                "minute": 76,
-                "player_name": "卡尔采夫"
+                "player_name": "卡尔采夫",
+                "minute": 76
               },
               {
                 "type": "goal",
                 "player": "戴维森",
-                "minute": 82,
-                "player_name": "戴维森"
+                "player_name": "戴维森",
+                "minute": 82
               },
               {
                 "type": "yellow_card",
                 "player": "郑智",
-                "minute": 85,
-                "player_name": "郑智"
+                "player_name": "郑智",
+                "minute": 85
               },
               {
                 "type": "yellow_card",
                 "player": "姚均晟",
-                "minute": 97,
-                "player_name": "姚均晟"
+                "player_name": "姚均晟",
+                "minute": 97
               }
             ]
           },
@@ -1683,62 +1683,62 @@
               {
                 "type": "goal",
                 "player": "卡约",
-                "minute": 2,
-                "player_name": "卡约"
+                "player_name": "卡约",
+                "minute": 2
               },
               {
                 "type": "yellow_card",
                 "player": "鲍亚雄",
-                "minute": 13,
-                "player_name": "鲍亚雄"
+                "player_name": "鲍亚雄",
+                "minute": 13
               },
               {
                 "type": "yellow_card",
                 "player": "刘洋",
-                "minute": 24,
-                "player_name": "刘洋"
+                "player_name": "刘洋",
+                "minute": 24
               },
               {
                 "type": "goal",
                 "player": "奥斯卡",
-                "minute": 28,
-                "player_name": "奥斯卡"
+                "player_name": "奥斯卡",
+                "minute": 28
               },
               {
                 "type": "goal",
                 "player": "奥斯卡",
-                "minute": 32,
-                "player_name": "奥斯卡"
+                "player_name": "奥斯卡",
+                "minute": 32
               },
               {
                 "type": "yellow_card",
                 "player": "彭啸",
-                "minute": 35,
-                "player_name": "彭啸"
+                "player_name": "彭啸",
+                "minute": 35
               },
               {
                 "type": "yellow_card",
                 "player": "李源一",
-                "minute": 51,
-                "player_name": "李源一"
+                "player_name": "李源一",
+                "minute": 51
               },
               {
                 "type": "yellow_card",
                 "player": "卡约",
-                "minute": 52,
-                "player_name": "卡约"
+                "player_name": "卡约",
+                "minute": 52
               },
               {
                 "type": "red_card",
                 "player": "谢文能",
-                "minute": 83,
-                "player_name": "谢文能"
+                "player_name": "谢文能",
+                "minute": 83
               },
               {
                 "type": "goal",
                 "player": "约尼查",
-                "minute": 88,
-                "player_name": "约尼查"
+                "player_name": "约尼查",
+                "minute": 88
               }
             ]
           },
@@ -1760,56 +1760,56 @@
               {
                 "type": "goal",
                 "player": "席尔瓦",
-                "minute": 7,
-                "player_name": "席尔瓦"
+                "player_name": "席尔瓦",
+                "minute": 7
               },
               {
                 "type": "goal",
                 "player": "索罗金",
-                "minute": 40,
-                "player_name": "索罗金"
+                "player_name": "索罗金",
+                "minute": 40
               },
               {
                 "type": "yellow_card",
                 "player": "廖力生",
-                "minute": 50,
-                "player_name": "廖力生"
+                "player_name": "廖力生",
+                "minute": 50
               },
               {
                 "type": "yellow_card",
                 "player": "宋浩宇",
-                "minute": 67,
-                "player_name": "宋浩宇"
+                "player_name": "宋浩宇",
+                "minute": 67
               },
               {
                 "type": "yellow_card",
                 "player": "杨展彭",
-                "minute": 72,
-                "player_name": "杨展彭"
+                "player_name": "杨展彭",
+                "minute": 72
               },
               {
                 "type": "goal",
                 "player": "费利佩",
-                "minute": 82,
-                "player_name": "费利佩"
+                "player_name": "费利佩",
+                "minute": 82
               },
               {
                 "type": "goal",
                 "player": "费利佩",
-                "minute": 85,
-                "player_name": "费利佩"
+                "player_name": "费利佩",
+                "minute": 85
               },
               {
                 "type": "goal",
                 "player": "阿齐兹",
-                "minute": 93,
-                "player_name": "阿齐兹"
+                "player_name": "阿齐兹",
+                "minute": 93
               },
               {
                 "type": "goal",
                 "player": "费利佩",
-                "minute": 99,
-                "player_name": "费利佩"
+                "player_name": "费利佩",
+                "minute": 99
               }
             ]
           },
@@ -1831,44 +1831,44 @@
               {
                 "type": "yellow_card",
                 "player": "韩镕泽",
-                "minute": 1,
-                "player_name": "韩镕泽"
+                "player_name": "韩镕泽",
+                "minute": 1
               },
               {
                 "type": "goal",
                 "player": "姆本扎",
-                "minute": 17,
-                "player_name": "姆本扎"
+                "player_name": "姆本扎",
+                "minute": 17
               },
               {
                 "type": "goal",
                 "player": "热菲尼奥",
-                "minute": 45,
-                "player_name": "热菲尼奥"
+                "player_name": "热菲尼奥",
+                "minute": 45
               },
               {
                 "type": "goal",
                 "player": "法比奥",
-                "minute": 57,
-                "player_name": "法比奥"
+                "player_name": "法比奥",
+                "minute": 57
               },
               {
                 "type": "yellow_card",
                 "player": "阿不都海米提·阿不都格尼",
-                "minute": 62,
-                "player_name": "阿不都海米提·阿不都格尼"
+                "player_name": "阿不都海米提·阿不都格尼",
+                "minute": 62
               },
               {
                 "type": "yellow_card",
                 "player": "恩科洛洛",
-                "minute": 86,
-                "player_name": "恩科洛洛"
+                "player_name": "恩科洛洛",
+                "minute": 86
               },
               {
                 "type": "yellow_card",
                 "player": "蒙哥马利",
-                "minute": 91,
-                "player_name": "蒙哥马利"
+                "player_name": "蒙哥马利",
+                "minute": 91
               }
             ]
           },
@@ -1890,38 +1890,38 @@
               {
                 "type": "yellow_card",
                 "player": "何超",
-                "minute": 16,
-                "player_name": "何超"
+                "player_name": "何超",
+                "minute": 16
               },
               {
                 "type": "yellow_card",
                 "player": "黄锐烽",
-                "minute": 26,
-                "player_name": "黄锐烽"
+                "player_name": "黄锐烽",
+                "minute": 26
               },
               {
                 "type": "goal",
                 "player": "叶博亚",
-                "minute": 60,
-                "player_name": "叶博亚"
+                "player_name": "叶博亚",
+                "minute": 60
               },
               {
                 "type": "yellow_card",
                 "player": "罗森文",
-                "minute": 72,
-                "player_name": "罗森文"
+                "player_name": "罗森文",
+                "minute": 72
               },
               {
                 "type": "yellow_card",
                 "player": "钟义浩",
-                "minute": 83,
-                "player_name": "钟义浩"
+                "player_name": "钟义浩",
+                "minute": 83
               },
               {
                 "type": "yellow_card",
                 "player": "阿布拉汗·哈力克",
-                "minute": 86,
-                "player_name": "阿布拉汗·哈力克"
+                "player_name": "阿布拉汗·哈力克",
+                "minute": 86
               }
             ]
           },
@@ -1943,68 +1943,68 @@
               {
                 "type": "yellow_card",
                 "player": "毛伟杰",
-                "minute": 7,
-                "player_name": "毛伟杰"
+                "player_name": "毛伟杰",
+                "minute": 7
               },
               {
                 "type": "yellow_card",
                 "player": "佩德罗·阿尔瓦罗",
-                "minute": 13,
-                "player_name": "佩德罗·阿尔瓦罗"
+                "player_name": "佩德罗·阿尔瓦罗",
+                "minute": 13
               },
               {
                 "type": "goal",
                 "player": "马莱莱",
-                "minute": 27,
-                "player_name": "马莱莱"
+                "player_name": "马莱莱",
+                "minute": 27
               },
               {
                 "type": "yellow_card",
                 "player": "吕焯毅",
-                "minute": 34,
-                "player_name": "吕焯毅"
+                "player_name": "吕焯毅",
+                "minute": 34
               },
               {
                 "type": "yellow_card",
                 "player": "李源一",
-                "minute": 46,
-                "player_name": "李源一"
+                "player_name": "李源一",
+                "minute": 46
               },
               {
                 "type": "goal",
                 "player": "马莱莱",
-                "minute": 48,
-                "player_name": "马莱莱"
+                "player_name": "马莱莱",
+                "minute": 48
               },
               {
                 "type": "yellow_card",
                 "player": "黄子豪",
-                "minute": 54,
-                "player_name": "黄子豪"
+                "player_name": "黄子豪",
+                "minute": 54
               },
               {
                 "type": "yellow_card",
                 "player": "黄政宇",
-                "minute": 68,
-                "player_name": "黄政宇"
+                "player_name": "黄政宇",
+                "minute": 68
               },
               {
                 "type": "goal",
                 "player": "卡扎伊什维利",
-                "minute": 73,
-                "player_name": "卡扎伊什维利"
+                "player_name": "卡扎伊什维利",
+                "minute": 73
               },
               {
                 "type": "yellow_card",
                 "player": "阿利米",
-                "minute": 87,
-                "player_name": "阿利米"
+                "player_name": "阿利米",
+                "minute": 87
               },
               {
                 "type": "yellow_card",
                 "player": "郑铮",
-                "minute": 98,
-                "player_name": "郑铮"
+                "player_name": "郑铮",
+                "minute": 98
               }
             ]
           },
@@ -2026,56 +2026,56 @@
               {
                 "type": "yellow_card",
                 "player": "叶楚贵",
-                "minute": 32,
-                "player_name": "叶楚贵"
+                "player_name": "叶楚贵",
+                "minute": 32
               },
               {
                 "type": "goal",
                 "player": "莱昂纳多",
-                "minute": 35,
-                "player_name": "莱昂纳多"
+                "player_name": "莱昂纳多",
+                "minute": 35
               },
               {
                 "type": "yellow_card",
                 "player": "乔迪",
-                "minute": 41,
-                "player_name": "乔迪"
+                "player_name": "乔迪",
+                "minute": 41
               },
               {
                 "type": "yellow_card",
                 "player": "卢永涛",
-                "minute": 42,
-                "player_name": "卢永涛"
+                "player_name": "卢永涛",
+                "minute": 42
               },
               {
                 "type": "yellow_card",
                 "player": "刘祝润",
-                "minute": 45,
-                "player_name": "刘祝润"
+                "player_name": "刘祝润",
+                "minute": 45
               },
               {
                 "type": "goal",
                 "player": "布尔克",
-                "minute": 61,
-                "player_name": "布尔克"
+                "player_name": "布尔克",
+                "minute": 61
               },
               {
                 "type": "yellow_card",
                 "player": "张宸梁",
-                "minute": 76,
-                "player_name": "张宸梁"
+                "player_name": "张宸梁",
+                "minute": 76
               },
               {
                 "type": "yellow_card",
                 "player": "王燊超",
-                "minute": 91,
-                "player_name": "王燊超"
+                "player_name": "王燊超",
+                "minute": 91
               },
               {
                 "type": "goal",
                 "player": "王燊超",
-                "minute": 94,
-                "player_name": "王燊超"
+                "player_name": "王燊超",
+                "minute": 94
               }
             ]
           },
@@ -2097,32 +2097,32 @@
               {
                 "type": "yellow_card",
                 "player": "刘浩帆",
-                "minute": 27,
-                "player_name": "刘浩帆"
+                "player_name": "刘浩帆",
+                "minute": 27
               },
               {
                 "type": "goal",
                 "player": "杜月徵",
-                "minute": 72,
-                "player_name": "杜月徵"
+                "player_name": "杜月徵",
+                "minute": 72
               },
               {
                 "type": "yellow_card",
                 "player": "杜月徵",
-                "minute": 86,
-                "player_name": "杜月徵"
+                "player_name": "杜月徵",
+                "minute": 86
               },
               {
                 "type": "red_card",
                 "player": "米特里策",
-                "minute": 89,
-                "player_name": "米特里策"
+                "player_name": "米特里策",
+                "minute": 89
               },
               {
                 "type": "yellow_card",
                 "player": "李镇全",
-                "minute": 90,
-                "player_name": "李镇全"
+                "player_name": "李镇全",
+                "minute": 90
               }
             ]
           },
@@ -2144,74 +2144,74 @@
               {
                 "type": "goal",
                 "player": "韦斯利",
-                "minute": 14,
-                "player_name": "韦斯利"
+                "player_name": "韦斯利",
+                "minute": 14
               },
               {
                 "type": "yellow_card",
                 "player": "阿德里亚诺",
-                "minute": 32,
-                "player_name": "阿德里亚诺"
+                "player_name": "阿德里亚诺",
+                "minute": 32
               },
               {
                 "type": "goal",
                 "player": "本科维奇",
-                "minute": 38,
-                "player_name": "本科维奇"
+                "player_name": "本科维奇",
+                "minute": 38
               },
               {
                 "type": "goal",
                 "player": "韦斯利",
-                "minute": 44,
-                "player_name": "韦斯利"
+                "player_name": "韦斯利",
+                "minute": 44
               },
               {
                 "type": "goal",
                 "player": "本科维奇",
-                "minute": 67,
-                "player_name": "本科维奇"
+                "player_name": "本科维奇",
+                "minute": 67
               },
               {
                 "type": "goal",
                 "player": "贝维斯",
-                "minute": 71,
-                "player_name": "贝维斯"
+                "player_name": "贝维斯",
+                "minute": 71
               },
               {
                 "type": "yellow_card",
                 "player": "姜至鹏",
-                "minute": 72,
-                "player_name": "姜至鹏"
+                "player_name": "姜至鹏",
+                "minute": 72
               },
               {
                 "type": "yellow_card",
                 "player": "贝维斯",
-                "minute": 72,
-                "player_name": "贝维斯"
+                "player_name": "贝维斯",
+                "minute": 72
               },
               {
                 "type": "yellow_card",
                 "player": "本科维奇",
-                "minute": 77,
-                "player_name": "本科维奇"
+                "player_name": "本科维奇",
+                "minute": 77
               },
               {
                 "type": "yellow_card",
                 "player": "绍尔",
-                "minute": 79,
-                "player_name": "绍尔"
+                "player_name": "绍尔",
+                "minute": 79
               },
               {
                 "type": "goal",
                 "player": "卡迪斯",
-                "minute": 92,
-                "player_name": "卡迪斯"
+                "player_name": "卡迪斯",
+                "minute": 92
               },
               {
                 "type": "goal",
                 "player": "卡尔采夫",
-                "minute": 98,
-                "player_name": "卡尔采夫"
+                "player_name": "卡尔采夫",
+                "minute": 98
               }
             ]
           },
@@ -2233,50 +2233,50 @@
               {
                 "type": "goal",
                 "player": "吉列尔梅·谢蒂内",
-                "minute": 42,
-                "player_name": "吉列尔梅·谢蒂内"
+                "player_name": "吉列尔梅·谢蒂内",
+                "minute": 42
               },
               {
                 "type": "goal",
                 "player": "朱辰杰",
-                "minute": 50,
-                "player_name": "朱辰杰"
+                "player_name": "朱辰杰",
+                "minute": 50
               },
               {
                 "type": "goal",
                 "player": "基莱斯",
-                "minute": 56,
-                "player_name": "基莱斯"
+                "player_name": "基莱斯",
+                "minute": 56
               },
               {
                 "type": "yellow_card",
                 "player": "杨帆",
-                "minute": 60,
-                "player_name": "杨帆"
+                "player_name": "杨帆",
+                "minute": 60
               },
               {
                 "type": "yellow_card",
                 "player": "刘诚宇",
-                "minute": 78,
-                "player_name": "刘诚宇"
+                "player_name": "刘诚宇",
+                "minute": 78
               },
               {
                 "type": "goal",
                 "player": "拉唐",
-                "minute": 81,
-                "player_name": "拉唐"
+                "player_name": "拉唐",
+                "minute": 81
               },
               {
                 "type": "goal",
                 "player": "拉唐",
-                "minute": 91,
-                "player_name": "拉唐"
+                "player_name": "拉唐",
+                "minute": 91
               },
               {
                 "type": "yellow_card",
                 "player": "拉唐",
-                "minute": 96,
-                "player_name": "拉唐"
+                "player_name": "拉唐",
+                "minute": 96
               }
             ]
           },
@@ -2298,68 +2298,68 @@
               {
                 "type": "yellow_card",
                 "player": "刘浩帆",
-                "minute": 6,
-                "player_name": "刘浩帆"
+                "player_name": "刘浩帆",
+                "minute": 6
               },
               {
                 "type": "yellow_card",
                 "player": "廖锦涛",
-                "minute": 20,
-                "player_name": "廖锦涛"
+                "player_name": "廖锦涛",
+                "minute": 20
               },
               {
                 "type": "yellow_card",
                 "player": "方昊",
-                "minute": 23,
-                "player_name": "方昊"
+                "player_name": "方昊",
+                "minute": 23
               },
               {
                 "type": "goal",
                 "player": "廖锦涛",
-                "minute": 27,
-                "player_name": "廖锦涛"
+                "player_name": "廖锦涛",
+                "minute": 27
               },
               {
                 "type": "yellow_card",
                 "player": "杨铭锐",
-                "minute": 57,
-                "player_name": "杨铭锐"
+                "player_name": "杨铭锐",
+                "minute": 57
               },
               {
                 "type": "yellow_card",
                 "player": "卢卡斯",
-                "minute": 57,
-                "player_name": "卢卡斯"
+                "player_name": "卢卡斯",
+                "minute": 57
               },
               {
                 "type": "goal",
                 "player": "阿奇姆彭",
-                "minute": 62,
-                "player_name": "阿奇姆彭"
+                "player_name": "阿奇姆彭",
+                "minute": 62
               },
               {
                 "type": "goal",
                 "player": "毛伟杰",
-                "minute": 66,
-                "player_name": "毛伟杰"
+                "player_name": "毛伟杰",
+                "minute": 66
               },
               {
                 "type": "yellow_card",
                 "player": "瓜里拉帕",
-                "minute": 73,
-                "player_name": "瓜里拉帕"
+                "player_name": "瓜里拉帕",
+                "minute": 73
               },
               {
                 "type": "yellow_card",
                 "player": "黄子豪",
-                "minute": 85,
-                "player_name": "黄子豪"
+                "player_name": "黄子豪",
+                "minute": 85
               },
               {
                 "type": "yellow_card",
                 "player": "吕焯毅",
-                "minute": 91,
-                "player_name": "吕焯毅"
+                "player_name": "吕焯毅",
+                "minute": 91
               }
             ]
           },
@@ -2370,15 +2370,44 @@
             "away_club": "武汉三镇",
             "status": "scheduled",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "round": "第5轮",
             "venue": {
               "name": "铜梁龙体育场",
               "city": null
             },
-            "events": [],
+            "events": [
+              {
+                "type": "goal",
+                "player": "陈纯新",
+                "player_name": "陈纯新",
+                "minute": 15,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "张志雄",
+                "player_name": "张志雄",
+                "minute": 23,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "red_card",
+                "player": "杜月徵",
+                "player_name": "杜月徵",
+                "minute": 64,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 74,
+                "team_name": "武汉三镇"
+              }
+            ],
             "source": "cfl_fixtures_api"
           },
           {
@@ -2388,15 +2417,65 @@
             "away_club": "辽宁铁人",
             "status": "scheduled",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第5轮",
             "venue": {
               "name": "青岛西海岸大学城体育场",
               "city": null
             },
-            "events": [],
+            "events": [
+              {
+                "type": "goal",
+                "player": "刘小龙",
+                "player_name": "刘小龙",
+                "minute": 8,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孟敬朝",
+                "player_name": "孟敬朝",
+                "minute": 26,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李昊",
+                "player_name": "李昊",
+                "minute": 49,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "red_card",
+                "player": "丁海峰",
+                "player_name": "丁海峰",
+                "minute": 62,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 80,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "瓦吉奇",
+                "player_name": "瓦吉奇",
+                "minute": 84,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "goal",
+                "player": "李浩然",
+                "player_name": "李浩然",
+                "minute": 92,
+                "team_name": "辽宁铁人"
+              }
+            ],
             "source": "cfl_fixtures_api"
           },
           {
@@ -2406,15 +2485,65 @@
             "away_club": "上海海港",
             "status": "scheduled",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "round": "第5轮",
             "venue": {
               "name": "上海体育场",
               "city": null
             },
-            "events": [],
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "卢永涛",
+                "player_name": "卢永涛",
+                "minute": 25,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "拉唐",
+                "player_name": "拉唐",
+                "minute": 52,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨皓宇",
+                "player_name": "杨皓宇",
+                "minute": 65,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨世元",
+                "player_name": "杨世元",
+                "minute": 70,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "陈晋一",
+                "player_name": "陈晋一",
+                "minute": 91,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨泽翔",
+                "player_name": "杨泽翔",
+                "minute": 96,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李帅",
+                "player_name": "李帅",
+                "minute": 99,
+                "team_name": "上海海港"
+              }
+            ],
             "source": "cfl_fixtures_api"
           },
           {
@@ -2424,15 +2553,30 @@
             "away_club": "山东泰山",
             "status": "scheduled",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "round": "第5轮",
             "venue": {
               "name": "郑州航海体育场",
               "city": null
             },
-            "events": [],
+            "events": [
+              {
+                "type": "goal",
+                "player": "卡扎伊什维利",
+                "player_name": "卡扎伊什维利",
+                "minute": 42,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "谢文能",
+                "player_name": "谢文能",
+                "minute": 60,
+                "team_name": "山东泰山"
+              }
+            ],
             "source": "cfl_fixtures_api"
           },
           {
@@ -6097,7 +6241,7 @@
       "competition": "中超联赛",
       "policy_title": "中国足协行业纪律处罚中的「联赛积分扣分」",
       "announcement_date": "2026-01-29",
-      "summary": "2026年1月，中国足球协会就足球行业「假赌黑」等违法违规问题公布处罚决定。其中多家中超俱乐部在2026赛季开赛前被处以联赛积分扣分；扣分依据为涉案不当交易的金额、性质、情节严重程度及社会影响等因素。下列扣分为赛季进行前已生效的纪律处罚，与单场比赛结果无关；官方积分榜以「赛场积分 − 赛前纪律扣分」排序。具体分值以足协正式文件为准，本表依据公开报道整理，仅供展示与对照。",
+      "summary": "2026年1月，中国足球协会就足球行业「假赌黑」等违法违规问题公布处罚决定。其中多家中超俱乐部在2026赛季开赛前被处以联赛积分扣分；扣分依据为涉案不当交易的金额、性质、情节严重程度及社会影响等因素。下列扣分为赛季进行前已生效的纪律处罚，与单场比赛结果无关；官方积分榜以「赛场积分 − 赛前纪律扣分」排序。具体分值以足协正式文件为准；运行时会尝试从公开报道抓取更新并合并。",
       "references": [
         {
           "title": "媒体报道：9支中超球队被扣分（新浪体育等）",
@@ -6108,19 +6252,41 @@
           "url": "https://www.globaltimes.cn/page/202603/1356225.shtml"
         }
       ],
-      "source_file": "csl_cfa_2026_official_deductions.json",
+      "meta_scrape": {
+        "scraped_keys": [
+          "天津津门虎",
+          "上海申花",
+          "青岛海牛",
+          "山东泰山",
+          "北京国安",
+          "上海海港",
+          "武汉三镇",
+          "河南",
+          "浙江"
+        ],
+        "merged_total": 9
+      },
+      "deduction_config_sources": [
+        "C:/Users/xxxsu/.openclaw/workspace/csl_project_v2/config/csl_cfa_2026_official_deductions.json",
+        "C:/Users/xxxsu/.openclaw/workspace/csl_project_v2/data/csl_cfa_2026_official_deductions.json"
+      ],
+      "deduction_counts": {
+        "config_clubs": 9,
+        "data_overlay_clubs": 9,
+        "merged_clubs": 9
+      },
       "clubs_with_deduction": 9
     },
     "meta": {
-      "generated_at_utc": "2026-04-10T15:45:14.369896+00:00",
+      "generated_at_utc": "2026-04-12T09:55:14.305027+00:00",
       "source": "all_seasons_unified_index.json",
       "cfl_backfill_source": "csl_matches_enriched_cfl.json",
       "fixtures_source": "csl_season_fixtures_cfl.json",
       "fixtures_rows_loaded": 240,
       "fixtures_merge_fixture_rows_csl": 240,
       "fixtures_merge_overlay_rows_csl": 33,
-      "total_matches_processed": 273,
-      "matches_backfilled_from_cfl": 33,
+      "total_matches_processed": 277,
+      "matches_backfilled_from_cfl": 37,
       "matches_with_injected_events": 0,
       "total_injected_events": 0,
       "notes": [
@@ -6135,12 +6301,20 @@
   },
   "player_stats": [
     {
+      "player_name": "拉唐",
+      "team_name": "上海申花",
+      "goals": 5,
+      "assists": 0,
+      "yellow_cards": 2,
+      "red_cards": 0
+    },
+    {
       "player_name": "费利佩",
       "team_name": "成都蓉城",
       "goals": 4,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 3,
+      "red_cards": 0
     },
     {
       "player_name": "韦林顿-席尔瓦",
@@ -6152,18 +6326,10 @@
     },
     {
       "player_name": "席尔瓦",
-      "team_name": "",
+      "team_name": "成都蓉城",
       "goals": 4,
       "assists": 0,
       "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
-      "player_name": "拉唐",
-      "team_name": "",
-      "goals": 4,
-      "assists": 0,
-      "yellow_cards": 2,
       "red_cards": 0
     },
     {
@@ -6175,28 +6341,20 @@
       "red_cards": null
     },
     {
-      "player_name": "费利佩",
-      "team_name": "",
-      "goals": 4,
-      "assists": 0,
-      "yellow_cards": 2,
-      "red_cards": 0
-    },
-    {
       "player_name": "马莱莱",
       "team_name": "大连英博",
       "goals": 3,
       "assists": 2,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "奥斯卡",
       "team_name": "云南玉昆",
       "goals": 3,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "王钰栋(U21)",
@@ -6207,24 +6365,8 @@
       "red_cards": null
     },
     {
-      "player_name": "奥斯卡",
-      "team_name": "",
-      "goals": 3,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
       "player_name": "张玉宁",
       "team_name": "北京国安",
-      "goals": 3,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "张玉宁",
-      "team_name": "",
       "goals": 3,
       "assists": 0,
       "yellow_cards": 0,
@@ -6232,15 +6374,7 @@
     },
     {
       "player_name": "王钰栋",
-      "team_name": "",
-      "goals": 3,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
-      "player_name": "阿奇姆彭",
-      "team_name": "",
+      "team_name": "浙江",
       "goals": 3,
       "assists": 0,
       "yellow_cards": 0,
@@ -6251,23 +6385,7 @@
       "team_name": "深圳新鹏城",
       "goals": 3,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "韦斯利",
-      "team_name": "",
-      "goals": 3,
-      "assists": 0,
       "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
-      "player_name": "马莱莱",
-      "team_name": "",
-      "goals": 3,
-      "assists": 0,
-      "yellow_cards": 0,
       "red_cards": 0
     },
     {
@@ -6275,24 +6393,24 @@
       "team_name": "武汉三镇",
       "goals": 2,
       "assists": 2,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "克雷桑",
       "team_name": "山东泰山",
       "goals": 2,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "卡迪斯",
       "team_name": "武汉三镇",
       "goals": 2,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "古斯塔沃-绍尔",
@@ -6315,38 +6433,14 @@
       "team_name": "上海申花",
       "goals": 2,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "阿奇姆彭",
       "team_name": "大连英博",
       "goals": 2,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "克莱伯",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
-      "player_name": "克雷桑",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
-      "player_name": "卡迪斯",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
@@ -6355,20 +6449,12 @@
       "team_name": "青岛海牛",
       "goals": 2,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "叶博亚",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
     {
       "player_name": "姆本扎",
-      "team_name": "",
+      "team_name": "辽宁铁人",
       "goals": 2,
       "assists": 0,
       "yellow_cards": 0,
@@ -6379,14 +6465,6 @@
       "team_name": "深圳新鹏城",
       "goals": 2,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "本科维奇",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 2,
       "red_cards": 0
     },
@@ -6395,20 +6473,12 @@
       "team_name": "上海海港",
       "goals": 2,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "武磊",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 1,
       "red_cards": 0
     },
     {
       "player_name": "法比奥",
-      "team_name": "",
+      "team_name": "北京国安",
       "goals": 2,
       "assists": 0,
       "yellow_cards": 1,
@@ -6424,7 +6494,7 @@
     },
     {
       "player_name": "特谢拉",
-      "team_name": "",
+      "team_name": "上海申花",
       "goals": 2,
       "assists": 0,
       "yellow_cards": 1,
@@ -6435,28 +6505,12 @@
       "team_name": "浙江",
       "goals": 2,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "瓜里拉帕",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 3,
       "red_cards": 0
     },
     {
-      "player_name": "盖伊",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
       "player_name": "绍尔",
-      "team_name": "",
+      "team_name": "武汉三镇",
       "goals": 2,
       "assists": 0,
       "yellow_cards": 1,
@@ -6465,14 +6519,6 @@
     {
       "player_name": "肯帕努",
       "team_name": "重庆铜梁龙",
-      "goals": 2,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "肯帕努",
-      "team_name": "",
       "goals": 2,
       "assists": 0,
       "yellow_cards": 1,
@@ -6491,14 +6537,6 @@
       "team_name": "上海海港",
       "goals": 2,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "莱昂纳多",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
@@ -6507,36 +6545,12 @@
       "team_name": "山东泰山",
       "goals": 2,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "谢文能",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 1
-    },
-    {
-      "player_name": "贝维斯",
-      "team_name": "",
-      "goals": 2,
-      "assists": 0,
       "yellow_cards": 1,
-      "red_cards": 0
+      "red_cards": 1
     },
     {
       "player_name": "迪马塔",
       "team_name": "重庆铜梁龙",
-      "goals": 2,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "迪马塔",
-      "team_name": "",
       "goals": 2,
       "assists": 0,
       "yellow_cards": 0,
@@ -6555,48 +6569,48 @@
       "team_name": "浙江",
       "goals": 1,
       "assists": 3,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 1
     },
     {
       "player_name": "加布里埃尔",
       "team_name": "上海海港",
       "goals": 1,
       "assists": 2,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "克莱伯",
       "team_name": "云南玉昆",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "卡尔采夫",
       "team_name": "深圳新鹏城",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "卡扎伊什维利",
       "team_name": "山东泰山",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "古斯塔沃",
       "team_name": "河南",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "埃朱马",
@@ -6611,68 +6625,60 @@
       "team_name": "云南玉昆",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "戴维森",
       "team_name": "青岛西海岸",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "斯坦丘",
       "team_name": "大连英博",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "罗慕洛",
       "team_name": "成都蓉城",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "钟义浩",
       "team_name": "河南",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "阿齐兹",
       "team_name": "青岛西海岸",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "韦世豪",
       "team_name": "成都蓉城",
       "goals": 1,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "侯永永",
       "team_name": "云南玉昆",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "侯永永",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -6683,39 +6689,7 @@
       "team_name": "大连英博",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "冯劲",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
-      "player_name": "加布里埃尔",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
-      "player_name": "卡尔采夫",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
-      "player_name": "卡扎伊什维利",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
       "red_cards": 0
     },
     {
@@ -6723,23 +6697,7 @@
       "team_name": "云南玉昆",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "卡约",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
-      "player_name": "古斯塔沃",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
       "red_cards": 0
     },
     {
@@ -6771,28 +6729,12 @@
       "team_name": "天津津门虎",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "基莱斯",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
     {
       "player_name": "姆布拉",
       "team_name": "河南",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "姆布拉",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -6803,28 +6745,12 @@
       "team_name": "辽宁铁人",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "安以恩",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 1,
       "red_cards": 0
     },
     {
       "player_name": "布尔克",
       "team_name": "云南玉昆",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "布尔克",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 1,
@@ -6835,36 +6761,12 @@
       "team_name": "成都蓉城",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "廖荣祥",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
     {
-      "player_name": "廖锦涛",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 2,
-      "red_cards": 0
-    },
-    {
-      "player_name": "弋腾",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
-      "player_name": "戴维森",
-      "team_name": "",
+      "player_name": "张志雄",
+      "team_name": "重庆铜梁龙",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -6887,24 +6789,16 @@
       "red_cards": 0
     },
     {
-      "player_name": "斯坦丘",
-      "team_name": "",
+      "player_name": "朱辰杰",
+      "team_name": "上海申花",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
     {
-      "player_name": "朱辰杰",
-      "team_name": "上海申花",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "朱辰杰",
-      "team_name": "",
+      "player_name": "李浩然",
+      "team_name": "辽宁铁人",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -6912,11 +6806,11 @@
     },
     {
       "player_name": "杜月徵",
-      "team_name": "",
+      "team_name": "重庆铜梁龙",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 1,
-      "red_cards": 0
+      "red_cards": 1
     },
     {
       "player_name": "杜月徵(U21)",
@@ -6931,20 +6825,12 @@
       "team_name": "青岛西海岸",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "梅米舍维奇",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
     {
       "player_name": "毛伟杰",
-      "team_name": "",
+      "team_name": "大连英博",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 1,
@@ -6955,28 +6841,12 @@
       "team_name": "武汉三镇",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "汪晋贤",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 2,
       "red_cards": 0
     },
     {
       "player_name": "泽卡",
       "team_name": "山东泰山",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "泽卡",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 1,
@@ -6987,14 +6857,6 @@
       "team_name": "辽宁铁人",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "热菲尼奥",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 2,
       "red_cards": 0
     },
@@ -7003,36 +6865,12 @@
       "team_name": "上海海港",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "王燊超",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 1,
       "red_cards": 0
     },
     {
-      "player_name": "米特里策",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 1
-    },
-    {
       "player_name": "索罗金",
       "team_name": "成都蓉城",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "索罗金",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7040,15 +6878,7 @@
     },
     {
       "player_name": "约尼查",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
-      "player_name": "罗慕洛",
-      "team_name": "",
+      "team_name": "云南玉昆",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7057,14 +6887,6 @@
     {
       "player_name": "胡荷韬",
       "team_name": "成都蓉城",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "胡荷韬",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 1,
@@ -7088,7 +6910,7 @@
     },
     {
       "player_name": "迈达纳",
-      "team_name": "",
+      "team_name": "河南",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7099,28 +6921,12 @@
       "team_name": "辽宁铁人",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "邦本宜裕",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
       "yellow_cards": 0,
       "red_cards": 0
     },
     {
-      "player_name": "钟义浩",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
       "player_name": "阿代米",
-      "team_name": "",
+      "team_name": "深圳新鹏城",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7135,24 +6941,16 @@
       "red_cards": null
     },
     {
-      "player_name": "阿齐兹",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 0,
-      "red_cards": 0
-    },
-    {
       "player_name": "陈晋一",
       "team_name": "上海申花",
       "goals": 1,
       "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
-      "player_name": "陈晋一",
-      "team_name": "",
+      "player_name": "陈纯新",
+      "team_name": "重庆铜梁龙",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7161,14 +6959,6 @@
     {
       "player_name": "陶强龙",
       "team_name": "浙江",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": null,
-      "red_cards": null
-    },
-    {
-      "player_name": "陶强龙",
-      "team_name": "",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7183,20 +6973,12 @@
       "red_cards": null
     },
     {
-      "player_name": "韦世豪",
-      "team_name": "",
-      "goals": 1,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
       "player_name": "李源一",
       "team_name": "山东泰山",
       "goals": 0,
       "assists": 2,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 3,
+      "red_cards": 0
     },
     {
       "player_name": "王东升",
@@ -7227,32 +7009,32 @@
       "team_name": "上海申花",
       "goals": 0,
       "assists": 2,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "刘小龙",
       "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 0,
+      "red_cards": 0
     },
     {
       "player_name": "刘浩帆",
       "team_name": "浙江",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 3,
+      "red_cards": 0
     },
     {
       "player_name": "南松",
       "team_name": "深圳新鹏城",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "吴宇曦",
@@ -7299,8 +7081,8 @@
       "team_name": "深圳新鹏城",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 1
     },
     {
       "player_name": "安佩姆",
@@ -7315,8 +7097,8 @@
       "team_name": "大连英博",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 2,
+      "red_cards": 0
     },
     {
       "player_name": "戴伟浚",
@@ -7347,16 +7129,16 @@
       "team_name": "上海海港",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "李镇全",
       "team_name": "重庆铜梁龙",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "杨希(U21)",
@@ -7371,8 +7153,8 @@
       "team_name": "云南玉昆",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "林创益",
@@ -7411,8 +7193,8 @@
       "team_name": "河南",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "蒯纪闻(U21)",
@@ -7443,16 +7225,16 @@
       "team_name": "武汉三镇",
       "goals": 0,
       "assists": 1,
-      "yellow_cards": null,
-      "red_cards": null
+      "yellow_cards": 1,
+      "red_cards": 0
     },
     {
       "player_name": "丁海峰",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
-      "red_cards": 0
+      "red_cards": 1
     },
     {
       "player_name": "严鼎皓",
@@ -7511,14 +7293,6 @@
       "red_cards": 0
     },
     {
-      "player_name": "刘浩帆",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 3,
-      "red_cards": 0
-    },
-    {
       "player_name": "刘祝润",
       "team_name": "",
       "goals": 0,
@@ -7535,14 +7309,6 @@
       "red_cards": 0
     },
     {
-      "player_name": "南松",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
       "player_name": "卢卡斯",
       "team_name": "",
       "goals": 0,
@@ -7552,10 +7318,10 @@
     },
     {
       "player_name": "卢永涛",
-      "team_name": "",
+      "team_name": "上海海港",
       "goals": 0,
       "assists": 0,
-      "yellow_cards": 1,
+      "yellow_cards": 2,
       "red_cards": 0
     },
     {
@@ -7591,19 +7357,11 @@
       "red_cards": 0
     },
     {
-      "player_name": "姜至鹏",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 1
-    },
-    {
       "player_name": "孟敬朝",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
-      "yellow_cards": 1,
+      "yellow_cards": 2,
       "red_cards": 0
     },
     {
@@ -7656,7 +7414,7 @@
     },
     {
       "player_name": "恩科洛洛",
-      "team_name": "",
+      "team_name": "北京国安",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7719,16 +7477,16 @@
       "red_cards": 0
     },
     {
-      "player_name": "李源一",
-      "team_name": "",
+      "player_name": "李昊",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
-      "yellow_cards": 3,
+      "yellow_cards": 1,
       "red_cards": 0
     },
     {
-      "player_name": "李镇全",
-      "team_name": "",
+      "player_name": "杨世元",
+      "team_name": "上海海港",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7759,27 +7517,19 @@
       "red_cards": 0
     },
     {
-      "player_name": "杨梓豪",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
       "player_name": "杨泽翔",
-      "team_name": "",
+      "team_name": "上海申花",
       "goals": 0,
       "assists": 0,
-      "yellow_cards": 1,
+      "yellow_cards": 2,
       "red_cards": 0
     },
     {
       "player_name": "杨皓宇",
-      "team_name": "",
+      "team_name": "上海申花",
       "goals": 0,
       "assists": 0,
-      "yellow_cards": 1,
+      "yellow_cards": 2,
       "red_cards": 0
     },
     {
@@ -7815,14 +7565,6 @@
       "red_cards": 0
     },
     {
-      "player_name": "王上源",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
       "player_name": "王世龙",
       "team_name": "",
       "goals": 0,
@@ -7848,10 +7590,10 @@
     },
     {
       "player_name": "瓦吉奇",
-      "team_name": "",
+      "team_name": "辽宁铁人",
       "goals": 0,
       "assists": 0,
-      "yellow_cards": 0,
+      "yellow_cards": 1,
       "red_cards": 1
     },
     {
@@ -7888,7 +7630,7 @@
     },
     {
       "player_name": "蒯纪闻",
-      "team_name": "",
+      "team_name": "上海海港",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7936,14 +7678,6 @@
     },
     {
       "player_name": "郑智",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 1,
-      "red_cards": 0
-    },
-    {
-      "player_name": "郑浩乾",
       "team_name": "",
       "goals": 0,
       "assists": 0,
@@ -8016,7 +7750,7 @@
     },
     {
       "player_name": "阿马杜",
-      "team_name": "",
+      "team_name": "重庆铜梁龙",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -8068,14 +7802,6 @@
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
-      "red_cards": 0
-    },
-    {
-      "player_name": "高天意",
-      "team_name": "",
-      "goals": 0,
-      "assists": 0,
-      "yellow_cards": 1,
       "red_cards": 0
     },
     {

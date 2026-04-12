@@ -1,10 +1,19 @@
 import json
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
+_PROC = Path(__file__).resolve().parent
+if str(_PROC) not in sys.path:
+    sys.path.insert(0, str(_PROC))
 from event_names import resolve_event_player_name
+from player_team_utils import (
+    collect_ranking_player_rows,
+    exact_team_lookup_from_rows,
+    fuzzy_team_substring_match,
+)
 
 
 def load_json(path: Path) -> Dict[str, Any]:
@@ -40,6 +49,9 @@ def main() -> None:
 
     if not src_file:
         raise FileNotFoundError("No source dataset found for player event aggregation.")
+
+    ranking_rows = collect_ranking_player_rows(data_dir)
+    rank_exact = exact_team_lookup_from_rows(ranking_rows)
 
     # Treat CSL/CFL as one competition for player stats.
     player_map: Dict[str, Dict[str, Any]] = {}
@@ -78,6 +90,15 @@ def main() -> None:
     for name, row in player_map.items():
         if team_votes.get(name):
             row["team_name"] = team_votes[name].most_common(1)[0][0]
+            continue
+        if name in rank_exact:
+            row["team_name"] = rank_exact[name]
+            row["source_note"] = "aggregated_from_match_events+ranking_team_exact"
+            continue
+        fz = fuzzy_team_substring_match(name, ranking_rows)
+        if fz:
+            row["team_name"] = fz
+            row["source_note"] = "aggregated_from_match_events+ranking_team_fuzzy"
 
     rows = sorted(
         player_map.values(),
