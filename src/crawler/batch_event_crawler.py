@@ -13,7 +13,8 @@ from playwright.sync_api import sync_playwright
 
 
 class BatchEventCrawler:
-    WEB_BASE = "https://www.dongqiudi.com"
+    """单场事件：从雷速体育比赛页解析（赛程索引由 schedule_indexer 雷速版生成）。"""
+    WEB_BASE = "https://m.leisu.com"
     DEFAULT_UA = (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -82,7 +83,14 @@ class BatchEventCrawler:
         self._human_delay(0.2, 0.5)
 
     def _normalize_event(self, event_type: str, player_name: str, minute: Any) -> Dict[str, Any]:
-        t = event_type.lower()
+        t = str(event_type).lower().strip()
+        if t.isdigit():
+            if t == "1":
+                t = "goal"
+            elif t == "2":
+                t = "yellow_card"
+            elif t == "3":
+                t = "red_card"
         if "goal" in t or "进球" in t:
             t = "goal"
         elif "yellow" in t or "黄牌" in t:
@@ -101,6 +109,36 @@ class BatchEventCrawler:
 
     def _extract_events(self, html: str) -> List[Dict[str, Any]]:
         events: List[Dict[str, Any]] = []
+
+        # Pattern 0: 雷速 incidents / 技术事件列表（数组字段名多样）
+        for tag in ("incidents", "eventList", "incidentList", "match_events"):
+            for raw in re.findall(rf'"{tag}"\s*:\s*(\[[\s\S]*?\])', html, flags=re.IGNORECASE):
+                try:
+                    parsed = json.loads(raw)
+                    for item in parsed:
+                        if not isinstance(item, dict):
+                            continue
+                        et = str(
+                            item.get("type")
+                            or item.get("event_type")
+                            or item.get("incident_type")
+                            or item.get("kind")
+                            or ""
+                        )
+                        pl = str(
+                            item.get("player")
+                            or item.get("player_name")
+                            or item.get("playerName")
+                            or item.get("name")
+                            or item.get("athleteName")
+                            or ""
+                        )
+                        minute = item.get("minute") or item.get("time") or item.get("time_min") or item.get("min")
+                        evt = self._normalize_event(et, pl, minute)
+                        if evt:
+                            events.append(evt)
+                except Exception:
+                    continue
 
         # Pattern 1: JSON-like events list inside scripts.
         script_json_hits = re.findall(r'"events"\s*:\s*(\[[\s\S]*?\])', html)
@@ -121,7 +159,7 @@ class BatchEventCrawler:
                             or item.get("label")
                             or ""
                         ),
-                        item.get("minute") or item.get("time"),
+                        item.get("minute") or item.get("time") or item.get("time_min"),
                     )
                     if evt:
                         events.append(evt)
@@ -187,6 +225,7 @@ class BatchEventCrawler:
                 "events": [],
                 "errors": ["missing_match_id"],
                 "event_scraped_at_utc": datetime.now(timezone.utc).isoformat(),
+                "source": "leisu",
             }
         if not detail_path:
             return {
@@ -194,12 +233,19 @@ class BatchEventCrawler:
                 "events": [],
                 "errors": ["missing_detail_path"],
                 "event_scraped_at_utc": datetime.now(timezone.utc).isoformat(),
+                "source": "leisu",
             }
 
-        candidate_urls = [
-            f"{self.WEB_BASE}{detail_path}",
-            f"http://api.dongqiudi.com{detail_path}",
-        ]
+        dp = detail_path.strip()
+        if dp.startswith("http://") or dp.startswith("https://"):
+            candidate_urls = [dp]
+        else:
+            candidate_urls = [
+                f"{self.WEB_BASE}{dp}",
+                f"https://www.leisu.com{dp}",
+                f"https://live.leisu.com/zuqiu/detail-{match_id}",
+                f"https://www.leisu.com/score/pc/detail?match_id={match_id}",
+            ]
         seen = set()
         candidate_urls = [u for u in candidate_urls if not (u in seen or seen.add(u))]
 
@@ -211,10 +257,6 @@ class BatchEventCrawler:
                     self._human_delay(0.8, 1.6)
                     self._human_scroll(page)
                     self._wait_after_navigation(page)
-
-                    if "/live" in page.url:
-                        errors.append(f"redirected_to_live_probable_antibot@{url}")
-                        break
 
                     html = page.content()
                     events = self._extract_events(html)
@@ -235,6 +277,7 @@ class BatchEventCrawler:
             "events": best_events,
             "errors": errors,
             "event_scraped_at_utc": datetime.now(timezone.utc).isoformat(),
+            "source": "leisu",
         }
 
     def run(self, max_matches: int = 0) -> None:
@@ -277,7 +320,7 @@ class BatchEventCrawler:
                 else route.continue_(),
             )
             page = context.new_page()
-            page.set_extra_http_headers({"Referer": "https://www.dongqiudi.com/"})
+            page.set_extra_http_headers({"Referer": "https://www.leisu.com/"})
 
             for i in range(0, len(pending), self.chunk_size):
                 chunk = pending[i : i + self.chunk_size]
