@@ -6266,10 +6266,21 @@
         "data_overlay_clubs": 9,
         "merged_clubs": 9
       },
-      "clubs_with_deduction": 9
+      "clubs_with_deduction": 9,
+      "deductions_by_club": {
+        "上海海港": 5,
+        "上海申花": 10,
+        "北京国安": 5,
+        "天津津门虎": 10,
+        "山东泰山": 6,
+        "武汉三镇": 5,
+        "河南": 6,
+        "浙江": 5,
+        "青岛海牛": 7
+      }
     },
     "meta": {
-      "generated_at_utc": "2026-04-12T16:36:30.756808+00:00",
+      "generated_at_utc": "2026-04-12T16:39:43.653652+00:00",
       "source": "all_seasons_unified_index.json",
       "cfl_backfill_source": "csl_matches_enriched_cfl.json",
       "fixtures_source": "csl_season_fixtures_cfl.json",

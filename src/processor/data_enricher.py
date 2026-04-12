@@ -624,9 +624,12 @@ def main() -> None:
         league["standings"] = recalc["standings"]
 
     with_deduction = sum(1 for pts in cfa_deductions.values() if to_int(pts) > 0)
+    # 与积分榜 penalty_points 同源；供页面「官方积分说明」列出全部扣分球队（非仅个别队）
+    deductions_table = {k: to_int(v) for k, v in sorted(cfa_deductions.items()) if k and to_int(v) > 0}
     payload["official_points_policy"] = {
         **cfa_meta,
         "clubs_with_deduction": with_deduction,
+        "deductions_by_club": deductions_table,
     }
 
     payload["meta"] = {

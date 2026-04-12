@@ -673,6 +673,19 @@ def build_dashboard_html(source_file: str, generated_at: str, embed_cache_bust: 
       if (pol.policy_title) lines.push(`<p class="font-medium text-slate-300">${esc(pol.policy_title)}</p>`);
       if (pol.announcement_date) lines.push(`<p>公告日期：${esc(pol.announcement_date)}</p>`);
       if (pol.summary) lines.push(`<p>${esc(pol.summary)}</p>`);
+      const dbc = pol.deductions_by_club;
+      if (dbc && typeof dbc === "object" && !Array.isArray(dbc)){
+        const names = Object.keys(dbc).sort((a, b) => a.localeCompare(b, "zh-Hans-CN"));
+        if (names.length){
+          lines.push('<p class="font-medium text-slate-300">赛季前已生效扣分（与积分榜「赛前扣」列一致）</p>');
+          lines.push('<div class="overflow-x-auto"><table class="w-full min-w-[240px] border-collapse text-left text-[11px] sm:text-sm">');
+          lines.push('<thead><tr class="border-b border-slate-700 text-slate-500"><th class="py-1.5 pr-3 font-medium">俱乐部</th><th class="py-1.5 font-medium">扣分</th></tr></thead><tbody>');
+          for (const club of names){
+            lines.push(`<tr class="border-b border-slate-800/80"><td class="py-1.5 pr-3 text-slate-200">${esc(club)}</td><td class="py-1.5 font-mono text-danger">-${esc(String(dbc[club]))}</td></tr>`);
+          }
+          lines.push("</tbody></table></div>");
+        }
+      }
       const refs = safeArr(pol.references);
       if (refs.length){
         lines.push('<p class="font-medium text-slate-300">参考链接：</p><ul class="list-inside list-disc space-y-1">');
