@@ -96,7 +96,8 @@ class BatchEventCrawler:
             m = int(str(minute).strip())
         except Exception:
             m = None
-        return {"type": t, "player_name": (player_name or "").strip(), "minute": m}
+        nm = (player_name or "").strip()
+        return {"type": t, "player_name": nm, "player": nm, "minute": m}
 
     def _extract_events(self, html: str) -> List[Dict[str, Any]]:
         events: List[Dict[str, Any]] = []
@@ -111,7 +112,15 @@ class BatchEventCrawler:
                         continue
                     evt = self._normalize_event(
                         str(item.get("type") or item.get("event_type") or ""),
-                        str(item.get("player") or item.get("player_name") or item.get("name") or ""),
+                        str(
+                            item.get("player")
+                            or item.get("player_name")
+                            or item.get("name")
+                            or item.get("athleteName")
+                            or item.get("playerName")
+                            or item.get("label")
+                            or ""
+                        ),
                         item.get("minute") or item.get("time"),
                     )
                     if evt:

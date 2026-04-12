@@ -12,6 +12,12 @@ if str(_RENDERER_DIR) not in sys.path:
 
 from team_logo_assets import build_team_logo_map_for_dashboard
 
+_SRC_ROOT = Path(__file__).resolve().parent.parent
+_PROC = _SRC_ROOT / "processor"
+if str(_PROC) not in sys.path:
+    sys.path.insert(0, str(_PROC))
+from event_names import resolve_event_player_name
+
 
 def apply_team_logo_public_base(logos: Dict[str, str], base: str) -> Dict[str, str]:
     """
@@ -78,7 +84,7 @@ def _event_merge_rank(events: Any) -> Tuple[int, int, int, int]:
     for event in events:
         if not isinstance(event, dict):
             continue
-        p = _norm_name(event.get("player") or event.get("player_name"))
+        p = resolve_event_player_name(event) or _norm_name(event.get("player") or event.get("player_name"))
         if not p:
             empty += 1
         elif _is_synthetic_player_label(p):
@@ -415,6 +421,12 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
     function n(v){ const x = Number(v); return Number.isFinite(x) ? x : 0; }
     function esc(s){ return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;"); }
 
+    function eventPlayerName(e){
+      if (!e || typeof e !== "object") return "";
+      const raw = e.player ?? e.player_name ?? e.name ?? e.playerName ?? e.athleteName ?? e.athlete_name ?? e.label ?? "";
+      return String(raw).trim();
+    }
+
     function clubImg(name){
       const src = TEAM_LOGOS[name] || "";
       const initial = String(name || "").trim().slice(0, 1) || "?";
@@ -614,7 +626,7 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
                 <span class="rounded px-2 py-0.5 text-[10px] sm:text-xs ${eventBadge(e.type)}">${esc(e.type)}</span>
                 <span class="font-mono text-xs text-slate-300 sm:text-sm">${esc(e.minute)}'</span>
               </div>
-              <div class="text-xs font-semibold sm:text-sm">${esc(e.player || e.player_name || "Unknown")}</div>
+              <div class="text-xs font-semibold sm:text-sm">${esc(eventPlayerName(e) || "未知球员")}</div>
             </div>
           </div>
         `).join("");
@@ -708,7 +720,7 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
       for (const m of safeArr(matches)){
         const seenInMatch = new Set();
         for (const e of safeArr(m.events)){
-          let name = String(e.player || e.player_name || "").trim();
+          let name = eventPlayerName(e);
           if (!name) continue;
           const p = touch(name);
           if (e.type === "goal") p.goals += 1;
@@ -724,7 +736,7 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
     function buildPlayerStatsFromNormalized(){
       const merged = new Map();
       for (const row of safeArr(RAW_PLAYER_STATS)){
-        const name = String(row.player_name || "").trim();
+        const name = String(row.player_name || row.name || row.playerName || "").trim();
         if (!name || name === "Unknown" || name.startsWith("未命名球员")) continue;
         const team = String(row.team_name || "").trim();
         const key = name;

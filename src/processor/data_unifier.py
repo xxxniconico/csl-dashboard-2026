@@ -3,6 +3,8 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List
 
+from event_names import resolve_event_player_name
+
 
 def load_json_array(path: Path) -> List[Dict[str, Any]]:
     if not path.exists():
@@ -30,9 +32,11 @@ def club_id(name: str) -> str:
 
 
 def normalize_event(event: Dict[str, Any]) -> Dict[str, Any]:
+    p = resolve_event_player_name(event) or str(event.get("player") or event.get("player_name") or "").strip()
     return {
         "type": event.get("type"),
-        "player": event.get("player") or event.get("player_name") or "",
+        "player": p,
+        "player_name": p,
         "minute": event.get("minute"),
     }
 

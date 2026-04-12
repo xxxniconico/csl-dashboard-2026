@@ -87,6 +87,17 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
 
+      # 5b. 从比赛事件汇总球员进球/牌面，并写入 csl_normalized.json（供页面球员榜展示姓名）
+      - name: Build player stats from events
+        run: python src/processor/build_player_stats_from_events.py
+        env:
+          PYTHONIOENCODING: utf-8
+
+      - name: Normalize CSL data
+        run: python src/processor/normalize_csl_data.py
+        env:
+          PYTHONIOENCODING: utf-8
+
       # 6. 运行渲染器 (生成 HTML)
       - name: Render Dashboard
         run: |

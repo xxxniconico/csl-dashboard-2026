@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+from event_names import resolve_event_player_name
+
 
 def load_json(path: Path) -> Dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
@@ -167,7 +169,7 @@ def event_merge_rank(events: Any) -> Tuple[int, int, int, int]:
     for event in events:
         if not isinstance(event, dict):
             continue
-        p = norm_name(event.get("player") or event.get("player_name"))
+        p = resolve_event_player_name(event) or norm_name(event.get("player") or event.get("player_name"))
         if not p:
             continue
         if is_synthetic_player_label(p):
@@ -202,7 +204,7 @@ def ensure_player_fields_on_events(match: Dict[str, Any]) -> None:
     for e in match.get("events") or []:
         if not isinstance(e, dict):
             continue
-        p = norm_name(e.get("player") or e.get("player_name"))
+        p = resolve_event_player_name(e) or norm_name(e.get("player") or e.get("player_name"))
         e["player"] = p
         e["player_name"] = p
 
@@ -299,21 +301,23 @@ def inject_events_for_match(
 
     hi = ai = 0
     for _ in range(home_goals):
+        pl = roster_pick(home_club, hi, scorers, rng)
         generated.append(
             {
                 "type": "goal",
-                "player": roster_pick(home_club, hi, scorers, rng),
-                "player_name": "",
+                "player": pl,
+                "player_name": pl,
                 "minute": next_minute(),
             }
         )
         hi += 1
     for _ in range(away_goals):
+        pl = roster_pick(away_club, ai, scorers, rng)
         generated.append(
             {
                 "type": "goal",
-                "player": roster_pick(away_club, ai, scorers, rng),
-                "player_name": "",
+                "player": pl,
+                "player_name": pl,
                 "minute": next_minute(),
             }
         )
@@ -322,22 +326,24 @@ def inject_events_for_match(
     yellow_count = rng.randint(1, 4)
     for i in range(yellow_count):
         club = home_club if rng.random() < 0.5 else away_club
+        pl = roster_pick(club, i + 2, scorers, rng)
         generated.append(
             {
                 "type": "yellow_card",
-                "player": roster_pick(club, i + 2, scorers, rng),
-                "player_name": "",
+                "player": pl,
+                "player_name": pl,
                 "minute": next_minute(10, 90),
             }
         )
 
     if rng.random() < 0.15:
         club = home_club if rng.random() < 0.5 else away_club
+        pl = roster_pick(club, rng.randint(0, 5), scorers, rng)
         generated.append(
             {
                 "type": "red_card",
-                "player": roster_pick(club, rng.randint(0, 5), scorers, rng),
-                "player_name": "",
+                "player": pl,
+                "player_name": pl,
                 "minute": next_minute(35, 90),
             }
         )

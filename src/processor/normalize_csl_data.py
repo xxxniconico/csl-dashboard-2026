@@ -221,6 +221,7 @@ def main() -> None:
     }
 
     output = data_dir / "csl_normalized.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"normalized output written: {output}")
 

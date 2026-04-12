@@ -69,6 +69,10 @@ python src/processor/data_unifier.py
 # 5. 处理数据（积分榜、事件补全等）
 python src/processor/data_enricher.py
 
+# 5b. 从比赛事件汇总球员数据并生成标准化球员库（页面球员榜需要）
+python src/processor/build_player_stats_from_events.py
+python src/processor/normalize_csl_data.py
+
 # 6. 生成页面
 python src/renderer/web_renderer.py
 

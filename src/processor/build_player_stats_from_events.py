@@ -3,6 +3,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
+from event_names import resolve_event_player_name
+
 
 def load_json(path: Path) -> Dict[str, Any]:
     if not path.exists():
@@ -43,7 +45,9 @@ def main() -> None:
     for league in safe_list(data.get("leagues")):
         for match in safe_list(league.get("matches")):
             for event in safe_list(match.get("events")):
-                name = normalize_name(event.get("player") or event.get("player_name"))
+                name = resolve_event_player_name(event) or normalize_name(
+                    event.get("player") or event.get("player_name")
+                )
                 if not name:
                     continue
                 key = name
