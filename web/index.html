@@ -42,7 +42,7 @@
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 17:49 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 18:00 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -126,7 +126,7 @@
                   <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
                 </div>
                 <div id="matchCalCells" class="mt-1 grid grid-cols-7 gap-1"></div>
-                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">全部赛程：首次展示「最近2场已赛+接下来2场未赛」。选俱乐部：展示该队全部已赛与未赛场次，并定位到最近一场已赛。换月/点某日规则不变。</p>
+                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">全部赛程：首次按系统日期锚定后，展示「前一有赛日+后一有赛日」当日全部比赛。选俱乐部：该队已赛与未赛全景，并定位最近一场已赛。换月/点某日规则不变。</p>
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
                   显示整月赛程
                 </button>
@@ -239,7 +239,7 @@
     /** 俱乐部/数据源切换后需重新按「最近赛日」锚定 */
     let matchViewNeedsDateAnchor = true;
     let lastScheduleAnchorClubSig = "__unset__";
-    /** month=按月列表；global24=全局2已赛+2未赛；club_all=当前俱乐部全部已赛+未赛 */
+    /** month=按月列表；global_adjacent=全体时前一有赛日+后一有赛日；club_all=当前俱乐部全部已赛+未赛 */
     let scheduleViewMode = "month";
     /** 俱乐部锚定：在日历上圈选「最近一场已赛」日期（非单日筛选） */
     let calendarHighlightYmd = "";
@@ -554,23 +554,35 @@
       return true;
     }
 
-    /** 全场：时间轴上最近 2 场已结束 + 接下来 2 场未开始/进行中 */
-    function buildGlobal24Window(matches){
-      const sorted = matches.slice().sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
-      const fin = sorted.filter(isFinishedMatch);
-      const last2 = fin.slice(-2);
-      const up = sorted.filter(m => isUpcomingMatch(m) || isLiveMatch(m));
-      const next2 = up.slice(0, 2);
-      const seen = new Set();
-      const out = [];
-      for (const m of last2.concat(next2)){
-        const id = String(m.match_id != null ? m.match_id : "") ||
-          (matchDateKey(m) + "|" + String(m.home_club || "") + "|" + String(m.away_club || ""));
-        if (seen.has(id)) continue;
-        seen.add(id);
-        out.push(m);
+    /**
+     * 全体俱乐部、首次进入：以 nearestMatchDateYmd 在「全部有赛自然日」序列中的位置为锚，
+     * 展示锚点的前一个有赛日 + 后一个有赛日的全部比赛；赛季首尾无「前」或「后」时改为展示相邻两日。
+     */
+    function buildAdjacentMatchDaysWindow(matches){
+      const days = [...new Set(matches.map(matchDateKey).filter(k => k.length === 10))].sort();
+      if (!days.length) return [];
+      const anchor = nearestMatchDateYmd(matches);
+      let idx = days.indexOf(anchor);
+      if (idx < 0){
+        const t = todayYmd();
+        const j = days.findIndex(d => d >= t);
+        idx = j >= 0 ? j : days.length - 1;
       }
-      return out.sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
+      const want = new Set();
+      if (days.length === 1){
+        want.add(days[0]);
+      } else if (idx === 0){
+        want.add(days[0]);
+        want.add(days[1]);
+      } else if (idx === days.length - 1){
+        want.add(days[days.length - 2]);
+        want.add(days[days.length - 1]);
+      } else {
+        want.add(days[idx - 1]);
+        want.add(days[idx + 1]);
+      }
+      return matches.filter(m => want.has(matchDateKey(m)))
+        .sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
     }
 
     /** 相对系统日期：最近一场已完成的赛日（≤今天中取最晚；若无则取已赛场中最晚一天） */
@@ -753,16 +765,8 @@
             }
           }
         } else {
-          scheduleViewMode = "global24";
-          const win = buildGlobal24Window(matches);
-          let pivot = "";
-          if (win.length){
-            const mid = Math.max(0, Math.floor((win.length - 1) / 2));
-            pivot = matchDateKey(win[mid]);
-          }
-          if (!pivot || pivot.length < 10){
-            pivot = nearestMatchDateYmd(matches);
-          }
+          scheduleViewMode = "global_adjacent";
+          const pivot = nearestMatchDateYmd(matches);
           if (pivot && pivot.length === 10){
             calendarViewYear = Number(pivot.slice(0, 4));
             calendarViewMonth = Number(pivot.slice(5, 7)) - 1;
@@ -788,8 +792,8 @@
       let displayMatches;
       if (selectedMatchDate){
         displayMatches = matches.filter(m => matchDateKey(m) === selectedMatchDate);
-      } else if (scheduleViewMode === "global24"){
-        displayMatches = buildGlobal24Window(matches);
+      } else if (scheduleViewMode === "global_adjacent"){
+        displayMatches = buildAdjacentMatchDaysWindow(matches);
         if (!displayMatches.length && matches.length){
           scheduleViewMode = "month";
           displayMatches = monthMatches.slice();
