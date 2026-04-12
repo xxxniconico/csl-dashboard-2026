@@ -29,20 +29,24 @@
   </script>
   <style>
     html { -webkit-text-size-adjust: 100%; }
+    /* 移动端横向滚动更跟手 */
+    .touch-pan-x { touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+    /* 积分榜数字列：等宽数字更易扫读 */
+    .tabular-nums { font-variant-numeric: tabular-nums; }
   </style>
 </head>
 <body class="bg-midnight text-slate-100 min-h-screen touch-manipulation pb-[max(4.5rem,calc(3.75rem+env(safe-area-inset-bottom,0px)))] lg:pb-0">
-  <div class="mx-auto max-w-[1600px] p-2 sm:p-4 md:p-6">
-    <header class="mb-3 rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4 md:p-6">
+  <div class="mx-auto max-w-[1600px] px-2 py-2 sm:p-4 md:p-6">
+    <header class="mb-2 rounded-xl border border-slate-800 bg-surface/90 p-2.5 sm:mb-3 sm:rounded-2xl sm:p-4 md:p-6">
       <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div class="min-w-0">
           <p class="text-[10px] uppercase tracking-[0.15em] text-accent sm:text-xs sm:tracking-[0.2em]">China Football Season Monitor 2026</p>
-          <h1 class="text-xl font-black sm:text-2xl md:text-3xl">Ultimate CSL Dashboard</h1>
+          <h1 class="text-lg font-black leading-tight sm:text-2xl md:text-3xl">Ultimate CSL Dashboard</h1>
           <p class="hidden text-sm text-slate-400 sm:block">Match timeline drilldown + penalty-adjusted standings + CFL player profiles</p>
           <div id="leagueNavMobile" class="mt-2 lg:hidden"></div>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 18:00 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-12 18:16 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -61,39 +65,39 @@
       </aside>
 
       <main class="space-y-4">
-        <section id="view-standings" class="view-panel rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+        <section id="view-standings" class="view-panel rounded-xl border border-slate-800 bg-surface/90 p-2.5 sm:rounded-2xl sm:p-4">
           <div class="mb-2 flex flex-col gap-2 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            <h2 class="text-base font-bold sm:text-lg">积分榜</h2>
-            <div class="flex flex-wrap gap-2">
-              <button type="button" id="sortOfficialBtn" class="sort-standings-btn min-h-[40px] rounded-lg border border-accent/50 bg-accent/15 px-3 py-2 text-xs font-semibold text-accent sm:min-h-0 sm:text-sm">
-                按官方积分排序
+            <h2 class="text-[15px] font-bold leading-snug sm:text-lg">积分榜</h2>
+            <div class="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2">
+              <button type="button" id="sortOfficialBtn" class="sort-standings-btn min-h-[40px] rounded-lg border border-accent/50 bg-accent/15 px-2 py-2 text-[11px] font-semibold leading-tight text-accent sm:min-h-0 sm:px-3 sm:text-sm">
+                <span class="sm:hidden">官方积分</span><span class="hidden sm:inline">按官方积分排序</span>
               </button>
-              <button type="button" id="sortMatchBtn" class="sort-standings-btn min-h-[40px] rounded-lg border border-slate-600 bg-slate-800/80 px-3 py-2 text-xs font-semibold text-slate-200 sm:min-h-0 sm:text-sm">
-                按赛场积分排序
+              <button type="button" id="sortMatchBtn" class="sort-standings-btn min-h-[40px] rounded-lg border border-slate-600 bg-slate-800/80 px-2 py-2 text-[11px] font-semibold leading-tight text-slate-200 sm:min-h-0 sm:px-3 sm:text-sm">
+                <span class="sm:hidden">赛场积分</span><span class="hidden sm:inline">按赛场积分排序</span>
               </button>
             </div>
           </div>
-          <details id="officialPolicyDetails" class="mb-3 rounded-lg border border-slate-700 bg-slate-900/50 text-xs text-slate-400 sm:text-sm">
+          <details id="officialPolicyDetails" class="mb-2 rounded-lg border border-slate-700 bg-slate-900/50 text-[11px] text-slate-400 sm:mb-3 sm:text-sm">
             <summary class="cursor-pointer select-none px-3 py-2 font-semibold text-slate-300 hover:text-accent">
               官方积分说明（中国足协 2026 赛前纪律扣分）
             </summary>
             <div id="officialPolicyBody" class="space-y-2 border-t border-slate-800 px-3 py-2 leading-relaxed"></div>
           </details>
-          <div class="overflow-x-auto overscroll-x-contain -mx-1 px-1 sm:mx-0 sm:px-0">
-            <table class="min-w-[720px] w-full text-[11px] sm:min-w-0 sm:text-sm">
-              <thead class="bg-slate-900/60 text-slate-300">
+          <div class="touch-pan-x overflow-x-auto overscroll-x-contain -mx-1 rounded-lg px-1 sm:mx-0 sm:px-0">
+            <table class="min-w-[520px] w-full text-[10px] sm:min-w-0 sm:text-sm">
+              <thead class="bg-slate-900/60 text-[10px] text-slate-300 sm:text-xs">
                 <tr>
-                  <th class="sticky left-0 z-20 bg-slate-900/95 px-1 py-2 text-left shadow-[2px_0_8px_rgba(0,0,0,0.3)] sm:px-2">#</th>
-                  <th class="sticky left-7 z-20 bg-slate-900/95 px-1 py-2 text-left shadow-[2px_0_8px_rgba(0,0,0,0.3)] sm:left-8 sm:px-2">球队</th>
-                  <th class="px-1 py-2 text-left sm:px-2">赛</th>
-                  <th class="px-1 py-2 text-left sm:px-2">胜-平-负</th>
-                  <th class="px-1 py-2 text-left sm:px-2">近况</th>
-                  <th class="px-1 py-2 text-left sm:px-2">进</th>
-                  <th class="px-1 py-2 text-left sm:px-2">失</th>
-                  <th class="px-1 py-2 text-left sm:px-2">净</th>
-                  <th class="px-1 py-2 text-left sm:px-2" title="仅由已赛场次胜平负累计">赛场</th>
-                  <th class="px-1 py-2 text-left sm:px-2" title="赛季开赛前足协纪律处罚">赛前扣</th>
-                  <th class="px-1 py-2 text-left sm:px-2" title="赛场积分 − 赛前扣分">官方</th>
+                  <th class="sticky left-0 z-20 w-7 bg-slate-900/95 px-0.5 py-2 text-center font-semibold shadow-[2px_0_8px_rgba(0,0,0,0.3)] sm:w-auto sm:px-2">#</th>
+                  <th class="sticky left-7 z-20 max-w-[4.5rem] bg-slate-900/95 px-0.5 py-2 text-left font-semibold shadow-[2px_0_8px_rgba(0,0,0,0.3)] sm:left-8 sm:max-w-none sm:px-2">球队</th>
+                  <th class="px-0.5 py-2 text-center font-medium tabular-nums sm:px-2">赛</th>
+                  <th class="px-0.5 py-2 text-center font-medium sm:px-2"><span class="sm:hidden">胜平负</span><span class="hidden sm:inline">胜-平-负</span></th>
+                  <th class="hidden px-0.5 py-2 text-center font-medium sm:table-cell sm:px-2">近况</th>
+                  <th class="px-0.5 py-2 text-center font-medium tabular-nums sm:px-2">进</th>
+                  <th class="px-0.5 py-2 text-center font-medium tabular-nums sm:px-2">失</th>
+                  <th class="px-0.5 py-2 text-center font-medium tabular-nums sm:px-2">净</th>
+                  <th class="px-0.5 py-2 text-center font-medium tabular-nums sm:px-2" title="仅由已赛场次胜平负累计">赛场</th>
+                  <th class="px-0.5 py-2 text-center font-medium tabular-nums sm:px-2" title="赛季开赛前足协纪律处罚">扣</th>
+                  <th class="px-0.5 py-2 text-center font-semibold tabular-nums sm:px-2" title="赛场积分 − 赛前扣分">官方</th>
                 </tr>
               </thead>
               <tbody id="standingsBody"></tbody>
@@ -102,7 +106,7 @@
         </section>
 
         <section id="view-matches" class="view-panel hidden">
-          <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+          <div class="rounded-xl border border-slate-800 bg-surface/90 p-2.5 sm:rounded-2xl sm:p-4">
             <div class="mb-2 flex flex-col gap-2 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <h2 class="text-base font-bold sm:text-lg">赛程与事件</h2>
             </div>
@@ -115,8 +119,11 @@
                 清除筛选
               </button>
             </div>
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-5">
-              <div id="matchCalendarPanel" class="shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-3 lg:w-[min(100%,360px)]">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:gap-5">
+              <div id="matchListWrap" class="order-1 min-w-0 flex-1 lg:order-none">
+                <div id="matchList" class="max-h-[min(52dvh,calc(100dvh-14rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,70vh)] sm:pr-1"></div>
+              </div>
+              <div id="matchCalendarPanel" class="order-2 shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-2.5 sm:p-3 lg:order-none lg:w-[min(100%,360px)]">
                 <div class="mb-2 flex items-center justify-between gap-2">
                   <button type="button" id="matchCalPrev" class="min-h-[40px] min-w-[40px] rounded-lg border border-slate-600 bg-slate-800/90 text-lg leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:px-2 sm:py-1" aria-label="上一月">‹</button>
                   <div id="matchCalTitle" class="min-w-0 flex-1 text-center text-sm font-semibold text-slate-100"></div>
@@ -126,34 +133,32 @@
                   <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
                 </div>
                 <div id="matchCalCells" class="mt-1 grid grid-cols-7 gap-1"></div>
-                <p class="mt-2 text-[10px] leading-relaxed text-slate-500">全部赛程：首次按系统日期锚定后，展示「前一有赛日+后一有赛日」当日全部比赛。选俱乐部：该队已赛与未赛全景，并定位最近一场已赛。换月/点某日规则不变。</p>
+                <p class="mt-2 text-[10px] leading-snug text-slate-500 sm:hidden">提示：以今日为界展示相邻两个有赛日；可筛选俱乐部；点日期看单场。</p>
+                <p class="mt-2 hidden text-[10px] leading-relaxed text-slate-500 sm:block">全部赛程：以系统当日为界，展示「早于今日最近一个有赛日」与「晚于今日最近一个有赛日」的全部场次。选俱乐部：该队已赛与未赛全景，并定位最近一场已赛。换月/点某日规则不变。</p>
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-xs font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
                   显示整月赛程
                 </button>
-              </div>
-              <div id="matchListWrap" class="min-w-0 flex-1">
-                <div id="matchList" class="max-h-[min(640px,calc(100dvh-11rem))] overflow-auto pr-1 sm:max-h-[min(720px,70vh)]"></div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="view-players" class="view-panel hidden space-y-3 sm:space-y-4">
-          <div id="playersSubviewList" class="space-y-3 sm:space-y-4">
-            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
-              <h2 class="mb-1 text-base font-bold sm:mb-2 sm:text-lg">球员榜</h2>
-              <p class="mb-3 text-[11px] text-slate-500 sm:text-xs">先按俱乐部筛选（可选），点击球员姓名查看赛季数据与中足联注册档案（二级页面）</p>
+        <section id="view-players" class="view-panel hidden space-y-2 sm:space-y-4">
+          <div id="playersSubviewList" class="space-y-2 sm:space-y-4">
+            <div class="rounded-xl border border-slate-800 bg-surface/90 p-2.5 sm:rounded-2xl sm:p-4">
+              <h2 class="mb-1 text-[15px] font-bold leading-snug sm:mb-2 sm:text-lg">球员榜</h2>
+              <p class="mb-2 text-[11px] leading-snug text-slate-500 sm:mb-3 sm:text-xs">筛选俱乐部后点球员名查看数据与注册档案</p>
               <div class="mb-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
                 <label for="playerClubFilter" class="text-xs font-medium text-slate-400 sm:shrink-0">俱乐部筛选</label>
                 <select id="playerClubFilter" class="min-h-[40px] w-full max-w-lg rounded-lg border border-slate-600 bg-slate-800/90 px-3 py-2 text-sm text-slate-100 shadow-inner sm:min-w-[240px]">
                   <option value="">全部俱乐部</option>
                 </select>
               </div>
-              <div id="playerList" class="max-h-[min(70dvh,calc(100dvh-12rem))] overflow-auto pr-1 sm:max-h-[min(720px,75vh)]"></div>
+              <div id="playerList" class="max-h-[min(58dvh,calc(100dvh-13rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,75vh)] sm:pr-1"></div>
             </div>
           </div>
           <div id="playersSubviewProfile" class="hidden">
-            <div class="rounded-2xl border border-slate-800 bg-surface/90 p-3 sm:p-4">
+            <div class="rounded-xl border border-slate-800 bg-surface/90 p-2.5 sm:rounded-2xl sm:p-4">
               <div class="mb-3 flex flex-wrap items-center gap-2">
                 <button type="button" id="backToPlayerListBtn" class="min-h-[40px] rounded-lg border border-slate-600 bg-slate-800/80 px-3 py-2 text-sm font-semibold text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0">
                   ← 返回球员榜
@@ -169,18 +174,18 @@
     </div>
   </div>
 
-  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-900/95 backdrop-blur-md lg:hidden" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-    <div class="flex max-w-[1600px] mx-auto">
-      <button type="button" data-view="standings" class="view-btn flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent px-1 py-2 text-[10px] font-semibold text-slate-200 active:bg-slate-800/80">
-        <span class="text-base leading-none">📊</span>
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-900/98 backdrop-blur-md shadow-[0_-4px_20px_rgba(0,0,0,0.35)] lg:hidden" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
+    <div class="mx-auto flex max-w-[1600px]">
+      <button type="button" data-view="standings" class="view-btn flex min-h-[54px] flex-1 flex-col items-center justify-center gap-0.5 border-t-[3px] border-transparent px-1 py-1.5 text-[11px] font-semibold tracking-tight text-slate-200 active:bg-slate-800/80">
+        <span class="text-lg leading-none">📊</span>
         <span>积分榜</span>
       </button>
-      <button type="button" data-view="matches" class="view-btn flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent px-1 py-2 text-[10px] font-semibold text-slate-200 active:bg-slate-800/80">
-        <span class="text-base leading-none">⚽</span>
+      <button type="button" data-view="matches" class="view-btn flex min-h-[54px] flex-1 flex-col items-center justify-center gap-0.5 border-t-[3px] border-transparent px-1 py-1.5 text-[11px] font-semibold tracking-tight text-slate-200 active:bg-slate-800/80">
+        <span class="text-lg leading-none">⚽</span>
         <span>赛程</span>
       </button>
-      <button type="button" data-view="players" class="view-btn flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent px-1 py-2 text-[10px] font-semibold text-slate-200 active:bg-slate-800/80">
-        <span class="text-base leading-none">📈</span>
+      <button type="button" data-view="players" class="view-btn flex min-h-[54px] flex-1 flex-col items-center justify-center gap-0.5 border-t-[3px] border-transparent px-1 py-1.5 text-[11px] font-semibold tracking-tight text-slate-200 active:bg-slate-800/80">
+        <span class="text-lg leading-none">📈</span>
         <span>球员</span>
       </button>
     </div>
@@ -266,16 +271,18 @@
       return String(raw).trim();
     }
 
-    function clubImg(name){
+    function clubImg(name, compact){
       const src = TEAM_LOGOS[name] || "";
       const initial = String(name || "").trim().slice(0, 1) || "?";
-      const box = "inline-flex h-7 w-7 shrink-0 items-center justify-center sm:h-8 sm:w-8";
+      const box = compact
+        ? "inline-flex h-5 w-5 shrink-0 items-center justify-center"
+        : "inline-flex h-7 w-7 shrink-0 items-center justify-center sm:h-8 sm:w-8";
       if (!src){
-        return `<span class="${box} rounded-md border border-slate-700 bg-slate-900 text-[10px] font-bold text-slate-500 sm:text-xs" title="${esc(name)}">${esc(initial)}</span>`;
+        return `<span class="${box} rounded border border-slate-700 bg-slate-900 text-[9px] font-bold text-slate-500 sm:rounded-md sm:text-[10px] sm:text-xs" title="${esc(name)}">${esc(initial)}</span>`;
       }
-      return `<span class="${box} overflow-hidden rounded-md border border-slate-700 bg-slate-900">
-        <img src="${esc(src)}" alt="" class="h-full w-full object-contain p-0.5" loading="lazy" onerror="this.style.display='none'; const f=this.nextElementSibling; if(f) f.classList.remove('hidden');" />
-        <span class="hidden h-full w-full items-center justify-center text-[10px] font-bold text-slate-500 sm:text-xs">${esc(initial)}</span>
+      return `<span class="${box} overflow-hidden rounded border border-slate-700 bg-slate-900 sm:rounded-md">
+        <img src="${esc(src)}" alt="" class="h-full w-full object-contain p-px sm:p-0.5" loading="lazy" onerror="this.style.display='none'; const f=this.nextElementSibling; if(f) f.classList.remove('hidden');" />
+        <span class="hidden h-full w-full items-center justify-center text-[9px] font-bold text-slate-500 sm:text-xs">${esc(initial)}</span>
       </span>`;
     }
 
@@ -402,28 +409,31 @@
         const form = computeForm(row.club_name, matches);
         return `
           <tr class="border-b border-slate-800 hover:bg-slate-800/50">
-            <td class="sticky left-0 z-10 bg-slate-900/95 px-1 py-2 text-center shadow-[2px_0_8px_rgba(0,0,0,0.2)] sm:px-2">${idx + 1}</td>
-            <td class="sticky left-7 z-10 max-w-[7.5rem] bg-slate-900/95 px-1 py-2 font-semibold shadow-[2px_0_8px_rgba(0,0,0,0.2)] sm:left-8 sm:max-w-none sm:px-2">
-              <div class="flex items-center gap-1 sm:gap-2">
-                ${clubImg(row.club_name)}
-                <button type="button" data-club-name="${esc(row.club_name)}" class="club-filter-btn min-h-[40px] max-w-[5.5rem] rounded px-0.5 py-1 text-left text-[11px] leading-tight text-accent hover:bg-accent/10 sm:min-h-0 sm:max-w-none sm:px-1 sm:text-sm sm:leading-normal hover:underline">
+            <td class="sticky left-0 z-10 w-7 bg-slate-900/95 px-0.5 py-1.5 text-center text-[10px] font-medium tabular-nums shadow-[2px_0_8px_rgba(0,0,0,0.2)] sm:w-auto sm:px-2 sm:py-2 sm:text-sm">${idx + 1}</td>
+            <td class="sticky left-7 z-10 max-w-[4.75rem] bg-slate-900/95 px-0.5 py-1.5 sm:left-8 sm:max-w-none sm:px-2 sm:py-2">
+              <div class="flex items-center gap-0.5 sm:gap-2">
+                ${clubImg(row.club_name, true)}
+                <button type="button" data-club-name="${esc(row.club_name)}" class="club-filter-btn min-h-[36px] min-w-0 flex-1 truncate rounded px-0.5 py-0.5 text-left text-[10px] leading-snug text-accent hover:bg-accent/10 sm:min-h-0 sm:max-w-none sm:px-1 sm:text-sm sm:leading-normal hover:underline" title="${esc(row.club_name)}">
                   ${esc(row.club_name)}
                 </button>
               </div>
             </td>
-            <td class="px-1 py-2 sm:px-2">${n(row.played)}</td>
-            <td class="px-1 py-2 sm:px-2">
-              <span class="inline-flex items-center gap-0.5 rounded bg-success/20 px-1 py-0.5 text-[10px] text-success sm:gap-1 sm:px-2 sm:text-xs">胜${n(wdl[0])}</span>
-              <span class="inline-flex items-center gap-0.5 rounded bg-warn/20 px-1 py-0.5 text-[10px] text-warn sm:gap-1 sm:px-2 sm:text-xs">平${n(wdl[1])}</span>
-              <span class="inline-flex items-center gap-0.5 rounded bg-danger/20 px-1 py-0.5 text-[10px] text-danger sm:gap-1 sm:px-2 sm:text-xs">负${n(wdl[2])}</span>
+            <td class="px-0.5 py-1.5 text-center tabular-nums text-slate-200 sm:px-2 sm:py-2">${n(row.played)}</td>
+            <td class="px-0.5 py-1.5 text-center sm:px-2 sm:py-2">
+              <span class="font-mono text-[9px] tabular-nums leading-none text-slate-300 sm:hidden" title="胜-平-负">${n(wdl[0])}-${n(wdl[1])}-${n(wdl[2])}</span>
+              <span class="hidden sm:inline-flex sm:flex-wrap sm:items-center sm:gap-0.5">
+                <span class="inline-flex items-center gap-0.5 rounded bg-success/20 px-1 py-0.5 text-[10px] text-success sm:gap-1 sm:px-2 sm:text-xs">胜${n(wdl[0])}</span>
+                <span class="inline-flex items-center gap-0.5 rounded bg-warn/20 px-1 py-0.5 text-[10px] text-warn sm:gap-1 sm:px-2 sm:text-xs">平${n(wdl[1])}</span>
+                <span class="inline-flex items-center gap-0.5 rounded bg-danger/20 px-1 py-0.5 text-[10px] text-danger sm:gap-1 sm:px-2 sm:text-xs">负${n(wdl[2])}</span>
+              </span>
             </td>
-            <td class="whitespace-nowrap px-1 py-2 sm:px-2">${form.map(resultEmoji).join(" ") || "—"}</td>
-            <td class="px-1 py-2 sm:px-2">${n(row?.summary?.goals_for)}</td>
-            <td class="px-1 py-2 sm:px-2">${n(row?.summary?.goals_against)}</td>
-            <td class="px-1 py-2 sm:px-2 ${n(row.goal_difference) >= 0 ? "text-success" : "text-danger"}">${n(row.goal_difference)}</td>
-            <td class="px-1 py-2 font-semibold text-slate-200 sm:px-2">${n(row.points)}</td>
-            <td class="px-1 py-2 sm:px-2 ${n(row.penalty_points) > 0 ? "text-danger font-semibold" : "text-slate-300"}">-${n(row.penalty_points)}</td>
-            <td class="px-1 py-2 font-bold text-accent sm:px-2">${n(row.effective_points)}</td>
+            <td class="hidden whitespace-nowrap px-0.5 py-1.5 text-center text-[11px] sm:table-cell sm:px-2 sm:py-2 sm:text-sm">${form.map(resultEmoji).join(" ") || "—"}</td>
+            <td class="px-0.5 py-1.5 text-center tabular-nums text-slate-200 sm:px-2 sm:py-2">${n(row?.summary?.goals_for)}</td>
+            <td class="px-0.5 py-1.5 text-center tabular-nums text-slate-200 sm:px-2 sm:py-2">${n(row?.summary?.goals_against)}</td>
+            <td class="px-0.5 py-1.5 text-center tabular-nums sm:px-2 sm:py-2 ${n(row.goal_difference) >= 0 ? "text-success" : "text-danger"}">${n(row.goal_difference)}</td>
+            <td class="px-0.5 py-1.5 text-center font-semibold tabular-nums text-slate-200 sm:px-2 sm:py-2">${n(row.points)}</td>
+            <td class="px-0.5 py-1.5 text-center tabular-nums sm:px-2 sm:py-2 ${n(row.penalty_points) > 0 ? "text-danger font-semibold" : "text-slate-300"}">-${n(row.penalty_points)}</td>
+            <td class="px-0.5 py-1.5 text-center text-[11px] font-bold tabular-nums text-accent sm:px-2 sm:py-2 sm:text-sm">${n(row.effective_points)}</td>
           </tr>
         `;
       }).join("");
@@ -555,31 +565,28 @@
     }
 
     /**
-     * 全体俱乐部、首次进入：以 nearestMatchDateYmd 在「全部有赛自然日」序列中的位置为锚，
-     * 展示锚点的前一个有赛日 + 后一个有赛日的全部比赛；赛季首尾无「前」或「后」时改为展示相邻两日。
+     * 全体俱乐部、首次进入：相对**系统当日**（日历），不按「nearest 在数组里的左右邻」取日（否则会跳过紧邻的下一有赛日）。
+     * 上一有赛日 = 严格早于今日的最晚一天；下一有赛日 = 严格晚于今日的最早一天（故今日 13 号、有赛 12/17/18 → 12 与 17，而非 12 与 18）。
      */
     function buildAdjacentMatchDaysWindow(matches){
       const days = [...new Set(matches.map(matchDateKey).filter(k => k.length === 10))].sort();
       if (!days.length) return [];
-      const anchor = nearestMatchDateYmd(matches);
-      let idx = days.indexOf(anchor);
-      if (idx < 0){
-        const t = todayYmd();
-        const j = days.findIndex(d => d >= t);
-        idx = j >= 0 ? j : days.length - 1;
-      }
+      const t = todayYmd();
+      const before = days.filter(d => d < t);
+      const after = days.filter(d => d > t);
+      let prevD = before.length ? before[before.length - 1] : "";
+      let nextD = after.length ? after[0] : "";
       const want = new Set();
-      if (days.length === 1){
+      if (prevD) want.add(prevD);
+      if (nextD) want.add(nextD);
+      if (want.size === 0 && days.length){
         want.add(days[0]);
-      } else if (idx === 0){
-        want.add(days[0]);
-        want.add(days[1]);
-      } else if (idx === days.length - 1){
-        want.add(days[days.length - 2]);
-        want.add(days[days.length - 1]);
-      } else {
-        want.add(days[idx - 1]);
-        want.add(days[idx + 1]);
+        if (days.length > 1) want.add(days[days.length - 1]);
+      } else if (want.size === 1){
+        const only = [...want][0];
+        const ix = days.indexOf(only);
+        if (ix > 0) want.add(days[ix - 1]);
+        else if (ix < days.length - 1) want.add(days[ix + 1]);
       }
       return matches.filter(m => want.has(matchDateKey(m)))
         .sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
@@ -639,23 +646,23 @@
       const kick = raw.length >= 16 ? raw.slice(11, 16) : "";
       const metaLine = [String(m.round || "").trim(), kick || (raw.length > 10 ? raw : "")].filter(Boolean).join(" · ");
       return `
-        <button type="button" data-match-index="${idx}" class="match-item mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
+        <button type="button" data-match-index="${idx}" class="match-item mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2 text-left active:bg-slate-800/80 sm:p-3 sm:hover:border-accent/40">
           <div class="mb-1 flex flex-wrap items-center justify-between gap-1">
-            <span class="text-[11px] text-slate-400 sm:text-xs">${esc(metaLine || "—")}</span>
-            <span class="rounded px-2 py-0.5 text-[10px] ${sui.cls} sm:text-xs">${esc(sui.label)}</span>
+            <span class="min-w-0 flex-1 truncate text-[10px] text-slate-400 sm:text-xs">${esc(metaLine || "—")}</span>
+            <span class="shrink-0 rounded px-1.5 py-0.5 text-[10px] ${sui.cls} sm:px-2 sm:text-xs">${esc(sui.label)}</span>
           </div>
-          <div class="mb-1.5 text-[11px] leading-snug text-slate-500 sm:text-xs">${stadiumTxt}</div>
-          <div class="grid grid-cols-1 items-center gap-2 min-[380px]:grid-cols-[1fr_auto_1fr]">
-            <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-end">
-              <span class="max-w-[45%] truncate text-right text-xs font-medium sm:text-sm">${esc(m.home_club)}</span>
+          <div class="mb-1.5 truncate text-[10px] leading-snug text-slate-500 sm:text-xs">${stadiumTxt}</div>
+          <div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-1.5 sm:gap-3">
+            <div class="flex min-w-0 items-center justify-end gap-1 sm:gap-2">
+              <span class="min-w-0 truncate text-right text-[11px] font-semibold leading-tight text-slate-100 sm:text-sm">${esc(m.home_club)}</span>
               ${clubImg(m.home_club)}
             </div>
-            <div class="flex justify-center">
-              <div class="rounded bg-slate-800 px-3 py-1.5 font-mono text-base font-bold text-accent sm:px-2 sm:py-1 sm:text-sm">${esc(fmtScore(m))}</div>
+            <div class="flex shrink-0 justify-center px-0.5">
+              <div class="rounded-md bg-slate-800 px-2 py-1 font-mono text-sm font-bold tabular-nums text-accent sm:px-3 sm:text-base">${esc(fmtScore(m))}</div>
             </div>
-            <div class="flex items-center justify-center gap-2 min-w-0 min-[380px]:justify-start">
+            <div class="flex min-w-0 items-center justify-start gap-1 sm:gap-2">
               ${clubImg(m.away_club)}
-              <span class="max-w-[45%] truncate text-xs font-medium sm:text-sm">${esc(m.away_club)}</span>
+              <span class="min-w-0 truncate text-left text-[11px] font-semibold leading-tight text-slate-100 sm:text-sm">${esc(m.away_club)}</span>
             </div>
           </div>
         </button>
@@ -766,7 +773,13 @@
           }
         } else {
           scheduleViewMode = "global_adjacent";
-          const pivot = nearestMatchDateYmd(matches);
+          const tday = todayYmd();
+          const dlist = [...new Set(matches.map(matchDateKey).filter(k => k.length === 10))].sort();
+          const before = dlist.filter(d => d < tday);
+          const after = dlist.filter(d => d > tday);
+          const nextAround = after.length ? after[0] : "";
+          const prevAround = before.length ? before[before.length - 1] : "";
+          const pivot = nextAround || prevAround || nearestMatchDateYmd(matches);
           if (pivot && pivot.length === 10){
             calendarViewYear = Number(pivot.slice(0, 4));
             calendarViewMonth = Number(pivot.slice(5, 7)) - 1;
@@ -1100,7 +1113,7 @@
       playerListEl.innerHTML = filtered.map((p, idx) => {
         const clubLine = listPlayerClubDisplay(p);
         return `
-        <div class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2.5 sm:p-3">
+        <div class="player-row mb-2 w-full rounded-lg border border-slate-700 bg-slate-900/60 p-2 sm:p-3">
           <div class="flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
             <span class="font-mono text-xs text-slate-500">${idx + 1}.</span>
             <button type="button" class="player-name-open-profile shrink-0 text-left text-sm font-semibold text-accent underline-offset-2 hover:underline" data-player-index="${idx}">${esc(p.player_name)}</button>
