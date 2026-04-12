@@ -1,0 +1,43 @@
+CSL 看板静态部署说明（线上常见问题）
+====================================
+
+一、必须上传的目录结构
+----------------------
+不要只传 index.html。队徽使用相对路径，必须与 HTML 保持相对位置：
+
+  index.html
+  assets/
+    team_logos/
+      *.png   （以及可选的 _meta.json）
+
+若服务器上页面地址是 https://域名/子目录/index.html，则队徽应在
+https://域名/子目录/assets/team_logos/ 下。
+
+二、子目录部署（路径前缀）
+--------------------------
+若站点根目录不是看板目录，生成 HTML 前可设置环境变量再运行 web_renderer：
+
+  Windows PowerShell:
+    $env:CSL_DASHBOARD_PUBLIC_BASE="/你的子路径"
+    python src/renderer/web_renderer.py
+
+  示例：页面在 https://example.com/football/csl/index.html
+    CSL_DASHBOARD_PUBLIC_BASE=/football/csl
+
+  或使用完整站点前缀：
+    CSL_DASHBOARD_PUBLIC_BASE=https://example.com/football/csl
+
+三、CDN 与样式
+--------------
+页面依赖：
+  - https://cdn.tailwindcss.com （样式，国内偶发不可用）
+  - https://cdn.jsdelivr.net 与 https://cdn.bootcdn.net （Chart.js，已做备用）
+
+若整页无样式：检查浏览器控制台是否无法加载 tailwindcss.com；可换网络、代理，
+或自行将 Tailwind 构建为静态 CSS（需改项目构建方式）。
+
+四、其他
+--------
+- 纯静态托管即可，无需 Python。
+- 若主机启用了严格 CSP（内容安全策略），可能拦截内联脚本，需在服务器侧为
+  script-src 放行或使用哈希/nonce（由主机商文档说明）。

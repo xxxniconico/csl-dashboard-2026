@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -10,6 +11,29 @@ if str(_RENDERER_DIR) not in sys.path:
     sys.path.insert(0, str(_RENDERER_DIR))
 
 from team_logo_assets import build_team_logo_map_for_dashboard
+
+
+def apply_team_logo_public_base(logos: Dict[str, str], base: str) -> Dict[str, str]:
+    """
+    Prefix relative logo paths for hosting under a subpath or absolute site root.
+    Set env CSL_DASHBOARD_PUBLIC_BASE, e.g. https://example.com/myapp or /myapp
+    """
+    b = (base or "").strip().rstrip("/")
+    if not b:
+        return logos
+    out: Dict[str, str] = {}
+    for name, rel in logos.items():
+        r = str(rel or "").strip()
+        if not r or r.startswith(("http://", "https://", "//")):
+            out[name] = r
+            continue
+        path = r.lstrip("/")
+        if b.startswith("http://") or b.startswith("https://"):
+            out[name] = f"{b}/{path}"
+        else:
+            root = b if b.startswith("/") else f"/{b.lstrip('/')}"
+            out[name] = f"{root}/{path}"
+    return out
 
 
 def load_data(root: Path) -> Dict[str, Any]:
@@ -196,7 +220,7 @@ def build_dashboard_html(data: Dict[str, Any], team_logos: Dict[str, str]) -> st
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>Ultimate Football Dashboard 2026</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous" onerror="this.onerror=null;this.src='https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -868,6 +892,9 @@ def main() -> None:
     merged = _merge_same_competition(merged)
     club_names = _collect_club_names(merged)
     team_logos = build_team_logo_map_for_dashboard(root, club_names)
+    pub_base = os.environ.get("CSL_DASHBOARD_PUBLIC_BASE", "").strip()
+    if pub_base:
+        team_logos = apply_team_logo_public_base(team_logos, pub_base)
     html = build_dashboard_html(data, team_logos)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(html, encoding="utf-8")
