@@ -533,7 +533,7 @@ def build_dashboard_html(source_file: str, generated_at: str) -> str:
                 </button>
               </div>
               <div id="matchListWrap" class="min-w-0 lg:order-1 lg:min-h-0 lg:flex-1">
-                <div id="matchList" class="max-h-[min(42dvh,calc(100dvh-18rem))] overflow-auto pr-0.5 sm:max-h-[min(720px,70vh)] sm:pr-1"></div>
+                <div id="matchList" class="max-h-[min(56dvh,calc(100dvh-14rem))] overflow-auto pr-0.5 pb-[max(4.5rem,calc(3.75rem+env(safe-area-inset-bottom,0px)))] sm:max-h-[min(720px,70vh)] sm:pr-1 sm:pb-0"></div>
               </div>
             </div>
           </div>
