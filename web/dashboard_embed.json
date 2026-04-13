@@ -9,20 +9,56 @@
           {
             "club_id": "club_成都蓉城",
             "club_name": "成都蓉城",
-            "points": 10,
+            "points": 13,
             "penalty_points": 0,
-            "effective_points": 10,
-            "played": 4,
+            "effective_points": 13,
+            "played": 5,
             "w_d_l": [
-              3,
+              4,
               1,
               0
             ],
             "summary": {
-              "goals_for": 14,
-              "goals_against": 5
+              "goals_for": 16,
+              "goals_against": 6
             },
-            "goal_difference": 9
+            "goal_difference": 10
+          },
+          {
+            "club_id": "club_重庆铜梁龙",
+            "club_name": "重庆铜梁龙",
+            "points": 11,
+            "penalty_points": 0,
+            "effective_points": 11,
+            "played": 5,
+            "w_d_l": [
+              3,
+              2,
+              0
+            ],
+            "summary": {
+              "goals_for": 7,
+              "goals_against": 4
+            },
+            "goal_difference": 3
+          },
+          {
+            "club_id": "club_云南玉昆",
+            "club_name": "云南玉昆",
+            "points": 9,
+            "penalty_points": 0,
+            "effective_points": 9,
+            "played": 5,
+            "w_d_l": [
+              3,
+              0,
+              2
+            ],
+            "summary": {
+              "goals_for": 13,
+              "goals_against": 8
+            },
+            "goal_difference": 5
           },
           {
             "club_id": "club_大连英博",
@@ -43,56 +79,20 @@
             "goal_difference": 0
           },
           {
-            "club_id": "club_重庆铜梁龙",
-            "club_name": "重庆铜梁龙",
-            "points": 8,
-            "penalty_points": 0,
-            "effective_points": 8,
-            "played": 4,
-            "w_d_l": [
-              2,
-              2,
-              0
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 3
-            },
-            "goal_difference": 2
-          },
-          {
-            "club_id": "club_云南玉昆",
-            "club_name": "云南玉昆",
-            "points": 6,
-            "penalty_points": 0,
-            "effective_points": 6,
-            "played": 4,
-            "w_d_l": [
-              2,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 9,
-              "goals_against": 5
-            },
-            "goal_difference": 4
-          },
-          {
             "club_id": "club_辽宁铁人",
             "club_name": "辽宁铁人",
-            "points": 6,
+            "points": 7,
             "penalty_points": 0,
-            "effective_points": 6,
-            "played": 4,
+            "effective_points": 7,
+            "played": 5,
             "w_d_l": [
               2,
-              0,
+              1,
               2
             ],
             "summary": {
-              "goals_for": 5,
-              "goals_against": 5
+              "goals_for": 6,
+              "goals_against": 6
             },
             "goal_difference": 0
           },
@@ -102,35 +102,53 @@
             "points": 6,
             "penalty_points": 0,
             "effective_points": 6,
-            "played": 4,
+            "played": 5,
             "w_d_l": [
               2,
+              0,
+              3
+            ],
+            "summary": {
+              "goals_for": 10,
+              "goals_against": 12
+            },
+            "goal_difference": -2
+          },
+          {
+            "club_id": "club_青岛西海岸",
+            "club_name": "青岛西海岸",
+            "points": 4,
+            "penalty_points": 0,
+            "effective_points": 4,
+            "played": 5,
+            "w_d_l": [
+              1,
+              1,
+              3
+            ],
+            "summary": {
+              "goals_for": 4,
+              "goals_against": 12
+            },
+            "goal_difference": -8
+          },
+          {
+            "club_id": "club_山东泰山",
+            "club_name": "山东泰山",
+            "points": 9,
+            "penalty_points": 6,
+            "effective_points": 3,
+            "played": 5,
+            "w_d_l": [
+              3,
               0,
               2
             ],
             "summary": {
               "goals_for": 7,
-              "goals_against": 8
+              "goals_against": 7
             },
-            "goal_difference": -1
-          },
-          {
-            "club_id": "club_青岛西海岸",
-            "club_name": "青岛西海岸",
-            "points": 3,
-            "penalty_points": 0,
-            "effective_points": 3,
-            "played": 4,
-            "w_d_l": [
-              1,
-              0,
-              3
-            ],
-            "summary": {
-              "goals_for": 3,
-              "goals_against": 11
-            },
-            "goal_difference": -8
+            "goal_difference": 0
           },
           {
             "club_id": "club_浙江",
@@ -151,22 +169,40 @@
             "goal_difference": 1
           },
           {
+            "club_id": "club_上海申花",
+            "club_name": "上海申花",
+            "points": 11,
+            "penalty_points": 10,
+            "effective_points": 1,
+            "played": 5,
+            "w_d_l": [
+              3,
+              2,
+              0
+            ],
+            "summary": {
+              "goals_for": 11,
+              "goals_against": 7
+            },
+            "goal_difference": 4
+          },
+          {
             "club_id": "club_上海海港",
             "club_name": "上海海港",
             "points": 6,
             "penalty_points": 5,
             "effective_points": 1,
-            "played": 4,
+            "played": 5,
             "w_d_l": [
               2,
               0,
-              2
+              3
             ],
             "summary": {
               "goals_for": 7,
-              "goals_against": 5
+              "goals_against": 6
             },
-            "goal_difference": 2
+            "goal_difference": 1
           },
           {
             "club_id": "club_河南",
@@ -174,45 +210,9 @@
             "points": 7,
             "penalty_points": 6,
             "effective_points": 1,
-            "played": 4,
+            "played": 5,
             "w_d_l": [
               2,
-              1,
-              1
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 4
-            },
-            "goal_difference": 1
-          },
-          {
-            "club_id": "club_山东泰山",
-            "club_name": "山东泰山",
-            "points": 6,
-            "penalty_points": 6,
-            "effective_points": 0,
-            "played": 4,
-            "w_d_l": [
-              2,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 6,
-              "goals_against": 7
-            },
-            "goal_difference": -1
-          },
-          {
-            "club_id": "club_北京国安",
-            "club_name": "北京国安",
-            "points": 4,
-            "penalty_points": 5,
-            "effective_points": -1,
-            "played": 4,
-            "w_d_l": [
-              1,
               1,
               2
             ],
@@ -223,74 +223,74 @@
             "goal_difference": 0
           },
           {
+            "club_id": "club_北京国安",
+            "club_name": "北京国安",
+            "points": 4,
+            "penalty_points": 5,
+            "effective_points": -1,
+            "played": 5,
+            "w_d_l": [
+              1,
+              1,
+              3
+            ],
+            "summary": {
+              "goals_for": 6,
+              "goals_against": 7
+            },
+            "goal_difference": -1
+          },
+          {
             "club_id": "club_武汉三镇",
             "club_name": "武汉三镇",
             "points": 4,
             "penalty_points": 5,
             "effective_points": -1,
-            "played": 4,
+            "played": 5,
             "w_d_l": [
               1,
               1,
-              2
+              3
             ],
             "summary": {
-              "goals_for": 7,
-              "goals_against": 9
+              "goals_for": 8,
+              "goals_against": 11
             },
-            "goal_difference": -2
-          },
-          {
-            "club_id": "club_上海申花",
-            "club_name": "上海申花",
-            "points": 8,
-            "penalty_points": 10,
-            "effective_points": -2,
-            "played": 4,
-            "w_d_l": [
-              2,
-              2,
-              0
-            ],
-            "summary": {
-              "goals_for": 10,
-              "goals_against": 7
-            },
-            "goal_difference": 3
+            "goal_difference": -3
           },
           {
             "club_id": "club_青岛海牛",
             "club_name": "青岛海牛",
-            "points": 3,
+            "points": 4,
             "penalty_points": 7,
-            "effective_points": -4,
-            "played": 4,
+            "effective_points": -3,
+            "played": 5,
             "w_d_l": [
               1,
-              0,
+              1,
               3
             ],
             "summary": {
-              "goals_for": 3,
-              "goals_against": 8
+              "goals_for": 4,
+              "goals_against": 9
             },
             "goal_difference": -5
           },
           {
             "club_id": "club_天津津门虎",
             "club_name": "天津津门虎",
-            "points": 1,
+            "points": 2,
             "penalty_points": 10,
-            "effective_points": -9,
-            "played": 4,
+            "effective_points": -8,
+            "played": 5,
             "w_d_l": [
               0,
-              1,
+              2,
               3
             ],
             "summary": {
-              "goals_for": 2,
-              "goals_against": 7
+              "goals_for": 3,
+              "goals_against": 8
             },
             "goal_difference": -5
           }
@@ -2368,7 +2368,7 @@
             "date": "2026-04-11 19:00:00",
             "home_club": "重庆铜梁龙",
             "away_club": "武汉三镇",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
               "home": 2,
               "away": 1
@@ -2415,7 +2415,7 @@
             "date": "2026-04-11 19:00:00",
             "home_club": "青岛西海岸",
             "away_club": "辽宁铁人",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
               "home": 1,
               "away": 1
@@ -2483,7 +2483,7 @@
             "date": "2026-04-11 19:35:00",
             "home_club": "上海申花",
             "away_club": "上海海港",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
               "home": 1,
               "away": 0
@@ -2551,7 +2551,7 @@
             "date": "2026-04-11 19:35:00",
             "home_club": "河南",
             "away_club": "山东泰山",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
               "home": 0,
               "away": 1
@@ -2584,54 +2584,265 @@
             "date": "2026-04-12 19:00:00",
             "home_club": "天津津门虎",
             "away_club": "青岛海牛",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第5轮",
             "venue": {
               "name": "泰达足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "黄嘉辉",
+                "player_name": "黄嘉辉",
+                "minute": 7,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "金永浩",
+                "player_name": "金永浩",
+                "minute": 33,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "罗森文",
+                "player_name": "罗森文",
+                "minute": 42,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吴兴涵",
+                "player_name": "吴兴涵",
+                "minute": 46,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "吉列尔梅·谢蒂内",
+                "player_name": "吉列尔梅·谢蒂内",
+                "minute": 77,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李永佳",
+                "player_name": "李永佳",
+                "minute": 86,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "杨帆",
+                "player_name": "杨帆",
+                "minute": 101,
+                "team_name": "天津津门虎"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "541",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png"
           },
           {
             "match_id": "5u4gsr8kk1hlxsxw9owgcqnmc",
             "date": "2026-04-12 19:35:00",
             "home_club": "北京国安",
             "away_club": "成都蓉城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第5轮",
             "venue": {
               "name": "工人体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 14,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "胡荷韬",
+                "player_name": "胡荷韬",
+                "minute": 31,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "马修斯·尤萨",
+                "player_name": "马修斯·尤萨",
+                "minute": 62,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "张玉宁",
+                "player_name": "张玉宁",
+                "minute": 63,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孔特",
+                "player_name": "孔特",
+                "minute": 82,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "廖力生",
+                "player_name": "廖力生",
+                "minute": 84,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "廖力生",
+                "player_name": "廖力生",
+                "minute": 88,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 94,
+                "team_name": "成都蓉城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "442",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png"
           },
           {
             "match_id": "5uojjxh9snfkg4py63m104844",
             "date": "2026-04-12 20:00:00",
             "home_club": "深圳新鹏城",
             "away_club": "云南玉昆",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 4
             },
             "round": "第5轮",
             "venue": {
               "name": "深圳市体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "徐新",
+                "player_name": "徐新",
+                "minute": 20,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "卡约",
+                "player_name": "卡约",
+                "minute": 26,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨一鸣",
+                "player_name": "杨一鸣",
+                "minute": 33,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 34,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "卡尔采夫",
+                "player_name": "卡尔采夫",
+                "minute": 38,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "卡尔采夫",
+                "player_name": "卡尔采夫",
+                "minute": 47,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "姚均晟",
+                "player_name": "姚均晟",
+                "minute": 52,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨梓豪",
+                "player_name": "杨梓豪",
+                "minute": 64,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "克莱伯",
+                "player_name": "克莱伯",
+                "minute": 68,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 72,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 76,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "韦斯利",
+                "player_name": "韦斯利",
+                "minute": 98,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "本科维奇",
+                "player_name": "本科维奇",
+                "minute": 100,
+                "team_name": "深圳新鹏城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "343",
+            "away_formation_used": "4141",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png"
           },
           {
             "match_id": "5v7mmfp4b9luor3bi4xoiia6s",
@@ -6280,15 +6491,15 @@
       }
     },
     "meta": {
-      "generated_at_utc": "2026-04-12T16:39:43.653652+00:00",
+      "generated_at_utc": "2026-04-13T01:30:13.636475+00:00",
       "source": "all_seasons_unified_index.json",
       "cfl_backfill_source": "csl_matches_enriched_cfl.json",
       "fixtures_source": "csl_season_fixtures_cfl.json",
       "fixtures_rows_loaded": 240,
       "fixtures_merge_fixture_rows_csl": 240,
       "fixtures_merge_overlay_rows_csl": 33,
-      "total_matches_processed": 277,
-      "matches_backfilled_from_cfl": 37,
+      "total_matches_processed": 280,
+      "matches_backfilled_from_cfl": 40,
       "matches_with_injected_events": 0,
       "total_injected_events": 0,
       "notes": [
@@ -6712,7 +6923,7 @@
     },
     {
       "player_name": "吉列尔梅·谢蒂内",
-      "team_name": "",
+      "team_name": "天津津门虎",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7352,7 +7563,7 @@
     },
     {
       "player_name": "姚均晟",
-      "team_name": "",
+      "team_name": "深圳新鹏城",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7384,7 +7595,7 @@
     },
     {
       "player_name": "廖力生",
-      "team_name": "",
+      "team_name": "成都蓉城",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7504,7 +7715,7 @@
     },
     {
       "player_name": "杨帆",
-      "team_name": "",
+      "team_name": "天津津门虎",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7608,7 +7819,7 @@
     },
     {
       "player_name": "罗森文",
-      "team_name": "",
+      "team_name": "青岛海牛",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7816,7 +8027,7 @@
     },
     {
       "player_name": "黄嘉辉",
-      "team_name": "",
+      "team_name": "天津津门虎",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,

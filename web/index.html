@@ -52,7 +52,7 @@
           <p class="hidden text-sm text-slate-400 sm:block">Match timeline drilldown + penalty-adjusted standings + CFL player profiles</p>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-12 19:16 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-13 09:07 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -311,6 +311,110 @@
       });
     }
 
+    /**
+     * 基于比赛结果实时重算积分榜：
+     * - 每次数据刷新后按 matches 重算已赛场次/积分/净胜球，避免沿用滞后的 standings。
+     * - 扣分优先采用官方 policy，同时兼容 standings 行内 penalty_points。
+     */
+    function buildLiveStandingsRows(league, matches){
+      const rows = safeArr(league && league.standings);
+      const baseByClub = new Map();
+      const clubOrder = [];
+      const seenClub = new Set();
+
+      for (const row of rows){
+        if (!row || typeof row !== "object") continue;
+        const club = String(row.club_name || "").trim();
+        if (!club) continue;
+        baseByClub.set(club, row);
+        if (!seenClub.has(club)){
+          seenClub.add(club);
+          clubOrder.push(club);
+        }
+      }
+      for (const m of safeArr(matches)){
+        const h = String(m?.home_club || "").trim();
+        const a = String(m?.away_club || "").trim();
+        if (h && !seenClub.has(h)){ seenClub.add(h); clubOrder.push(h); }
+        if (a && !seenClub.has(a)){ seenClub.add(a); clubOrder.push(a); }
+      }
+
+      const penaltyByClub = Object.create(null);
+      const policy = RAW_DATA && RAW_DATA.official_points_policy;
+      const deductions = policy && typeof policy === "object" ? policy.deductions_by_club : null;
+      if (deductions && typeof deductions === "object" && !Array.isArray(deductions)){
+        for (const [club, val] of Object.entries(deductions)){
+          penaltyByClub[String(club)] = n(val);
+        }
+      }
+      for (const row of rows){
+        const club = String(row?.club_name || "").trim();
+        if (!club) continue;
+        const p = n(row?.penalty_points);
+        if (!(club in penaltyByClub)) penaltyByClub[club] = p;
+        else penaltyByClub[club] = Math.max(n(penaltyByClub[club]), p);
+      }
+
+      const statsByClub = new Map();
+      const ensureStats = (club) => {
+        if (!statsByClub.has(club)){
+          statsByClub.set(club, { played: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, points: 0 });
+        }
+        return statsByClub.get(club);
+      };
+
+      const seenMatches = new Set();
+      for (const m of safeArr(matches)){
+        const key = String(m?.match_id || "").trim() || `${String(m?.date || "").trim()}|${String(m?.home_club || "").trim()}|${String(m?.away_club || "").trim()}`;
+        if (seenMatches.has(key)) continue;
+        seenMatches.add(key);
+
+        if (!isFinishedMatch(m)) continue;
+        const homeClub = String(m?.home_club || "").trim();
+        const awayClub = String(m?.away_club || "").trim();
+        if (!homeClub || !awayClub) continue;
+        const hs = Number(m?.score?.home);
+        const as = Number(m?.score?.away);
+        if (!Number.isFinite(hs) || !Number.isFinite(as)) continue;
+
+        const home = ensureStats(homeClub);
+        const away = ensureStats(awayClub);
+        home.played += 1; away.played += 1;
+        home.gf += hs; home.ga += as;
+        away.gf += as; away.ga += hs;
+
+        if (hs > as){
+          home.w += 1; away.l += 1;
+          home.points += 3;
+        } else if (hs < as){
+          away.w += 1; home.l += 1;
+          away.points += 3;
+        } else {
+          home.d += 1; away.d += 1;
+          home.points += 1; away.points += 1;
+        }
+      }
+
+      const out = [];
+      for (const club of clubOrder){
+        const base = baseByClub.get(club) || {};
+        const s = ensureStats(club);
+        const penalty = n(penaltyByClub[club] || 0);
+        out.push({
+          ...base,
+          club_name: club,
+          played: s.played,
+          w_d_l: [s.w, s.d, s.l],
+          summary: { ...(base.summary && typeof base.summary === "object" ? base.summary : {}), goals_for: s.gf, goals_against: s.ga },
+          goal_difference: s.gf - s.ga,
+          points: s.points,
+          penalty_points: penalty,
+          effective_points: s.points - penalty,
+        });
+      }
+      return out;
+    }
+
     function renderLeagueNav(){
       /* 头部已不展示联赛名称条 */
     }
@@ -400,8 +504,8 @@
 
     function renderStandings(){
       const league = getLeague();
-      const standings = sortStandingsRows(safeArr(league.standings), standingsSortMode);
       const matches = safeArr(league.matches);
+      const standings = sortStandingsRows(buildLiveStandingsRows(league, matches), standingsSortMode);
       updateSortButtons();
       standingsBodyEl.innerHTML = standings.map((row, idx) => {
         const wdl = safeArr(row.w_d_l);
