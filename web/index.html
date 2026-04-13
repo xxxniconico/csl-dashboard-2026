@@ -52,7 +52,7 @@
           <p class="hidden text-sm text-slate-400 sm:block">Match timeline drilldown + penalty-adjusted standings + CFL player profiles</p>
         </div>
         <div class="hidden text-xs text-slate-400 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 sm:block">
-          Generated: 2026-04-13 09:07 UTC<br/>Source: csl_final_production_ready.json
+          Generated: 2026-04-13 09:43 UTC<br/>Source: csl_final_production_ready.json
         </div>
       </div>
     </header>
@@ -113,12 +113,12 @@
             <div class="mb-2 flex flex-col gap-2 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <h2 class="text-lg font-bold sm:text-xl">赛程与事件</h2>
             </div>
-            <div class="mb-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+            <div class="mb-2 flex flex-col gap-1.5 sm:mb-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
               <label for="matchClubFilter" class="text-sm font-medium text-slate-400 sm:shrink-0">俱乐部筛选</label>
-              <select id="matchClubFilter" class="min-h-[40px] w-full max-w-lg rounded-lg border border-slate-600 bg-slate-800/90 px-3 py-2 text-base text-slate-100 shadow-inner sm:min-w-[220px]">
+              <select id="matchClubFilter" class="min-h-[34px] w-full max-w-lg rounded-lg border border-slate-600 bg-slate-800/90 px-2.5 py-1.5 text-sm text-slate-100 shadow-inner sm:min-h-[40px] sm:min-w-[220px] sm:px-3 sm:py-2 sm:text-base">
                 <option value="">全部俱乐部</option>
               </select>
-              <button id="clearClubFilterBtn" type="button" class="hidden min-h-[40px] rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-sm hover:border-accent/40 sm:min-h-0 sm:py-1">
+              <button id="clearClubFilterBtn" type="button" class="hidden min-h-[34px] rounded-md border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-xs hover:border-accent/40 sm:min-h-0 sm:px-3 sm:py-1 sm:text-sm">
                 清除筛选
               </button>
             </div>
@@ -126,18 +126,20 @@
               <!-- 源码顺序：月历在上（移动端首屏）；lg:order 让桌面仍为左列表右月历 -->
               <div id="matchCalendarPanel" class="shrink-0 rounded-xl border border-slate-700 bg-slate-900/45 p-2 sm:p-2.5 lg:order-2 lg:w-[min(100%,320px)]">
                 <div class="mb-1.5 flex items-center justify-between gap-1.5">
-                  <button type="button" id="matchCalPrev" class="min-h-[36px] min-w-[36px] rounded-md border border-slate-600 bg-slate-800/90 text-base leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:rounded-lg sm:px-2 sm:py-1 sm:text-lg" aria-label="上两周">‹</button>
+                  <button type="button" id="matchCalPrev" class="min-h-[36px] min-w-[36px] rounded-md border border-slate-600 bg-slate-800/90 text-base leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:rounded-lg sm:px-2 sm:py-1 sm:text-lg" aria-label="上一段">‹</button>
                   <div id="matchCalTitle" class="min-w-0 flex-1 text-center text-xs font-semibold leading-tight text-slate-100 sm:text-sm"></div>
-                  <button type="button" id="matchCalNext" class="min-h-[36px] min-w-[36px] rounded-md border border-slate-600 bg-slate-800/90 text-base leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:rounded-lg sm:px-2 sm:py-1 sm:text-lg" aria-label="下两周">›</button>
+                  <button type="button" id="matchCalNext" class="min-h-[36px] min-w-[36px] rounded-md border border-slate-600 bg-slate-800/90 text-base leading-none text-slate-200 hover:border-accent/40 hover:text-accent sm:min-h-0 sm:min-w-0 sm:rounded-lg sm:px-2 sm:py-1 sm:text-lg" aria-label="下一段">›</button>
+                  <select id="matchCalRange" class="min-h-[30px] rounded-md border border-slate-600 bg-slate-800/90 px-2 py-1 text-xs text-slate-100 sm:text-sm">
+                    <option value="week">1周</option>
+                    <option value="month">1个月</option>
+                  </select>
                 </div>
                 <div class="grid grid-cols-7 gap-0.5 text-center text-xs font-medium uppercase tracking-wide text-slate-500 sm:text-sm">
                   <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
                 </div>
-                <div id="matchCalCells" class="mt-0.5 grid grid-cols-7 grid-rows-2 gap-0.5 sm:gap-1"></div>
-                <p class="mt-1.5 text-sm leading-snug text-slate-500 sm:hidden">提示：日历为连续两周（自周日）；点日期看单场；赛程列表在下方。</p>
-                <p class="mt-1.5 hidden text-sm leading-relaxed text-slate-500 sm:block sm:text-base">全部赛程：以系统当日为界，展示「早于今日最近一个有赛日」与「晚于今日最近一个有赛日」的全部场次。选俱乐部：该队已赛与未赛全景，并定位最近一场已赛。日历可切换上/下两周。</p>
+                <div id="matchCalCells" class="mt-0.5 grid grid-cols-7 gap-0.5 sm:gap-1"></div>
                 <button type="button" id="matchCalResetDay" class="mt-2 hidden w-full rounded-lg border border-slate-600 bg-slate-800/80 py-2 text-sm font-medium text-slate-200 hover:border-accent/40 hover:text-accent">
-                  显示本两周全部场次
+                  显示当前范围全部场次
                 </button>
               </div>
               <div id="matchListWrap" class="min-w-0 lg:order-1 lg:min-h-0 lg:flex-1">
@@ -240,8 +242,10 @@
     let selectedClub = "";
     let selectedPlayerClub = "";
     let standingsSortMode = "official";
-    /** 赛程日历双周窗口起始（周日 YYYY-MM-DD），共 14 格 */
+    /** 赛程日历窗口起始（默认 1 周，周日 YYYY-MM-DD） */
     let calendarWindowStartYmd = "";
+    /** week=1周（默认）；month=1个月 */
+    let calendarRangeMode = "week";
     let selectedMatchDate = "";
     /** 俱乐部/数据源切换后需重新按「最近赛日」锚定 */
     let matchViewNeedsDateAnchor = true;
@@ -257,6 +261,7 @@
     const matchCalCellsEl = document.getElementById("matchCalCells");
     const matchCalPrevBtn = document.getElementById("matchCalPrev");
     const matchCalNextBtn = document.getElementById("matchCalNext");
+    const matchCalRangeEl = document.getElementById("matchCalRange");
     const matchCalResetDayBtn = document.getElementById("matchCalResetDay");
 
     function safeArr(v){ return Array.isArray(v) ? v : []; }
@@ -654,14 +659,38 @@
       return fmtLocalYmd(dt);
     }
 
-    function matchInCalendarWindow(m, windowStartYmd){
+    function monthPrefixYmFromYmd(ymd){
+      return String(ymd || "").slice(0, 7);
+    }
+
+    function shiftMonthYmd(ymd, deltaMonths){
+      const dt = parseLocalYmd(ymd) || parseLocalYmd(todayYmd());
+      if (!dt) return todayYmd();
+      const d = dt.getDate();
+      dt.setDate(1);
+      dt.setMonth(dt.getMonth() + deltaMonths);
+      const lastDay = new Date(dt.getFullYear(), dt.getMonth() + 1, 0).getDate();
+      dt.setDate(Math.min(d, lastDay));
+      return fmtLocalYmd(dt);
+    }
+
+    function matchInCalendarRange(m, windowStartYmd, mode){
       const k = matchDateKey(m);
       if (k.length !== 10 || !windowStartYmd) return false;
-      const endY = addDaysYmd(windowStartYmd, 13);
+      if (mode === "month"){
+        return k.slice(0, 7) === monthPrefixYmFromYmd(windowStartYmd);
+      }
+      const endY = addDaysYmd(windowStartYmd, 6);
       return k >= windowStartYmd && k <= endY;
     }
 
-    function formatFortnightTitle(startYmd, endYmd){
+    function formatRangeTitle(startYmd, mode){
+      if (mode === "month"){
+        const dt = parseLocalYmd(startYmd);
+        if (!dt) return "";
+        return `${dt.getFullYear()}年${dt.getMonth() + 1}月`;
+      }
+      const endYmd = addDaysYmd(startYmd, 6);
       const s = parseLocalYmd(startYmd);
       const e = parseLocalYmd(endYmd);
       if (!s || !e) return "";
@@ -811,25 +840,53 @@
     function renderMatchCalendar(matchDatesSet){
       if (!matchCalTitleEl || !matchCalCellsEl) return;
       const startYmd = calendarWindowStartYmd || sundayWeekContainingYmd(todayYmd());
-      const endYmd = addDaysYmd(startYmd, 13);
-      matchCalTitleEl.textContent = formatFortnightTitle(startYmd, endYmd);
+      matchCalTitleEl.textContent = formatRangeTitle(startYmd, calendarRangeMode);
+      if (matchCalRangeEl) matchCalRangeEl.value = calendarRangeMode;
       const todayKey = todayYmd();
       const cells = [];
-      for (let i = 0; i < 14; i++){
-        const ymd = addDaysYmd(startYmd, i);
-        const dayNum = Number(ymd.slice(8, 10));
-        const has = matchDatesSet.has(ymd);
-        const isToday = ymd === todayKey;
-        const isSel = selectedMatchDate === ymd;
-        const isHl = calendarHighlightYmd && calendarHighlightYmd === ymd && !isSel;
-        let cls = "relative flex min-h-[1.5rem] flex-col items-center justify-center rounded border text-[11px] font-medium transition-colors sm:min-h-[1.75rem] sm:rounded-md sm:text-xs";
-        if (isSel) cls += " border-accent bg-accent/20 text-accent";
-        else if (isHl) cls += " border-success/50 bg-success/10 text-success ring-1 ring-success/40";
-        else cls += " border-transparent bg-slate-800/50 text-slate-200 hover:border-slate-600";
-        if (isToday && !isSel && !isHl) cls += " ring-1 ring-accent/45";
-        const dot = has ? '<span class="absolute bottom-0.5 h-0.5 w-0.5 rounded-full bg-accent sm:bottom-1 sm:h-1 sm:w-1" aria-hidden="true"></span>' : "";
-        const dis = !has ? " opacity-60" : "";
-        cells.push(`<button type="button" data-cal-date="${ymd}" class="${cls}${dis}" title="${has ? "查看当日比赛" : "当日无比赛"}">${dayNum}${dot}</button>`);
+      if (calendarRangeMode === "month"){
+        const anchor = parseLocalYmd(startYmd) || parseLocalYmd(todayYmd());
+        if (!anchor) return;
+        const y = anchor.getFullYear();
+        const m0 = anchor.getMonth();
+        const first = new Date(y, m0, 1);
+        const startPad = first.getDay();
+        const lastDay = new Date(y, m0 + 1, 0).getDate();
+        for (let i = 0; i < startPad; i++){
+          cells.push('<div class="min-h-[1.5rem] sm:min-h-[1.75rem]" aria-hidden="true"></div>');
+        }
+        for (let d = 1; d <= lastDay; d++){
+          const ymd = `${y}-${pad2(m0 + 1)}-${pad2(d)}`;
+          const has = matchDatesSet.has(ymd);
+          const isToday = ymd === todayKey;
+          const isSel = selectedMatchDate === ymd;
+          const isHl = calendarHighlightYmd && calendarHighlightYmd === ymd && !isSel;
+          let cls = "relative flex min-h-[1.5rem] flex-col items-center justify-center rounded border text-[11px] font-medium transition-colors sm:min-h-[1.75rem] sm:rounded-md sm:text-xs";
+          if (isSel) cls += " border-accent bg-accent/20 text-accent";
+          else if (isHl) cls += " border-success/50 bg-success/10 text-success ring-1 ring-success/40";
+          else cls += " border-transparent bg-slate-800/50 text-slate-200 hover:border-slate-600";
+          if (isToday && !isSel && !isHl) cls += " ring-1 ring-accent/45";
+          const dot = has ? '<span class="absolute bottom-0.5 h-0.5 w-0.5 rounded-full bg-accent sm:bottom-1 sm:h-1 sm:w-1" aria-hidden="true"></span>' : "";
+          const dis = !has ? " opacity-60" : "";
+          cells.push(`<button type="button" data-cal-date="${ymd}" class="${cls}${dis}" title="${has ? "查看当日比赛" : "当日无比赛"}">${d}${dot}</button>`);
+        }
+      } else {
+        for (let i = 0; i < 7; i++){
+          const ymd = addDaysYmd(startYmd, i);
+          const dayNum = Number(ymd.slice(8, 10));
+          const has = matchDatesSet.has(ymd);
+          const isToday = ymd === todayKey;
+          const isSel = selectedMatchDate === ymd;
+          const isHl = calendarHighlightYmd && calendarHighlightYmd === ymd && !isSel;
+          let cls = "relative flex min-h-[1.5rem] flex-col items-center justify-center rounded border text-[11px] font-medium transition-colors sm:min-h-[1.75rem] sm:rounded-md sm:text-xs";
+          if (isSel) cls += " border-accent bg-accent/20 text-accent";
+          else if (isHl) cls += " border-success/50 bg-success/10 text-success ring-1 ring-success/40";
+          else cls += " border-transparent bg-slate-800/50 text-slate-200 hover:border-slate-600";
+          if (isToday && !isSel && !isHl) cls += " ring-1 ring-accent/45";
+          const dot = has ? '<span class="absolute bottom-0.5 h-0.5 w-0.5 rounded-full bg-accent sm:bottom-1 sm:h-1 sm:w-1" aria-hidden="true"></span>' : "";
+          const dis = !has ? " opacity-60" : "";
+          cells.push(`<button type="button" data-cal-date="${ymd}" class="${cls}${dis}" title="${has ? "查看当日比赛" : "当日无比赛"}">${dayNum}${dot}</button>`);
+        }
       }
       matchCalCellsEl.innerHTML = cells.join("");
       matchCalCellsEl.querySelectorAll("[data-cal-date]").forEach(btn => {
@@ -841,8 +898,11 @@
         });
       });
       if (matchCalResetDayBtn){
+        matchCalResetDayBtn.textContent = calendarRangeMode === "month" ? "显示当月全部场次" : "显示本周全部场次";
         matchCalResetDayBtn.classList.toggle("hidden", !selectedMatchDate);
       }
+      if (matchCalPrevBtn) matchCalPrevBtn.setAttribute("aria-label", calendarRangeMode === "month" ? "上月" : "上周");
+      if (matchCalNextBtn) matchCalNextBtn.setAttribute("aria-label", calendarRangeMode === "month" ? "下月" : "下周");
     }
 
     function collectMatchClubNames(league){
@@ -928,7 +988,7 @@
       const matchDatesSet = new Set();
       for (const m of matches){
         const k = matchDateKey(m);
-        if (k.length === 10 && matchInCalendarWindow(m, calendarWindowStartYmd)){
+        if (k.length === 10 && matchInCalendarRange(m, calendarWindowStartYmd, calendarRangeMode)){
           matchDatesSet.add(k);
         }
       }
@@ -938,7 +998,7 @@
         clearClubFilterBtn.classList.toggle("hidden", !selectedClub);
       }
 
-      const windowMatches = matches.filter(m => matchInCalendarWindow(m, calendarWindowStartYmd));
+      const windowMatches = matches.filter(m => matchInCalendarRange(m, calendarWindowStartYmd, calendarRangeMode));
       let displayMatches;
       if (selectedMatchDate){
         displayMatches = matches.filter(m => matchDateKey(m) === selectedMatchDate);
@@ -962,12 +1022,15 @@
       }
 
       if (selectedMatchDate && !displayMatches.length){
-        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-base text-slate-400">该日暂无比赛。可换一天或点击「显示本两周全部场次」。</div>';
+        const resetLabel = calendarRangeMode === "month" ? "显示当月全部场次" : "显示本周全部场次";
+        matchListEl.innerHTML = `<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-base text-slate-400">该日暂无比赛。可换一天或点击「${resetLabel}」。</div>`;
         return;
       }
 
       if (!selectedMatchDate && scheduleViewMode === "month" && !windowMatches.length){
-        matchListEl.innerHTML = '<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-base text-slate-400">当前两周暂无比赛（可切换上/下两周查看其他日期）。</div>';
+        const rangeLabel = calendarRangeMode === "month" ? "当前月份" : "当前周";
+        const navHint = calendarRangeMode === "month" ? "可切换上/下月查看其他日期" : "可切换上/下周查看其他日期";
+        matchListEl.innerHTML = `<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-base text-slate-400">${rangeLabel}暂无比赛（${navHint}）。</div>`;
         return;
       }
 
@@ -1334,13 +1397,25 @@
       selectedMatchDate = "";
       renderMatches();
     });
+    if (matchCalRangeEl) matchCalRangeEl.addEventListener("change", () => {
+      const v = (matchCalRangeEl.value || "").trim();
+      calendarRangeMode = (v === "month") ? "month" : "week";
+      selectedMatchDate = "";
+      scheduleViewMode = "month";
+      calendarHighlightYmd = "";
+      matchScrollAnchorYmd = "";
+      if (!calendarWindowStartYmd){
+        calendarWindowStartYmd = sundayWeekContainingYmd(todayYmd());
+      }
+      renderMatches();
+    });
     if (matchCalPrevBtn) matchCalPrevBtn.addEventListener("click", () => {
       selectedMatchDate = "";
       scheduleViewMode = "month";
       calendarHighlightYmd = "";
       matchScrollAnchorYmd = "";
       const cur = calendarWindowStartYmd || sundayWeekContainingYmd(todayYmd());
-      calendarWindowStartYmd = addDaysYmd(cur, -14);
+      calendarWindowStartYmd = calendarRangeMode === "month" ? shiftMonthYmd(cur, -1) : addDaysYmd(cur, -7);
       renderMatches();
     });
     if (matchCalNextBtn) matchCalNextBtn.addEventListener("click", () => {
@@ -1349,7 +1424,7 @@
       calendarHighlightYmd = "";
       matchScrollAnchorYmd = "";
       const cur = calendarWindowStartYmd || sundayWeekContainingYmd(todayYmd());
-      calendarWindowStartYmd = addDaysYmd(cur, 14);
+      calendarWindowStartYmd = calendarRangeMode === "month" ? shiftMonthYmd(cur, 1) : addDaysYmd(cur, 7);
       renderMatches();
     });
     if (matchCalResetDayBtn) matchCalResetDayBtn.addEventListener("click", () => {
