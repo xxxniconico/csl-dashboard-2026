@@ -9,290 +9,178 @@
           {
             "club_id": "club_成都蓉城",
             "club_name": "成都蓉城",
-            "points": 13,
+            "points": 34,
             "penalty_points": 0,
-            "effective_points": 13,
-            "played": 5,
-            "w_d_l": [
-              4,
-              1,
-              0
-            ],
-            "summary": {
-              "goals_for": 16,
-              "goals_against": 6
-            },
-            "goal_difference": 10
+            "effective_points": 34,
+            "played": 13,
+            "w_d_l": "11-1-1",
+            "summary": "P13 W11 D1 L1 GF32 GA11",
+            "goal_difference": 21
           },
           {
             "club_id": "club_重庆铜梁龙",
             "club_name": "重庆铜梁龙",
-            "points": 11,
+            "points": 20,
             "penalty_points": 0,
-            "effective_points": 11,
-            "played": 5,
-            "w_d_l": [
-              3,
-              2,
-              0
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 4
-            },
+            "effective_points": 20,
+            "played": 12,
+            "w_d_l": "5-5-2",
+            "summary": "P12 W5 D5 L2 GF16 GA13",
             "goal_difference": 3
           },
           {
             "club_id": "club_云南玉昆",
             "club_name": "云南玉昆",
-            "points": 9,
+            "points": 19,
             "penalty_points": 0,
-            "effective_points": 9,
-            "played": 5,
-            "w_d_l": [
-              3,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 13,
-              "goals_against": 8
-            },
-            "goal_difference": 5
+            "effective_points": 19,
+            "played": 12,
+            "w_d_l": "6-1-5",
+            "summary": "P12 W6 D1 L5 GF24 GA20",
+            "goal_difference": 4
           },
           {
             "club_id": "club_大连英博",
             "club_name": "大连英博",
-            "points": 9,
+            "points": 19,
             "penalty_points": 0,
-            "effective_points": 9,
-            "played": 5,
-            "w_d_l": [
-              3,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 10,
-              "goals_against": 10
-            },
-            "goal_difference": 0
-          },
-          {
-            "club_id": "club_辽宁铁人",
-            "club_name": "辽宁铁人",
-            "points": 7,
-            "penalty_points": 0,
-            "effective_points": 7,
-            "played": 5,
-            "w_d_l": [
-              2,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 6,
-              "goals_against": 6
-            },
-            "goal_difference": 0
-          },
-          {
-            "club_id": "club_深圳新鹏城",
-            "club_name": "深圳新鹏城",
-            "points": 6,
-            "penalty_points": 0,
-            "effective_points": 6,
-            "played": 5,
-            "w_d_l": [
-              2,
-              0,
-              3
-            ],
-            "summary": {
-              "goals_for": 10,
-              "goals_against": 12
-            },
-            "goal_difference": -2
-          },
-          {
-            "club_id": "club_青岛西海岸",
-            "club_name": "青岛西海岸",
-            "points": 4,
-            "penalty_points": 0,
-            "effective_points": 4,
-            "played": 5,
-            "w_d_l": [
-              1,
-              1,
-              3
-            ],
-            "summary": {
-              "goals_for": 4,
-              "goals_against": 12
-            },
-            "goal_difference": -8
+            "effective_points": 19,
+            "played": 13,
+            "w_d_l": "6-1-6",
+            "summary": "P13 W6 D1 L6 GF19 GA24",
+            "goal_difference": -5
           },
           {
             "club_id": "club_山东泰山",
             "club_name": "山东泰山",
-            "points": 9,
+            "points": 23,
             "penalty_points": 6,
-            "effective_points": 3,
-            "played": 5,
-            "w_d_l": [
-              3,
-              0,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 7
-            },
-            "goal_difference": 0
+            "effective_points": 17,
+            "played": 12,
+            "w_d_l": "7-2-3",
+            "summary": "P12 W7 D2 L3 GF21 GA17",
+            "goal_difference": 4
           },
           {
-            "club_id": "club_浙江",
-            "club_name": "浙江",
-            "points": 7,
-            "penalty_points": 5,
-            "effective_points": 2,
-            "played": 5,
-            "w_d_l": [
-              2,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 6
-            },
-            "goal_difference": 1
+            "club_id": "club_青岛西海岸",
+            "club_name": "青岛西海岸",
+            "points": 14,
+            "penalty_points": 0,
+            "effective_points": 14,
+            "played": 13,
+            "w_d_l": "2-8-3",
+            "summary": "P13 W2 D8 L3 GF12 GA19",
+            "goal_difference": -7
           },
           {
             "club_id": "club_上海申花",
             "club_name": "上海申花",
-            "points": 11,
+            "points": 21,
             "penalty_points": 10,
-            "effective_points": 1,
-            "played": 5,
-            "w_d_l": [
-              3,
-              2,
-              0
-            ],
-            "summary": {
-              "goals_for": 11,
-              "goals_against": 7
-            },
-            "goal_difference": 4
-          },
-          {
-            "club_id": "club_上海海港",
-            "club_name": "上海海港",
-            "points": 6,
-            "penalty_points": 5,
-            "effective_points": 1,
-            "played": 5,
-            "w_d_l": [
-              2,
-              0,
-              3
-            ],
-            "summary": {
-              "goals_for": 7,
-              "goals_against": 6
-            },
-            "goal_difference": 1
-          },
-          {
-            "club_id": "club_河南",
-            "club_name": "河南",
-            "points": 7,
-            "penalty_points": 6,
-            "effective_points": 1,
-            "played": 5,
-            "w_d_l": [
-              2,
-              1,
-              2
-            ],
-            "summary": {
-              "goals_for": 5,
-              "goals_against": 5
-            },
-            "goal_difference": 0
+            "effective_points": 11,
+            "played": 12,
+            "w_d_l": "6-3-3",
+            "summary": "P12 W6 D3 L3 GF24 GA18",
+            "goal_difference": 6
           },
           {
             "club_id": "club_北京国安",
             "club_name": "北京国安",
-            "points": 4,
+            "points": 17,
             "penalty_points": 5,
-            "effective_points": -1,
-            "played": 5,
-            "w_d_l": [
-              1,
-              1,
-              3
-            ],
-            "summary": {
-              "goals_for": 6,
-              "goals_against": 7
-            },
-            "goal_difference": -1
+            "effective_points": 12,
+            "played": 13,
+            "w_d_l": "4-5-4",
+            "summary": "P13 W4 D5 L4 GF22 GA19",
+            "goal_difference": 3
           },
           {
-            "club_id": "club_武汉三镇",
-            "club_name": "武汉三镇",
-            "points": 4,
+            "club_id": "club_浙江",
+            "club_name": "浙江",
+            "points": 16,
             "penalty_points": 5,
-            "effective_points": -1,
-            "played": 5,
-            "w_d_l": [
-              1,
-              1,
-              3
-            ],
-            "summary": {
-              "goals_for": 8,
-              "goals_against": 11
-            },
+            "effective_points": 11,
+            "played": 12,
+            "w_d_l": "4-4-4",
+            "summary": "P12 W4 D4 L4 GF14 GA17",
             "goal_difference": -3
           },
           {
             "club_id": "club_青岛海牛",
             "club_name": "青岛海牛",
-            "points": 4,
+            "points": 17,
             "penalty_points": 7,
-            "effective_points": -3,
-            "played": 5,
-            "w_d_l": [
-              1,
-              1,
-              3
-            ],
-            "summary": {
-              "goals_for": 4,
-              "goals_against": 9
-            },
-            "goal_difference": -5
+            "effective_points": 10,
+            "played": 12,
+            "w_d_l": "5-2-5",
+            "summary": "P12 W5 D2 L5 GF19 GA19",
+            "goal_difference": 0
+          },
+          {
+            "club_id": "club_深圳新鹏城",
+            "club_name": "深圳新鹏城",
+            "points": 11,
+            "penalty_points": 0,
+            "effective_points": 11,
+            "played": 13,
+            "w_d_l": "3-2-8",
+            "summary": "P13 W3 D2 L8 GF15 GA22",
+            "goal_difference": -7
+          },
+          {
+            "club_id": "club_河南",
+            "club_name": "河南",
+            "points": 18,
+            "penalty_points": 6,
+            "effective_points": 12,
+            "played": 13,
+            "w_d_l": "5-3-5",
+            "summary": "P13 W5 D3 L5 GF14 GA15",
+            "goal_difference": -1
+          },
+          {
+            "club_id": "club_上海海港",
+            "club_name": "上海海港",
+            "points": 16,
+            "penalty_points": 5,
+            "effective_points": 11,
+            "played": 13,
+            "w_d_l": "4-4-5",
+            "summary": "P13 W4 D4 L5 GF20 GA17",
+            "goal_difference": 3
+          },
+          {
+            "club_id": "club_辽宁铁人",
+            "club_name": "辽宁铁人",
+            "points": 8,
+            "penalty_points": 0,
+            "effective_points": 8,
+            "played": 12,
+            "w_d_l": "2-2-8",
+            "summary": "P12 W2 D2 L8 GF10 GA20",
+            "goal_difference": -10
+          },
+          {
+            "club_id": "club_武汉三镇",
+            "club_name": "武汉三镇",
+            "points": 10,
+            "penalty_points": 5,
+            "effective_points": 5,
+            "played": 12,
+            "w_d_l": "2-4-6",
+            "summary": "P12 W2 D4 L6 GF16 GA24",
+            "goal_difference": -8
           },
           {
             "club_id": "club_天津津门虎",
             "club_name": "天津津门虎",
-            "points": 2,
+            "points": 11,
             "penalty_points": 10,
-            "effective_points": -8,
-            "played": 5,
-            "w_d_l": [
-              0,
-              2,
-              3
-            ],
-            "summary": {
-              "goals_for": 3,
-              "goals_against": 8
-            },
-            "goal_difference": -5
+            "effective_points": 1,
+            "played": 13,
+            "w_d_l": "2-5-6",
+            "summary": "P13 W2 D5 L6 GF17 GA20",
+            "goal_difference": -3
           }
         ],
         "matches": [
@@ -2849,1018 +2737,4196 @@
             "date": "2026-04-17 19:00:00",
             "home_club": "青岛海牛",
             "away_club": "青岛西海岸",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "round": "第6轮",
             "venue": {
               "name": "青岛青春足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "金洋洋",
+                "player_name": "金洋洋",
+                "minute": 40,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王鹏",
+                "player_name": "王鹏",
+                "minute": 75,
+                "team_name": "青岛西海岸"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4411",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png"
           },
           {
             "match_id": "5vpqt8mm38zg5i90e4obskj6c",
             "date": "2026-04-17 19:35:00",
             "home_club": "山东泰山",
             "away_club": "上海海港",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第6轮",
             "venue": {
               "name": "济南奥体中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "马特乌斯·维塔尔",
+                "player_name": "马特乌斯·维塔尔",
+                "minute": 20,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "马德鲁加",
+                "player_name": "马德鲁加",
+                "minute": 27,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "杨希",
+                "player_name": "杨希",
+                "minute": 37,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "佩德罗·阿尔瓦罗",
+                "player_name": "佩德罗·阿尔瓦罗",
+                "minute": 51,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吾米提江·玉苏普",
+                "player_name": "吾米提江·玉苏普",
+                "minute": 54,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "谢文能",
+                "player_name": "谢文能",
+                "minute": 55,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "卢永涛",
+                "player_name": "卢永涛",
+                "minute": 69,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 72,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李帅",
+                "player_name": "李帅",
+                "minute": 81,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "武磊",
+                "player_name": "武磊",
+                "minute": 87,
+                "team_name": "上海海港"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "3421",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png"
           },
           {
             "match_id": "5w8i41x8xvha3geyrd8pqc5qs",
             "date": "2026-04-17 19:35:00",
             "home_club": "重庆铜梁龙",
             "away_club": "深圳新鹏城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             },
             "round": "第6轮",
             "venue": {
               "name": "铜梁龙体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "red_card",
+                "player": "本科维奇",
+                "player_name": "本科维奇",
+                "minute": 42,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "陈纯新",
+                "player_name": "陈纯新",
+                "minute": 47,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "周定洋",
+                "player_name": "周定洋",
+                "minute": 78,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "向余望",
+                "player_name": "向余望",
+                "minute": 79,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李宁",
+                "player_name": "李宁",
+                "minute": 92,
+                "team_name": "深圳新鹏城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "541",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png"
           },
           {
             "match_id": "5xy64m3wuyfz38ru58ofe40lw",
             "date": "2026-04-17 20:00:00",
             "home_club": "云南玉昆",
             "away_club": "天津津门虎",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 3
             },
             "round": "第6轮",
             "venue": {
               "name": "玉溪高原体育运动中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "张宸梁",
+                "player_name": "张宸梁",
+                "minute": 31,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨帆",
+                "player_name": "杨帆",
+                "minute": 33,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 41,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王政豪",
+                "player_name": "王政豪",
+                "minute": 50,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "吉列尔梅·谢蒂内",
+                "player_name": "吉列尔梅·谢蒂内",
+                "minute": 52,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "黄紫昌",
+                "player_name": "黄紫昌",
+                "minute": 62,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 81,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "谢维军",
+                "player_name": "谢维军",
+                "minute": 85,
+                "team_name": "天津津门虎"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4141",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png"
           },
           {
             "match_id": "5x9gf75zxr4qfk72kjin8v384",
             "date": "2026-04-17 20:00:00",
             "home_club": "武汉三镇",
             "away_club": "成都蓉城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "round": "第6轮",
             "venue": {
               "name": "武汉体育中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "贝维斯",
+                "player_name": "贝维斯",
+                "minute": 22,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨明洋",
+                "player_name": "杨明洋",
+                "minute": 40,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王康",
+                "player_name": "王康",
+                "minute": 68,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "席尔瓦",
+                "player_name": "席尔瓦",
+                "minute": 71,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 72,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "贺一然",
+                "player_name": "贺一然",
+                "minute": 78,
+                "team_name": "成都蓉城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "343",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png"
           },
           {
             "match_id": "5wqun7ch8f15eqo1f2e67h2j8",
             "date": "2026-04-17 20:00:00",
             "home_club": "浙江",
             "away_club": "北京国安",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "round": "第6轮",
             "venue": {
               "name": "黄龙体育中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "朴镇燮",
+                "player_name": "朴镇燮",
+                "minute": 46,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李磊",
+                "player_name": "李磊",
+                "minute": 48,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "林良铭",
+                "player_name": "林良铭",
+                "minute": 76,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "瓜里拉帕",
+                "player_name": "瓜里拉帕",
+                "minute": 89,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿不都海米提·阿不都格尼",
+                "player_name": "阿不都海米提·阿不都格尼",
+                "minute": 90,
+                "team_name": "北京国安"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4132",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png"
           },
           {
             "match_id": "5ym6m9tphg0azxysrlxbibdas",
             "date": "2026-04-18 19:00:00",
             "home_club": "大连英博",
             "away_club": "河南",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "round": "第6轮",
             "venue": {
               "name": "大连梭鱼湾足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "卢卡斯·马亚",
+                "player_name": "卢卡斯·马亚",
+                "minute": 25,
+                "team_name": "河南"
+              },
+              {
+                "type": "goal",
+                "player": "王上源",
+                "player_name": "王上源",
+                "minute": 38,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿布拉汗·哈力克",
+                "player_name": "阿布拉汗·哈力克",
+                "minute": 82,
+                "team_name": "河南"
+              },
+              {
+                "type": "goal",
+                "player": "马莱莱",
+                "player_name": "马莱莱",
+                "minute": 85,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "毕津浩",
+                "player_name": "毕津浩",
+                "minute": 90,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "goal",
+                "player": "吕焯毅",
+                "player_name": "吕焯毅",
+                "minute": 92,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "刘易鑫",
+                "player_name": "刘易鑫",
+                "minute": 96,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李国旭",
+                "player_name": "李国旭",
+                "minute": 100,
+                "team_name": "大连英博"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png"
           },
           {
             "match_id": "5z6d1w0ocx3h5i50o1sx8zyms",
             "date": "2026-04-18 20:00:00",
             "home_club": "上海申花",
             "away_club": "辽宁铁人",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 1
             },
             "round": "第6轮",
             "venue": {
               "name": "上海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "拉唐",
+                "player_name": "拉唐",
+                "minute": 9,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "金顺凯",
+                "player_name": "金顺凯",
+                "minute": 17,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "拉唐",
+                "player_name": "拉唐",
+                "minute": 38,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "田玉达",
+                "player_name": "田玉达",
+                "minute": 87,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "严鼎皓",
+                "player_name": "严鼎皓",
+                "minute": 90,
+                "team_name": "辽宁铁人"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4312",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png"
           },
           {
             "match_id": "5zpjmjdkmnei1smbpd60yoydw",
             "date": "2026-04-21 19:00:00",
             "home_club": "深圳新鹏城",
             "away_club": "北京国安",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "round": "第7轮",
             "venue": {
               "name": "深圳市体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "王刚",
+                "player_name": "王刚",
+                "minute": 11,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "卡尔采夫",
+                "player_name": "卡尔采夫",
+                "minute": 41,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "玄智健",
+                "player_name": "玄智健",
+                "minute": 46,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "曹永竞",
+                "player_name": "曹永竞",
+                "minute": 59,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "张稀哲",
+                "player_name": "张稀哲",
+                "minute": 89,
+                "team_name": "北京国安"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "343",
+            "away_formation_used": "4141",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png"
           },
           {
             "match_id": "609cvh8t5xlzatdad4wandwr8",
             "date": "2026-04-21 19:35:00",
             "home_club": "成都蓉城",
             "away_club": "云南玉昆",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "round": "第7轮",
             "venue": {
               "name": "五粮液文化体育中心专业足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "克莱伯",
+                "player_name": "克莱伯",
+                "minute": 37,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "索罗金",
+                "player_name": "索罗金",
+                "minute": 53,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 61,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "索罗金",
+                "player_name": "索罗金",
+                "minute": 64,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨明洋",
+                "player_name": "杨明洋",
+                "minute": 99,
+                "team_name": "成都蓉城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png"
           },
           {
             "match_id": "60rs2gf952tzt6cxndgiqq6ms",
             "date": "2026-04-21 19:35:00",
             "home_club": "武汉三镇",
             "away_club": "浙江",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             },
             "round": "第7轮",
             "venue": {
               "name": "武汉体育中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "汪士钦",
+                "player_name": "汪士钦",
+                "minute": 19,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "姜利勋",
+                "player_name": "姜利勋",
+                "minute": 22,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 41,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "托利奇",
+                "player_name": "托利奇",
+                "minute": 47,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吴伟",
+                "player_name": "吴伟",
+                "minute": 59,
+                "team_name": "浙江"
+              },
+              {
+                "type": "goal",
+                "player": "贝维斯",
+                "player_name": "贝维斯",
+                "minute": 78,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "钱杰给",
+                "player_name": "钱杰给",
+                "minute": 80,
+                "team_name": "浙江"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "3421",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png"
           },
           {
             "match_id": "61axfgyfuhopnzj3ee2iapqtw",
             "date": "2026-04-21 20:00:00",
             "home_club": "上海海港",
             "away_club": "重庆铜梁龙",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第7轮",
             "venue": {
               "name": "上汽浦东足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "恩加德乌",
+                "player_name": "恩加德乌",
+                "minute": 14,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李镇全",
+                "player_name": "李镇全",
+                "minute": 31,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "陈纯新",
+                "player_name": "陈纯新",
+                "minute": 45,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王燊超",
+                "player_name": "王燊超",
+                "minute": 53,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "李新翔",
+                "player_name": "李新翔",
+                "minute": 57,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿马杜",
+                "player_name": "阿马杜",
+                "minute": 59,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "傅欢",
+                "player_name": "傅欢",
+                "minute": 63,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "卢康",
+                "player_name": "卢康",
+                "minute": 66,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吾米提江·玉苏普",
+                "player_name": "吾米提江·玉苏普",
+                "minute": 85,
+                "team_name": "上海海港"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "532",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png"
           },
           {
             "match_id": "61tbvs6q77wrffxxgc25ukh78",
             "date": "2026-04-21 20:00:00",
             "home_club": "天津津门虎",
             "away_club": "山东泰山",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第7轮",
             "venue": {
               "name": "泰达足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 13,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "泽卡",
+                "player_name": "泽卡",
+                "minute": 52,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "马德鲁加",
+                "player_name": "马德鲁加",
+                "minute": 57,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "佩德罗·阿尔瓦罗",
+                "player_name": "佩德罗·阿尔瓦罗",
+                "minute": 67,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "哈达斯",
+                "player_name": "哈达斯",
+                "minute": 73,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "陈泽仕",
+                "player_name": "陈泽仕",
+                "minute": 82,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨帆",
+                "player_name": "杨帆",
+                "minute": 96,
+                "team_name": "天津津门虎"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "352",
+            "away_formation_used": "352",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png"
           },
           {
             "match_id": "62bnv145u2ifc81ftmu8gh5hw",
             "date": "2026-04-22 19:35:00",
             "home_club": "辽宁铁人",
             "away_club": "大连英博",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "round": "第7轮",
             "venue": {
               "name": "铁西体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "邦本宜裕",
+                "player_name": "邦本宜裕",
+                "minute": 57,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "goal",
+                "player": "斯坦丘",
+                "player_name": "斯坦丘",
+                "minute": 84,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "热菲尼奥",
+                "player_name": "热菲尼奥",
+                "minute": 90,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张华晨",
+                "player_name": "张华晨",
+                "minute": 90,
+                "team_name": "大连英博"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png"
           },
           {
             "match_id": "62uaetunade2g5vhbr0rntv6c",
             "date": "2026-04-22 19:35:00",
             "home_club": "青岛西海岸",
             "away_club": "河南",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "round": "第7轮",
             "venue": {
               "name": "青岛西海岸大学城体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "黄锐烽",
+                "player_name": "黄锐烽",
+                "minute": 18,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "彭欣力",
+                "player_name": "彭欣力",
+                "minute": 34,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿布拉汗·哈力克",
+                "player_name": "阿布拉汗·哈力克",
+                "minute": 34,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "徐浩峰",
+                "player_name": "徐浩峰",
+                "minute": 73,
+                "team_name": "河南"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "442",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png"
           },
           {
             "match_id": "63chleh61rj2nmddg37hc1m38",
             "date": "2026-04-22 20:00:00",
             "home_club": "上海申花",
             "away_club": "青岛海牛",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 0
             },
             "round": "第7轮",
             "venue": {
               "name": "上海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "刘军帅",
+                "player_name": "刘军帅",
+                "minute": 13,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "颜卓彬",
+                "player_name": "颜卓彬",
+                "minute": 20,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "特谢拉",
+                "player_name": "特谢拉",
+                "minute": 21,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "特谢拉",
+                "player_name": "特谢拉",
+                "minute": 46,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "安杰尔科维奇",
+                "player_name": "安杰尔科维奇",
+                "minute": 48,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "盖伊",
+                "player_name": "盖伊",
+                "minute": 52,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "高天意",
+                "player_name": "高天意",
+                "minute": 59,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "宋龙",
+                "player_name": "宋龙",
+                "minute": 59,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "汪海健",
+                "player_name": "汪海健",
+                "minute": 84,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "徐皓阳",
+                "player_name": "徐皓阳",
+                "minute": 97,
+                "team_name": "上海申花"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4312",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png"
           },
           {
             "match_id": "63x4juuhkp6hbmysqtnpiyrkk",
             "date": "2026-04-25 19:00:00",
             "home_club": "成都蓉城",
             "away_club": "浙江",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 0
             },
             "round": "第8轮",
             "venue": {
               "name": "五粮液文化体育中心专业足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "席尔瓦",
+                "player_name": "席尔瓦",
+                "minute": 17,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张佳祺",
+                "player_name": "张佳祺",
+                "minute": 19,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "托利奇",
+                "player_name": "托利奇",
+                "minute": 32,
+                "team_name": "浙江"
+              },
+              {
+                "type": "goal",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 35,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 39,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "索罗金",
+                "player_name": "索罗金",
+                "minute": 48,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王瑒",
+                "player_name": "王瑒",
+                "minute": 50,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王钰栋",
+                "player_name": "王钰栋",
+                "minute": 83,
+                "team_name": "浙江"
+              },
+              {
+                "type": "red_card",
+                "player": "甘超",
+                "player_name": "甘超",
+                "minute": 88,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "拜合拉木·阿卜杜外力",
+                "player_name": "拜合拉木·阿卜杜外力",
+                "minute": 91,
+                "team_name": "成都蓉城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "3421",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png"
           },
           {
             "match_id": "64ffce8ht6eewm1743tvjog0k",
             "date": "2026-04-25 19:35:00",
             "home_club": "北京国安",
             "away_club": "天津津门虎",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 4
             },
             "round": "第8轮",
             "venue": {
               "name": "工人体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "吉列尔梅·谢蒂内",
+                "player_name": "吉列尔梅·谢蒂内",
+                "minute": 43,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "哈达斯",
+                "player_name": "哈达斯",
+                "minute": 49,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王秋明",
+                "player_name": "王秋明",
+                "minute": 56,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "拉莫斯",
+                "player_name": "拉莫斯",
+                "minute": 57,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "张玉宁",
+                "player_name": "张玉宁",
+                "minute": 66,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "林良铭",
+                "player_name": "林良铭",
+                "minute": 68,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 70,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 89,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张稀哲",
+                "player_name": "张稀哲",
+                "minute": 97,
+                "team_name": "北京国安"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "532",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png"
           },
           {
             "match_id": "64xvdrsb8aiy4byhqrxk4vsic",
             "date": "2026-04-25 20:00:00",
             "home_club": "上海海港",
             "away_club": "武汉三镇",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 0
             },
             "round": "第8轮",
             "venue": {
               "name": "上汽浦东足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "魏震",
+                "player_name": "魏震",
+                "minute": 15,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "安佩姆",
+                "player_name": "安佩姆",
+                "minute": 46,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "熊继政",
+                "player_name": "熊继政",
+                "minute": 56,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "蒋光太",
+                "player_name": "蒋光太",
+                "minute": 58,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "刘祝润",
+                "player_name": "刘祝润",
+                "minute": 77,
+                "team_name": "上海海港"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "541",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png"
           },
           {
             "match_id": "66myyf6dzjs5mswbqcxzlnztg",
             "date": "2026-04-26 17:00:00",
             "home_club": "青岛海牛",
             "away_club": "山东泰山",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 1
             },
             "round": "第8轮",
             "venue": {
               "name": "青岛青春足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "林创益",
+                "player_name": "林创益",
+                "minute": 9,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "宋文杰",
+                "player_name": "宋文杰",
+                "minute": 31,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "埃朱玛",
+                "player_name": "埃朱玛",
+                "minute": 36,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "埃朱玛",
+                "player_name": "埃朱玛",
+                "minute": 63,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "彭啸",
+                "player_name": "彭啸",
+                "minute": 68,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "金永浩",
+                "player_name": "金永浩",
+                "minute": 79,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "牟鹏飞",
+                "player_name": "牟鹏飞",
+                "minute": 89,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 91,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "尹嘉熙",
+                "player_name": "尹嘉熙",
+                "minute": 92,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "梅萨乌迪",
+                "player_name": "梅萨乌迪",
+                "minute": 99,
+                "team_name": "青岛海牛"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "352",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png"
           },
           {
             "match_id": "65if3y9xyi2sl5yh7qm95cmj8",
             "date": "2026-04-26 19:00:00",
             "home_club": "深圳新鹏城",
             "away_club": "辽宁铁人",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "round": "第8轮",
             "venue": {
               "name": "深圳市体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "韦斯利",
+                "player_name": "韦斯利",
+                "minute": 6,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "奥乌苏",
+                "player_name": "奥乌苏",
+                "minute": 8,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "许东",
+                "player_name": "许东",
+                "minute": 17,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "安以恩",
+                "player_name": "安以恩",
+                "minute": 29,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "姜至鹏",
+                "player_name": "姜至鹏",
+                "minute": 54,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "瓦吉奇",
+                "player_name": "瓦吉奇",
+                "minute": 71,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "彭鹏",
+                "player_name": "彭鹏",
+                "minute": 95,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "韦斯利",
+                "player_name": "韦斯利",
+                "minute": 98,
+                "team_name": "深圳新鹏城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "343",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png"
           },
           {
             "match_id": "662zc91at32hq1hw6q3nymfis",
             "date": "2026-04-26 19:00:00",
             "home_club": "重庆铜梁龙",
             "away_club": "青岛西海岸",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第8轮",
             "venue": {
               "name": "重庆龙兴足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "阿齐兹",
+                "player_name": "阿齐兹",
+                "minute": 23,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨展彭",
+                "player_name": "杨展彭",
+                "minute": 43,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阮奇龙",
+                "player_name": "阮奇龙",
+                "minute": 44,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "杜月徵",
+                "player_name": "杜月徵",
+                "minute": 46,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吴宇曦",
+                "player_name": "吴宇曦",
+                "minute": 73,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张修维",
+                "player_name": "张修维",
+                "minute": 78,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "丁海峰",
+                "player_name": "丁海峰",
+                "minute": 94,
+                "team_name": "青岛西海岸"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "541",
+            "away_formation_used": "4141",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png"
           },
           {
             "match_id": "677dj1pnbmi33rc4qlq4rvehg",
             "date": "2026-04-26 19:35:00",
             "home_club": "大连英博",
             "away_club": "云南玉昆",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 3
             },
             "round": "第8轮",
             "venue": {
               "name": "大连梭鱼湾足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "邓涵文",
+                "player_name": "邓涵文",
+                "minute": 1,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 12,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "约尼查",
+                "player_name": "约尼查",
+                "minute": 30,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "唐淼",
+                "player_name": "唐淼",
+                "minute": 33,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 36,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张华晨",
+                "player_name": "张华晨",
+                "minute": 47,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "goal",
+                "player": "阿利米",
+                "player_name": "阿利米",
+                "minute": 86,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨梓豪",
+                "player_name": "杨梓豪",
+                "minute": 89,
+                "team_name": "云南玉昆"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png"
           },
           {
             "match_id": "67s4zyyoqu7kix8366scyiwb8",
             "date": "2026-04-26 20:00:00",
             "home_club": "河南",
             "away_club": "上海申花",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 3
             },
             "round": "第8轮",
             "venue": {
               "name": "郑州航海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "吴曦",
+                "player_name": "吴曦",
+                "minute": 39,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "陈晋一",
+                "player_name": "陈晋一",
+                "minute": 63,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "盖伊",
+                "player_name": "盖伊",
+                "minute": 69,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "艾克拜尔·吾斯曼",
+                "player_name": "艾克拜尔·吾斯曼",
+                "minute": 81,
+                "team_name": "河南"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "442",
+            "away_formation_used": "4312",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png"
           },
           {
             "match_id": "68vpwk9qqht3wwohr9nwohjpw",
             "date": "2026-05-01 19:00:00",
             "home_club": "大连英博",
             "away_club": "重庆铜梁龙",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "round": "第9轮",
             "venue": {
               "name": "大连梭鱼湾足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "毛伟杰",
+                "player_name": "毛伟杰",
+                "minute": 7,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张志雄",
+                "player_name": "张志雄",
+                "minute": 36,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "罗竞",
+                "player_name": "罗竞",
+                "minute": 46,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "廖锦涛",
+                "player_name": "廖锦涛",
+                "minute": 49,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "卢康",
+                "player_name": "卢康",
+                "minute": 83,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张英凯",
+                "player_name": "张英凯",
+                "minute": 97,
+                "team_name": "重庆铜梁龙"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png"
           },
           {
             "match_id": "68atehduqcpneg3h4my7w25uc",
             "date": "2026-05-01 19:00:00",
             "home_club": "河南",
             "away_club": "辽宁铁人",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 0
             },
             "round": "第9轮",
             "venue": {
               "name": "郑州航海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "卢卡斯·马亚",
+                "player_name": "卢卡斯·马亚",
+                "minute": 2,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "热菲尼奥",
+                "player_name": "热菲尼奥",
+                "minute": 18,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "goal",
+                "player": "纳萨里奥",
+                "player_name": "纳萨里奥",
+                "minute": 20,
+                "team_name": "河南"
+              },
+              {
+                "type": "goal",
+                "player": "古斯塔沃",
+                "player_name": "古斯塔沃",
+                "minute": 53,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "黄锐烽",
+                "player_name": "黄锐烽",
+                "minute": 54,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "迪力穆拉提·毛拉尼牙孜",
+                "player_name": "迪力穆拉提·毛拉尼牙孜",
+                "minute": 76,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "goal",
+                "player": "钟义浩",
+                "player_name": "钟义浩",
+                "minute": 79,
+                "team_name": "河南"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png"
           },
           {
             "match_id": "69e7zz8bouw6e3e16i4i7bd3o",
             "date": "2026-05-01 19:35:00",
             "home_club": "天津津门虎",
             "away_club": "武汉三镇",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 2
             },
             "round": "第9轮",
             "venue": {
               "name": "泰达足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "亚姆卡姆",
+                "player_name": "亚姆卡姆",
+                "minute": 18,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "姜利勋",
+                "player_name": "姜利勋",
+                "minute": 39,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "陈哲宣",
+                "player_name": "陈哲宣",
+                "minute": 49,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "陈哲超",
+                "player_name": "陈哲超",
+                "minute": 52,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 71,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "刘奕鸣",
+                "player_name": "刘奕鸣",
+                "minute": 71,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 75,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "red_card",
+                "player": "亚姆卡姆",
+                "player_name": "亚姆卡姆",
+                "minute": 80,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "哈达斯",
+                "player_name": "哈达斯",
+                "minute": 81,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "郭嘉宇",
+                "player_name": "郭嘉宇",
+                "minute": 95,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "季胜攀",
+                "player_name": "季胜攀",
+                "minute": 99,
+                "team_name": "天津津门虎"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "352",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png"
           },
           {
             "match_id": "69wtuw11j3ohyypy2v8snju38",
             "date": "2026-05-01 19:35:00",
             "home_club": "山东泰山",
             "away_club": "青岛西海岸",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第9轮",
             "venue": {
               "name": "济南奥体中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "彭欣力",
+                "player_name": "彭欣力",
+                "minute": 2,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 27,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "梅米舍维奇",
+                "player_name": "梅米舍维奇",
+                "minute": 42,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王彤",
+                "player_name": "王彤",
+                "minute": 47,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "泽卡",
+                "player_name": "泽卡",
+                "minute": 74,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "泽卡",
+                "player_name": "泽卡",
+                "minute": 75,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李昊",
+                "player_name": "李昊",
+                "minute": 75,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "郑智",
+                "player_name": "郑智",
+                "minute": 77,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "red_card",
+                "player": "郑智",
+                "player_name": "郑智",
+                "minute": 77,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "董宇",
+                "player_name": "董宇",
+                "minute": 79,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "雷森德",
+                "player_name": "雷森德",
+                "minute": 85,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "宋浩宇",
+                "player_name": "宋浩宇",
+                "minute": 96,
+                "team_name": "青岛西海岸"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "3421",
+            "away_formation_used": "4411",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png"
           },
           {
             "match_id": "6afarspczrvxpmrn0hb331fys",
             "date": "2026-05-01 20:00:00",
             "home_club": "上海申花",
             "away_club": "成都蓉城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 3
             },
             "round": "第9轮",
             "venue": {
               "name": "上海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "陈晋一",
+                "player_name": "陈晋一",
+                "minute": 16,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吴曦",
+                "player_name": "吴曦",
+                "minute": 24,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "马修斯·尤萨",
+                "player_name": "马修斯·尤萨",
+                "minute": 30,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 31,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "盖伊",
+                "player_name": "盖伊",
+                "minute": 38,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "特谢拉",
+                "player_name": "特谢拉",
+                "minute": 42,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 45,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "韩鹏飞",
+                "player_name": "韩鹏飞",
+                "minute": 61,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "盖伊",
+                "player_name": "盖伊",
+                "minute": 68,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 92,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "席尔瓦",
+                "player_name": "席尔瓦",
+                "minute": 96,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "席尔瓦",
+                "player_name": "席尔瓦",
+                "minute": 98,
+                "team_name": "成都蓉城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png"
           },
           {
             "match_id": "6axk0uqqsi7mzikg30qamyzh0",
             "date": "2026-05-02 19:00:00",
             "home_club": "青岛海牛",
             "away_club": "上海海港",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 1
             },
             "round": "第9轮",
             "venue": {
               "name": "青岛青春足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "罗森文",
+                "player_name": "罗森文",
+                "minute": 9,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吾米提江·玉苏普",
+                "player_name": "吾米提江·玉苏普",
+                "minute": 33,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "杨希",
+                "player_name": "杨希",
+                "minute": 47,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "鲍世蒙",
+                "player_name": "鲍世蒙",
+                "minute": 54,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "埃朱玛",
+                "player_name": "埃朱玛",
+                "minute": 57,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "叶博亚",
+                "player_name": "叶博亚",
+                "minute": 68,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "金永浩",
+                "player_name": "金永浩",
+                "minute": 75,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "武磊",
+                "player_name": "武磊",
+                "minute": 81,
+                "team_name": "上海海港"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png"
           },
           {
             "match_id": "6bgvftalazeydxra3smwdf28k",
             "date": "2026-05-02 19:35:00",
             "home_club": "浙江",
             "away_club": "深圳新鹏城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "round": "第9轮",
             "venue": {
               "name": "黄龙体育中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "奥乌苏",
+                "player_name": "奥乌苏",
+                "minute": 43,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "玄智健",
+                "player_name": "玄智健",
+                "minute": 47,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "托利奇",
+                "player_name": "托利奇",
+                "minute": 50,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张瑷晖",
+                "player_name": "张瑷晖",
+                "minute": 56,
+                "team_name": "浙江"
+              },
+              {
+                "type": "goal",
+                "player": "王钰栋",
+                "player_name": "王钰栋",
+                "minute": 79,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "方昊",
+                "player_name": "方昊",
+                "minute": 80,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "童磊",
+                "player_name": "童磊",
+                "minute": 98,
+                "team_name": "浙江"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png"
           },
           {
             "match_id": "6bzevs6czggnca6lchtpv8phw",
             "date": "2026-05-02 20:00:00",
             "home_club": "云南玉昆",
             "away_club": "北京国安",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 3
             },
             "round": "第9轮",
             "venue": {
               "name": "玉溪高原体育运动中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "张玉宁",
+                "player_name": "张玉宁",
+                "minute": 22,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "约尼查",
+                "player_name": "约尼查",
+                "minute": 46,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "张稀哲",
+                "player_name": "张稀哲",
+                "minute": 60,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "克莱伯",
+                "player_name": "克莱伯",
+                "minute": 77,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "塞尔吉尼奥",
+                "player_name": "塞尔吉尼奥",
+                "minute": 81,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 90,
+                "team_name": "云南玉昆"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4141",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png"
           },
           {
             "match_id": "6ci6shvdzp4k1qkemkofsmjv8",
             "date": "2026-05-05 19:00:00",
             "home_club": "青岛西海岸",
             "away_club": "天津津门虎",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第10轮",
             "venue": {
               "name": "青岛西海岸大学城体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "黄嘉辉",
+                "player_name": "黄嘉辉",
+                "minute": 40,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "内尔松卢斯",
+                "player_name": "内尔松卢斯",
+                "minute": 43,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "彭欣力",
+                "player_name": "彭欣力",
+                "minute": 63,
+                "team_name": "青岛西海岸"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "451",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png"
           },
           {
             "match_id": "6d0nibcvis48zkh5pcys6utck",
             "date": "2026-05-05 19:35:00",
             "home_club": "山东泰山",
             "away_club": "上海申花",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 1
             },
             "round": "第10轮",
             "venue": {
               "name": "济南奥体中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "泽卡",
+                "player_name": "泽卡",
+                "minute": 24,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 26,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "刘诚宇",
+                "player_name": "刘诚宇",
+                "minute": 43,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 52,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "高天意",
+                "player_name": "高天意",
+                "minute": 57,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "拉唐",
+                "player_name": "拉唐",
+                "minute": 63,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 72,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "马德鲁加",
+                "player_name": "马德鲁加",
+                "minute": 95,
+                "team_name": "山东泰山"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "433",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png"
           },
           {
             "match_id": "6dkohpqtgxjccv6jjny7n455g",
             "date": "2026-05-05 19:35:00",
             "home_club": "辽宁铁人",
             "away_club": "成都蓉城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "round": "第10轮",
             "venue": {
               "name": "铁西体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "潘喜明",
+                "player_name": "潘喜明",
+                "minute": 38,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "严鼎皓",
+                "player_name": "严鼎皓",
+                "minute": 77,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 85,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "刘殿座",
+                "player_name": "刘殿座",
+                "minute": 86,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 88,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "goal",
+                "player": "费利佩",
+                "player_name": "费利佩",
+                "minute": 94,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李提香",
+                "player_name": "李提香",
+                "minute": 99,
+                "team_name": "辽宁铁人"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "343",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png"
           },
           {
             "match_id": "6e2xp8y3wmvvnu4yyknrf0ums",
             "date": "2026-05-05 20:00:00",
             "home_club": "重庆铜梁龙",
             "away_club": "河南",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第10轮",
             "venue": {
               "name": "重庆龙兴足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "张英凯",
+                "player_name": "张英凯",
+                "minute": 28,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿马杜",
+                "player_name": "阿马杜",
+                "minute": 29,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "迈达纳",
+                "player_name": "迈达纳",
+                "minute": 49,
+                "team_name": "河南"
+              },
+              {
+                "type": "goal",
+                "player": "古斯塔沃",
+                "player_name": "古斯塔沃",
+                "minute": 51,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "古斯塔沃",
+                "player_name": "古斯塔沃",
+                "minute": 52,
+                "team_name": "河南"
+              },
+              {
+                "type": "goal",
+                "player": "吴永强",
+                "player_name": "吴永强",
+                "minute": 53,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿卜杜肉苏力·阿不都拉木",
+                "player_name": "阿卜杜肉苏力·阿不都拉木",
+                "minute": 63,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张志雄",
+                "player_name": "张志雄",
+                "minute": 92,
+                "team_name": "重庆铜梁龙"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "3421",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png"
           },
           {
             "match_id": "6elb0qwzekp0nuecvqunr56ac",
             "date": "2026-05-06 19:00:00",
             "home_club": "武汉三镇",
             "away_club": "青岛海牛",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 3
             },
             "round": "第10轮",
             "venue": {
               "name": "武汉体育中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "金永浩",
+                "player_name": "金永浩",
+                "minute": 49,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 59,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "熊继政",
+                "player_name": "熊继政",
+                "minute": 67,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "斯特兰德贝里",
+                "player_name": "斯特兰德贝里",
+                "minute": 71,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王毅",
+                "player_name": "王毅",
+                "minute": 74,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "叶博亚",
+                "player_name": "叶博亚",
+                "minute": 75,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孙正傲",
+                "player_name": "孙正傲",
+                "minute": 98,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿德里亚诺",
+                "player_name": "阿德里亚诺",
+                "minute": 99,
+                "team_name": "武汉三镇"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "442",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png"
           },
           {
             "match_id": "6f43hphbm9a8s49runujqx6ok",
             "date": "2026-05-06 19:35:00",
             "home_club": "上海海港",
             "away_club": "深圳新鹏城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第10轮",
             "venue": {
               "name": "上汽浦东足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "姜至鹏",
+                "player_name": "姜至鹏",
+                "minute": 42,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "周定洋",
+                "player_name": "周定洋",
+                "minute": 63,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "本科维奇",
+                "player_name": "本科维奇",
+                "minute": 63,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "刘祝润",
+                "player_name": "刘祝润",
+                "minute": 86,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "red_card",
+                "player": "安佩姆",
+                "player_name": "安佩姆",
+                "minute": 98,
+                "team_name": "上海海港"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "343",
+            "away_formation_used": "4141",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png"
           },
           {
             "match_id": "6fmqtjgcd0gl5lhc0zmg0d79w",
             "date": "2026-05-06 19:35:00",
             "home_club": "北京国安",
             "away_club": "大连英博",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 0
             },
             "round": "第10轮",
             "venue": {
               "name": "工人体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "毛伟杰",
+                "player_name": "毛伟杰",
+                "minute": 6,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨铭锐",
+                "player_name": "杨铭锐",
+                "minute": 13,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "red_card",
+                "player": "曹永竞",
+                "player_name": "曹永竞",
+                "minute": 47,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孙康博",
+                "player_name": "孙康博",
+                "minute": 47,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "goal",
+                "player": "拉莫斯",
+                "player_name": "拉莫斯",
+                "minute": 54,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "黄山",
+                "player_name": "黄山",
+                "minute": 58,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "罗竞",
+                "player_name": "罗竞",
+                "minute": 61,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "goal",
+                "player": "林良铭",
+                "player_name": "林良铭",
+                "minute": 65,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吕鹏",
+                "player_name": "吕鹏",
+                "minute": 87,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王禹",
+                "player_name": "王禹",
+                "minute": 92,
+                "team_name": "北京国安"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "3421",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png"
           },
           {
             "match_id": "6g6l3y8qoyz7cxojeih3e0oic",
             "date": "2026-05-06 20:00:00",
             "home_club": "云南玉昆",
             "away_club": "浙江",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第10轮",
             "venue": {
               "name": "玉溪高原体育运动中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "克莱伯",
+                "player_name": "克莱伯",
+                "minute": 6,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "托利奇",
+                "player_name": "托利奇",
+                "minute": 12,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "童磊",
+                "player_name": "童磊",
+                "minute": 18,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "约尼查",
+                "player_name": "约尼查",
+                "minute": 34,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "布尔克",
+                "player_name": "布尔克",
+                "minute": 51,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "托利奇",
+                "player_name": "托利奇",
+                "minute": 58,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张佳祺",
+                "player_name": "张佳祺",
+                "minute": 59,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "黄紫昌",
+                "player_name": "黄紫昌",
+                "minute": 70,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "高迪",
+                "player_name": "高迪",
+                "minute": 97,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "高迪",
+                "player_name": "高迪",
+                "minute": 98,
+                "team_name": "浙江"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png"
           },
           {
             "match_id": "6grpxakotrw81chs50p69j95g",
             "date": "2026-05-09 19:35:00",
             "home_club": "上海申花",
             "away_club": "重庆铜梁龙",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 2
             },
             "round": "第11轮",
             "venue": {
               "name": "上海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "迪马塔",
+                "player_name": "迪马塔",
+                "minute": 9,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "肯帕努",
+                "player_name": "肯帕努",
+                "minute": 30,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "yellow_card",
+                "player": "高天意",
+                "player_name": "高天意",
+                "minute": 43,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "朱辰杰",
+                "player_name": "朱辰杰",
+                "minute": 66,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "朱辰杰",
+                "player_name": "朱辰杰",
+                "minute": 74,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "金顺凯",
+                "player_name": "金顺凯",
+                "minute": 79,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨泽翔",
+                "player_name": "杨泽翔",
+                "minute": 86,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "朱辰杰",
+                "player_name": "朱辰杰",
+                "minute": 93,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张志雄",
+                "player_name": "张志雄",
+                "minute": 94,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "red_card",
+                "player": "马纳法",
+                "player_name": "马纳法",
+                "minute": 96,
+                "team_name": "上海申花"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4141",
+            "away_formation_used": "532",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png"
           },
           {
             "match_id": "6hb27soefqduzyvwsep2ediqc",
             "date": "2026-05-09 20:00:00",
             "home_club": "成都蓉城",
             "away_club": "河南",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 0
             },
             "round": "第11轮",
             "venue": {
               "name": "五粮液文化体育中心专业足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "索罗金",
+                "player_name": "索罗金",
+                "minute": 18,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨明洋",
+                "player_name": "杨明洋",
+                "minute": 34,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "钟义浩",
+                "player_name": "钟义浩",
+                "minute": 45,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "韩鹏飞",
+                "player_name": "韩鹏飞",
+                "minute": 49,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 74,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "拜合拉木·阿卜杜外力",
+                "player_name": "拜合拉木·阿卜杜外力",
+                "minute": 90,
+                "team_name": "成都蓉城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png"
           },
           {
             "match_id": "6hwjyl4au59y01yee9tegx9g4",
             "date": "2026-05-10 17:30:00",
             "home_club": "青岛西海岸",
             "away_club": "武汉三镇",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第11轮",
             "venue": {
               "name": "青岛西海岸大学城体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
-          },
-          {
-            "match_id": "6igsg2qyhyfsxjsajw8dbpbmc",
-            "date": "2026-05-10 19:00:00",
-            "home_club": "辽宁铁人",
-            "away_club": "云南玉昆",
-            "status": "scheduled",
-            "score": {
-              "home": null,
-              "away": null
-            },
-            "round": "第11轮",
-            "venue": {
-              "name": "铁西体育场",
-              "city": null
-            },
-            "events": [],
-            "source": "cfl_fixtures_api"
-          },
-          {
-            "match_id": "6ji89gerljwjnacpqtfx8bthw",
-            "date": "2026-05-10 19:35:00",
-            "home_club": "北京国安",
-            "away_club": "上海海港",
-            "status": "scheduled",
-            "score": {
-              "home": null,
-              "away": null
-            },
-            "round": "第11轮",
-            "venue": {
-              "name": "工人体育场",
-              "city": null
-            },
-            "events": [],
-            "source": "cfl_fixtures_api"
-          },
-          {
-            "match_id": "6k0pvj9jyf5br2u329ottjyfo",
-            "date": "2026-05-10 19:35:00",
-            "home_club": "浙江",
-            "away_club": "天津津门虎",
-            "status": "scheduled",
-            "score": {
-              "home": null,
-              "away": null
-            },
-            "round": "第11轮",
-            "venue": {
-              "name": "黄龙体育中心体育场",
-              "city": null
-            },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "杨展彭",
+                "player_name": "杨展彭",
+                "minute": 23,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "董宇",
+                "player_name": "董宇",
+                "minute": 34,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王康",
+                "player_name": "王康",
+                "minute": 50,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨展彭",
+                "player_name": "杨展彭",
+                "minute": 61,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "内尔松卢斯",
+                "player_name": "内尔松卢斯",
+                "minute": 82,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "goal",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 91,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "钟晋宝",
+                "player_name": "钟晋宝",
+                "minute": 92,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿齐兹",
+                "player_name": "阿齐兹",
+                "minute": 99,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "郑凯木",
+                "player_name": "郑凯木",
+                "minute": 99,
+                "team_name": "武汉三镇"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png"
           },
           {
             "match_id": "6kj88nq3n7zfpugzzgo4trcpg",
-            "date": "2026-05-10 20:00:00",
+            "date": "2026-05-10 18:00:00",
             "home_club": "深圳新鹏城",
             "away_club": "山东泰山",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第11轮",
             "venue": {
               "name": "深圳市体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "杨一鸣",
+                "player_name": "杨一鸣",
+                "minute": 40,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "佩德罗·阿尔瓦罗",
+                "player_name": "佩德罗·阿尔瓦罗",
+                "minute": 43,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 46,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李源一",
+                "player_name": "李源一",
+                "minute": 57,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "克雷桑",
+                "player_name": "克雷桑",
+                "minute": 78,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李龙",
+                "player_name": "李龙",
+                "minute": 85,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "高准翼",
+                "player_name": "高准翼",
+                "minute": 90,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "胡睿宝",
+                "player_name": "胡睿宝",
+                "minute": 96,
+                "team_name": "深圳新鹏城"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4141",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png"
+          },
+          {
+            "match_id": "6igsg2qyhyfsxjsajw8dbpbmc",
+            "date": "2026-05-10 19:00:00",
+            "home_club": "辽宁铁人",
+            "away_club": "云南玉昆",
+            "status": "finished",
+            "score": {
+              "home": 1,
+              "away": 2
+            },
+            "round": "第11轮",
+            "venue": {
+              "name": "铁西体育场",
+              "city": null
+            },
+            "events": [
+              {
+                "type": "goal",
+                "player": "黄紫昌",
+                "player_name": "黄紫昌",
+                "minute": 8,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 61,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "goal",
+                "player": "姆本扎",
+                "player_name": "姆本扎",
+                "minute": 91,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "陈宇浩",
+                "player_name": "陈宇浩",
+                "minute": 94,
+                "team_name": "云南玉昆"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "343",
+            "away_formation_used": "433",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png"
+          },
+          {
+            "match_id": "6ji89gerljwjnacpqtfx8bthw",
+            "date": "2026-05-10 19:35:00",
+            "home_club": "北京国安",
+            "away_club": "上海海港",
+            "status": "finished",
+            "score": {
+              "home": 2,
+              "away": 2
+            },
+            "round": "第11轮",
+            "venue": {
+              "name": "工人体育场",
+              "city": null
+            },
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "莱昂纳多",
+                "player_name": "莱昂纳多",
+                "minute": 32,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "马特乌斯·维塔尔",
+                "player_name": "马特乌斯·维塔尔",
+                "minute": 45,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "法比奥",
+                "player_name": "法比奥",
+                "minute": 49,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李新翔",
+                "player_name": "李新翔",
+                "minute": 51,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "莱昂纳多",
+                "player_name": "莱昂纳多",
+                "minute": 62,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张源",
+                "player_name": "张源",
+                "minute": 69,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王振澳",
+                "player_name": "王振澳",
+                "minute": 77,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "张稀哲",
+                "player_name": "张稀哲",
+                "minute": 86,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张稀哲",
+                "player_name": "张稀哲",
+                "minute": 91,
+                "team_name": "北京国安"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4132",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png"
+          },
+          {
+            "match_id": "6k0pvj9jyf5br2u329ottjyfo",
+            "date": "2026-05-10 19:35:00",
+            "home_club": "浙江",
+            "away_club": "天津津门虎",
+            "status": "finished",
+            "score": {
+              "home": 1,
+              "away": 1
+            },
+            "round": "第11轮",
+            "venue": {
+              "name": "黄龙体育中心体育场",
+              "city": null
+            },
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "刘浩帆",
+                "player_name": "刘浩帆",
+                "minute": 16,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王献钧",
+                "player_name": "王献钧",
+                "minute": 47,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "托利奇",
+                "player_name": "托利奇",
+                "minute": 65,
+                "team_name": "浙江"
+              },
+              {
+                "type": "goal",
+                "player": "米特里策",
+                "player_name": "米特里策",
+                "minute": 81,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨帆",
+                "player_name": "杨帆",
+                "minute": 85,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "徐俊驰",
+                "player_name": "徐俊驰",
+                "minute": 86,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吴兴涵",
+                "player_name": "吴兴涵",
+                "minute": 89,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "董春雨",
+                "player_name": "董春雨",
+                "minute": 101,
+                "team_name": "浙江"
+              },
+              {
+                "type": "goal",
+                "player": "哈达斯",
+                "player_name": "哈达斯",
+                "minute": 103,
+                "team_name": "天津津门虎"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png"
           },
           {
             "match_id": "6iz7n1i1f6geenp1ignwuxo2c",
             "date": "2026-05-10 20:00:00",
             "home_club": "青岛海牛",
             "away_club": "大连英博",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 1
             },
             "round": "第11轮",
             "venue": {
               "name": "青岛青春足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "斯特兰德贝里",
+                "player_name": "斯特兰德贝里",
+                "minute": 14,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "叶博亚",
+                "player_name": "叶博亚",
+                "minute": 18,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吕焯毅",
+                "player_name": "吕焯毅",
+                "minute": 20,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "毛伟杰",
+                "player_name": "毛伟杰",
+                "minute": 45,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李海龙",
+                "player_name": "李海龙",
+                "minute": 49,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "阿奇姆彭",
+                "player_name": "阿奇姆彭",
+                "minute": 51,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "阿奇姆彭",
+                "player_name": "阿奇姆彭",
+                "minute": 67,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "林创益",
+                "player_name": "林创益",
+                "minute": 71,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "斯特兰德贝里",
+                "player_name": "斯特兰德贝里",
+                "minute": 85,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "red_card",
+                "player": "王峤",
+                "player_name": "王峤",
+                "minute": 92,
+                "team_name": "青岛海牛"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "442",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png"
           },
           {
             "match_id": "6l2e0sk9yn5cfvtf7x68uxxjo",
             "date": "2026-05-15 19:35:00",
             "home_club": "上海海港",
             "away_club": "浙江",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 2
             },
             "round": "第12轮",
             "venue": {
               "name": "上汽浦东足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "王振澳",
+                "player_name": "王振澳",
+                "minute": 13,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "马特乌斯·维塔尔",
+                "player_name": "马特乌斯·维塔尔",
+                "minute": 22,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨希",
+                "player_name": "杨希",
+                "minute": 25,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "王钰栋",
+                "player_name": "王钰栋",
+                "minute": 28,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "刘祝润",
+                "player_name": "刘祝润",
+                "minute": 34,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "goal",
+                "player": "高迪",
+                "player_name": "高迪",
+                "minute": 56,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "陶强龙",
+                "player_name": "陶强龙",
+                "minute": 69,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "吴伟",
+                "player_name": "吴伟",
+                "minute": 78,
+                "team_name": "浙江"
+              },
+              {
+                "type": "yellow_card",
+                "player": "瓜里拉帕",
+                "player_name": "瓜里拉帕",
+                "minute": 80,
+                "team_name": "浙江"
+              },
+              {
+                "type": "goal",
+                "player": "张源",
+                "player_name": "张源",
+                "minute": 81,
+                "team_name": "上海海港"
+              },
+              {
+                "type": "yellow_card",
+                "player": "卢卡斯",
+                "player_name": "卢卡斯",
+                "minute": 87,
+                "team_name": "浙江"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "541",
+            "away_formation_used": "4231",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c86ef3410e6944aa8bdf2cfa7a191ed1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/c5a80dad34e64af08db2c527e7170add.png"
           },
           {
             "match_id": "6m6lqefnzx99jm4am28t5e49g",
             "date": "2026-05-15 19:35:00",
             "home_club": "天津津门虎",
             "away_club": "成都蓉城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第12轮",
             "venue": {
               "name": "泰达足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "王献钧",
+                "player_name": "王献钧",
+                "minute": 9,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "黄嘉辉",
+                "player_name": "黄嘉辉",
+                "minute": 11,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "goal",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 16,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "李扬",
+                "player_name": "李扬",
+                "minute": 22,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "goal",
+                "player": "韦世豪",
+                "player_name": "韦世豪",
+                "minute": 56,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "豪梅·格劳",
+                "player_name": "豪梅·格劳",
+                "minute": 69,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孙铭谦",
+                "player_name": "孙铭谦",
+                "minute": 79,
+                "team_name": "天津津门虎"
+              },
+              {
+                "type": "yellow_card",
+                "player": "罗慕洛",
+                "player_name": "罗慕洛",
+                "minute": 87,
+                "team_name": "成都蓉城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "基莱斯",
+                "player_name": "基莱斯",
+                "minute": 96,
+                "team_name": "天津津门虎"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "541",
+            "away_formation_used": "343",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/6a73636486a94d6184c943b8b0271edc.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d5f9e0b412e84ef28384893a84c4095a.png"
           },
           {
             "match_id": "6lkuopzfh3rxbzdylaps5rklw",
             "date": "2026-05-15 19:35:00",
             "home_club": "河南",
             "away_club": "深圳新鹏城",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "round": "第12轮",
             "venue": {
               "name": "郑州航海体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "陈涛",
+                "player_name": "陈涛",
+                "minute": 50,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨一鸣",
+                "player_name": "杨一鸣",
+                "minute": 52,
+                "team_name": "深圳新鹏城"
+              },
+              {
+                "type": "goal",
+                "player": "纳萨里奥",
+                "player_name": "纳萨里奥",
+                "minute": 66,
+                "team_name": "河南"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王国明",
+                "player_name": "王国明",
+                "minute": 91,
+                "team_name": "河南"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4141",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/1435f990649c4c0483dab22568f3ffd1.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e487022405c14366a0593a5d3d6f3c14.png"
           },
           {
             "match_id": "6mp58sl33ixv41i85c14vj6dw",
             "date": "2026-05-15 20:00:00",
             "home_club": "北京国安",
             "away_club": "青岛海牛",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 2
             },
             "round": "第12轮",
             "venue": {
               "name": "工人体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "张玉宁",
+                "player_name": "张玉宁",
+                "minute": 12,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "茹子楠",
+                "player_name": "茹子楠",
+                "minute": 24,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "张稀哲",
+                "player_name": "张稀哲",
+                "minute": 37,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "米兰·里斯蒂奇",
+                "player_name": "米兰·里斯蒂奇",
+                "minute": 43,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孔特",
+                "player_name": "孔特",
+                "minute": 47,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "yellow_card",
+                "player": "罗森文",
+                "player_name": "罗森文",
+                "minute": 51,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "曹永竞",
+                "player_name": "曹永竞",
+                "minute": 64,
+                "team_name": "北京国安"
+              },
+              {
+                "type": "goal",
+                "player": "宋文杰",
+                "player_name": "宋文杰",
+                "minute": 67,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "杨聪",
+                "player_name": "杨聪",
+                "minute": 75,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "yellow_card",
+                "player": "刘军帅",
+                "player_name": "刘军帅",
+                "minute": 87,
+                "team_name": "青岛海牛"
+              },
+              {
+                "type": "goal",
+                "player": "颜卓彬",
+                "player_name": "颜卓彬",
+                "minute": 94,
+                "team_name": "青岛海牛"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "442",
+            "away_formation_used": "442",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/b4e17a88f747464497640bb89ecc624e.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/0768ad10fb6d4f01a663e7c8620f9499.png"
           },
           {
             "match_id": "6n9exi3rgdcev6tu8sncc75zo",
             "date": "2026-05-15 20:00:00",
             "home_club": "大连英博",
             "away_club": "青岛西海岸",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 3
             },
             "round": "第12轮",
             "venue": {
               "name": "大连梭鱼湾足球场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "阿齐兹",
+                "player_name": "阿齐兹",
+                "minute": 22,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "孙康博",
+                "player_name": "孙康博",
+                "minute": 29,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "yellow_card",
+                "player": "王庚睿",
+                "player_name": "王庚睿",
+                "minute": 51,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "goal",
+                "player": "斯坦丘",
+                "player_name": "斯坦丘",
+                "minute": 52,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "goal",
+                "player": "戴维森",
+                "player_name": "戴维森",
+                "minute": 69,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张华晨",
+                "player_name": "张华晨",
+                "minute": 93,
+                "team_name": "大连英博"
+              },
+              {
+                "type": "goal",
+                "player": "内尔松卢斯",
+                "player_name": "内尔松卢斯",
+                "minute": 94,
+                "team_name": "青岛西海岸"
+              },
+              {
+                "type": "goal",
+                "player": "阿奇姆彭",
+                "player_name": "阿奇姆彭",
+                "minute": 97,
+                "team_name": "大连英博"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4411",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/8ae64747badc4f9996fb96063d114d88.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/d327aa5703cf491b8ae2f598143d282c.png"
           },
           {
             "match_id": "6nsnysm51qghvp9lgglt5yqz8",
             "date": "2026-05-16 19:00:00",
             "home_club": "武汉三镇",
             "away_club": "辽宁铁人",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 2
             },
             "round": "第12轮",
             "venue": {
               "name": "武汉体育中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "goal",
+                "player": "绍尔",
+                "player_name": "绍尔",
+                "minute": 10,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "严鼎皓",
+                "player_name": "严鼎皓",
+                "minute": 27,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "yellow_card",
+                "player": "田德澳",
+                "player_name": "田德澳",
+                "minute": 31,
+                "team_name": "辽宁铁人"
+              },
+              {
+                "type": "goal",
+                "player": "卡迪斯",
+                "player_name": "卡迪斯",
+                "minute": 38,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "yellow_card",
+                "player": "钟晋宝",
+                "player_name": "钟晋宝",
+                "minute": 81,
+                "team_name": "武汉三镇"
+              },
+              {
+                "type": "goal",
+                "player": "安以恩",
+                "player_name": "安以恩",
+                "minute": 85,
+                "team_name": "辽宁铁人"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4141",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/a4a4f5a0cda04e418f1f3c1ce8f60dfb.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/8y9z0a1b-b2c3-4e4f-5u6v-7w8x9y0z1a2b.png"
           },
           {
             "match_id": "6ob3qzfy2zwd4xt0unwsuldlg",
             "date": "2026-05-16 19:35:00",
             "home_club": "山东泰山",
             "away_club": "重庆铜梁龙",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 3,
+              "away": 1
             },
             "round": "第12轮",
             "venue": {
               "name": "济南奥体中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "张英凯",
+                "player_name": "张英凯",
+                "minute": 34,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "马德鲁加",
+                "player_name": "马德鲁加",
+                "minute": 35,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "张志雄",
+                "player_name": "张志雄",
+                "minute": 37,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "马德鲁加",
+                "player_name": "马德鲁加",
+                "minute": 38,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "高准翼",
+                "player_name": "高准翼",
+                "minute": 46,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "yellow_card",
+                "player": "彭啸",
+                "player_name": "彭啸",
+                "minute": 47,
+                "team_name": "山东泰山"
+              },
+              {
+                "type": "goal",
+                "player": "迪马塔",
+                "player_name": "迪马塔",
+                "minute": 69,
+                "team_name": "重庆铜梁龙"
+              },
+              {
+                "type": "goal",
+                "player": "谢文能",
+                "player_name": "谢文能",
+                "minute": 91,
+                "team_name": "山东泰山"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "433",
+            "away_formation_used": "541",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/cst/32d19a0a12ef47bb8ee0b9f62b17cb20.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/history-cso/3g9h0i1j-b2c3-4o4p-5e6f-7g8h9i0j1k2l.png"
           },
           {
             "match_id": "6oturxwl15kfnnjdo2bybmbdg",
             "date": "2026-05-16 20:00:00",
             "home_club": "云南玉昆",
             "away_club": "上海申花",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 0
             },
             "round": "第12轮",
             "venue": {
               "name": "玉溪高原体育运动中心体育场",
               "city": null
             },
-            "events": [],
-            "source": "cfl_fixtures_api"
+            "events": [
+              {
+                "type": "yellow_card",
+                "player": "吴曦",
+                "player_name": "吴曦",
+                "minute": 33,
+                "team_name": "上海申花"
+              },
+              {
+                "type": "goal",
+                "player": "奥斯卡",
+                "player_name": "奥斯卡",
+                "minute": 66,
+                "team_name": "云南玉昆"
+              },
+              {
+                "type": "yellow_card",
+                "player": "布尔克",
+                "player_name": "布尔克",
+                "minute": 79,
+                "team_name": "云南玉昆"
+              }
+            ],
+            "source": "cfl_fixtures_api",
+            "home_formation_used": "4231",
+            "away_formation_used": "4321",
+            "home_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/e7b81a4cfcb74fe2bc09059781ca20a0.png",
+            "away_contestant_icon": "//pic.cfl-china.cn/cfluat/club/csl/eb185cc56df64443bde6c740851c7d66.png"
           },
           {
             "match_id": "6pham1d8iwx74pupmz77oe238",
             "date": "2026-05-19 19:35:00",
             "home_club": "天津津门虎",
             "away_club": "河南",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 2
             },
             "round": "第13轮",
             "venue": {
@@ -3875,10 +6941,10 @@
             "date": "2026-05-19 19:35:00",
             "home_club": "深圳新鹏城",
             "away_club": "大连英博",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第13轮",
             "venue": {
@@ -3893,10 +6959,10 @@
             "date": "2026-05-19 20:00:00",
             "home_club": "成都蓉城",
             "away_club": "上海海港",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 1
             },
             "round": "第13轮",
             "venue": {
@@ -3911,10 +6977,10 @@
             "date": "2026-05-19 20:00:00",
             "home_club": "青岛西海岸",
             "away_club": "北京国安",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 1,
+              "away": 1
             },
             "round": "第13轮",
             "venue": {
@@ -6491,15 +9557,15 @@
       }
     },
     "meta": {
-      "generated_at_utc": "2026-04-13T01:30:13.636475+00:00",
+      "generated_at_utc": "2026-05-19T01:30:20.268872+00:00",
       "source": "all_seasons_unified_index.json",
       "cfl_backfill_source": "csl_matches_enriched_cfl.json",
       "fixtures_source": "csl_season_fixtures_cfl.json",
       "fixtures_rows_loaded": 240,
       "fixtures_merge_fixture_rows_csl": 240,
       "fixtures_merge_overlay_rows_csl": 33,
-      "total_matches_processed": 280,
-      "matches_backfilled_from_cfl": 40,
+      "total_matches_processed": 336,
+      "matches_backfilled_from_cfl": 96,
       "matches_with_injected_events": 0,
       "total_injected_events": 0,
       "notes": [
@@ -6931,7 +9997,7 @@
     },
     {
       "player_name": "埃朱玛",
-      "team_name": "",
+      "team_name": "青岛海牛",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -6995,7 +10061,7 @@
     },
     {
       "player_name": "拜合拉木·阿卜杜外力",
-      "team_name": "",
+      "team_name": "成都蓉城",
       "goals": 1,
       "assists": 0,
       "yellow_cards": 0,
@@ -7451,7 +10517,7 @@
     },
     {
       "player_name": "严鼎皓",
-      "team_name": "",
+      "team_name": "辽宁铁人",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7467,7 +10533,7 @@
     },
     {
       "player_name": "亚姆卡姆",
-      "team_name": "",
+      "team_name": "武汉三镇",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7483,7 +10549,7 @@
     },
     {
       "player_name": "佩德罗·阿尔瓦罗",
-      "team_name": "",
+      "team_name": "山东泰山",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7507,7 +10573,7 @@
     },
     {
       "player_name": "刘祝润",
-      "team_name": "",
+      "team_name": "上海海港",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7515,7 +10581,7 @@
     },
     {
       "player_name": "刘诚宇",
-      "team_name": "",
+      "team_name": "上海申花",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7523,7 +10589,7 @@
     },
     {
       "player_name": "卢卡斯",
-      "team_name": "",
+      "team_name": "浙江",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7547,7 +10613,7 @@
     },
     {
       "player_name": "吕焯毅",
-      "team_name": "",
+      "team_name": "大连英博",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 3,
@@ -7555,7 +10621,7 @@
     },
     {
       "player_name": "吾米提江·玉苏普",
-      "team_name": "",
+      "team_name": "上海海港",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7579,7 +10645,7 @@
     },
     {
       "player_name": "安杰尔科维奇",
-      "team_name": "",
+      "team_name": "青岛海牛",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7587,7 +10653,7 @@
     },
     {
       "player_name": "宋浩宇",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 3,
@@ -7603,7 +10669,7 @@
     },
     {
       "player_name": "张宸梁",
-      "team_name": "",
+      "team_name": "云南玉昆",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7611,7 +10677,7 @@
     },
     {
       "player_name": "彭啸",
-      "team_name": "",
+      "team_name": "山东泰山",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7619,7 +10685,7 @@
     },
     {
       "player_name": "恩加德乌",
-      "team_name": "",
+      "team_name": "重庆铜梁龙",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7635,7 +10701,7 @@
     },
     {
       "player_name": "拉莫斯",
-      "team_name": "",
+      "team_name": "北京国安",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7651,7 +10717,7 @@
     },
     {
       "player_name": "方昊",
-      "team_name": "",
+      "team_name": "浙江",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7683,7 +10749,7 @@
     },
     {
       "player_name": "朴镇燮",
-      "team_name": "",
+      "team_name": "浙江",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7707,7 +10773,7 @@
     },
     {
       "player_name": "杨展彭",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7723,7 +10789,7 @@
     },
     {
       "player_name": "杨明洋",
-      "team_name": "",
+      "team_name": "成都蓉城",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7747,7 +10813,7 @@
     },
     {
       "player_name": "杨铭锐",
-      "team_name": "",
+      "team_name": "大连英博",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7755,7 +10821,7 @@
     },
     {
       "player_name": "毕津浩",
-      "team_name": "",
+      "team_name": "大连英博",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7771,7 +10837,7 @@
     },
     {
       "player_name": "熊继政",
-      "team_name": "",
+      "team_name": "武汉三镇",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7787,7 +10853,7 @@
     },
     {
       "player_name": "王献钧",
-      "team_name": "",
+      "team_name": "天津津门虎",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7795,7 +10861,7 @@
     },
     {
       "player_name": "王鹏",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7827,7 +10893,7 @@
     },
     {
       "player_name": "胡睿宝",
-      "team_name": "",
+      "team_name": "深圳新鹏城",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7851,7 +10917,7 @@
     },
     {
       "player_name": "许东",
-      "team_name": "",
+      "team_name": "辽宁铁人",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7859,7 +10925,7 @@
     },
     {
       "player_name": "谢维军",
-      "team_name": "",
+      "team_name": "天津津门虎",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7867,7 +10933,7 @@
     },
     {
       "player_name": "豪梅·格劳",
-      "team_name": "",
+      "team_name": "天津津门虎",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7883,7 +10949,7 @@
     },
     {
       "player_name": "邓涵文",
-      "team_name": "",
+      "team_name": "云南玉昆",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
@@ -7891,7 +10957,7 @@
     },
     {
       "player_name": "郑智",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7907,7 +10973,7 @@
     },
     {
       "player_name": "金洋洋",
-      "team_name": "",
+      "team_name": "青岛海牛",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7915,7 +10981,7 @@
     },
     {
       "player_name": "金顺凯",
-      "team_name": "",
+      "team_name": "上海申花",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7923,7 +10989,7 @@
     },
     {
       "player_name": "阮奇龙",
-      "team_name": "",
+      "team_name": "重庆铜梁龙",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7931,7 +10997,7 @@
     },
     {
       "player_name": "阿不都海米提·阿不都格尼",
-      "team_name": "",
+      "team_name": "北京国安",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 3,
@@ -7939,7 +11005,7 @@
     },
     {
       "player_name": "阿利米",
-      "team_name": "",
+      "team_name": "大连英博",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7947,7 +11013,7 @@
     },
     {
       "player_name": "阿布拉汗·哈力克",
-      "team_name": "",
+      "team_name": "河南",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7955,7 +11021,7 @@
     },
     {
       "player_name": "阿德里亚诺",
-      "team_name": "",
+      "team_name": "武汉三镇",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7971,7 +11037,7 @@
     },
     {
       "player_name": "陈哲超",
-      "team_name": "",
+      "team_name": "武汉三镇",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -7979,7 +11045,7 @@
     },
     {
       "player_name": "雷森德",
-      "team_name": "",
+      "team_name": "青岛西海岸",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -8003,7 +11069,7 @@
     },
     {
       "player_name": "马德鲁加",
-      "team_name": "",
+      "team_name": "山东泰山",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 1,
@@ -8051,7 +11117,7 @@
     },
     {
       "player_name": "黄锐烽",
-      "team_name": "",
+      "team_name": "河南",
       "goals": 0,
       "assists": 0,
       "yellow_cards": 2,
