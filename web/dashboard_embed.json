@@ -20,23 +20,23 @@
           {
             "club_id": "club_重庆铜梁龙",
             "club_name": "重庆铜梁龙",
-            "points": 20,
+            "points": 21,
             "penalty_points": 0,
-            "effective_points": 20,
-            "played": 12,
-            "w_d_l": "5-5-2",
-            "summary": "P12 W5 D5 L2 GF16 GA13",
+            "effective_points": 21,
+            "played": 13,
+            "w_d_l": "5-6-2",
+            "summary": "P13 W5 D6 L2 GF16 GA13",
             "goal_difference": 3
           },
           {
             "club_id": "club_云南玉昆",
             "club_name": "云南玉昆",
-            "points": 19,
+            "points": 20,
             "penalty_points": 0,
-            "effective_points": 19,
-            "played": 12,
-            "w_d_l": "6-1-5",
-            "summary": "P12 W6 D1 L5 GF24 GA20",
+            "effective_points": 20,
+            "played": 13,
+            "w_d_l": "6-2-5",
+            "summary": "P13 W6 D2 L5 GF24 GA20",
             "goal_difference": 4
           },
           {
@@ -56,10 +56,21 @@
             "points": 23,
             "penalty_points": 6,
             "effective_points": 17,
-            "played": 12,
-            "w_d_l": "7-2-3",
-            "summary": "P12 W7 D2 L3 GF21 GA17",
-            "goal_difference": 4
+            "played": 13,
+            "w_d_l": "7-2-4",
+            "summary": "P13 W7 D2 L4 GF22 GA21",
+            "goal_difference": 1
+          },
+          {
+            "club_id": "club_浙江",
+            "club_name": "浙江",
+            "points": 19,
+            "penalty_points": 5,
+            "effective_points": 14,
+            "played": 13,
+            "w_d_l": "5-4-4",
+            "summary": "P13 W5 D4 L4 GF18 GA18",
+            "goal_difference": 0
           },
           {
             "club_id": "club_青岛西海岸",
@@ -75,12 +86,12 @@
           {
             "club_id": "club_上海申花",
             "club_name": "上海申花",
-            "points": 21,
+            "points": 22,
             "penalty_points": 10,
-            "effective_points": 11,
-            "played": 12,
-            "w_d_l": "6-3-3",
-            "summary": "P12 W6 D3 L3 GF24 GA18",
+            "effective_points": 12,
+            "played": 13,
+            "w_d_l": "6-4-3",
+            "summary": "P13 W6 D4 L3 GF26 GA20",
             "goal_difference": 6
           },
           {
@@ -93,39 +104,6 @@
             "w_d_l": "4-5-4",
             "summary": "P13 W4 D5 L4 GF22 GA19",
             "goal_difference": 3
-          },
-          {
-            "club_id": "club_浙江",
-            "club_name": "浙江",
-            "points": 16,
-            "penalty_points": 5,
-            "effective_points": 11,
-            "played": 12,
-            "w_d_l": "4-4-4",
-            "summary": "P12 W4 D4 L4 GF14 GA17",
-            "goal_difference": -3
-          },
-          {
-            "club_id": "club_青岛海牛",
-            "club_name": "青岛海牛",
-            "points": 17,
-            "penalty_points": 7,
-            "effective_points": 10,
-            "played": 12,
-            "w_d_l": "5-2-5",
-            "summary": "P12 W5 D2 L5 GF19 GA19",
-            "goal_difference": 0
-          },
-          {
-            "club_id": "club_深圳新鹏城",
-            "club_name": "深圳新鹏城",
-            "points": 11,
-            "penalty_points": 0,
-            "effective_points": 11,
-            "played": 13,
-            "w_d_l": "3-2-8",
-            "summary": "P13 W3 D2 L8 GF15 GA22",
-            "goal_difference": -7
           },
           {
             "club_id": "club_河南",
@@ -150,25 +128,47 @@
             "goal_difference": 3
           },
           {
+            "club_id": "club_深圳新鹏城",
+            "club_name": "深圳新鹏城",
+            "points": 11,
+            "penalty_points": 0,
+            "effective_points": 11,
+            "played": 13,
+            "w_d_l": "3-2-8",
+            "summary": "P13 W3 D2 L8 GF15 GA22",
+            "goal_difference": -7
+          },
+          {
             "club_id": "club_辽宁铁人",
             "club_name": "辽宁铁人",
-            "points": 8,
+            "points": 11,
             "penalty_points": 0,
-            "effective_points": 8,
-            "played": 12,
-            "w_d_l": "2-2-8",
-            "summary": "P12 W2 D2 L8 GF10 GA20",
-            "goal_difference": -10
+            "effective_points": 11,
+            "played": 13,
+            "w_d_l": "3-2-8",
+            "summary": "P13 W3 D2 L8 GF12 GA21",
+            "goal_difference": -9
+          },
+          {
+            "club_id": "club_青岛海牛",
+            "club_name": "青岛海牛",
+            "points": 17,
+            "penalty_points": 7,
+            "effective_points": 10,
+            "played": 13,
+            "w_d_l": "5-2-6",
+            "summary": "P13 W5 D2 L6 GF20 GA21",
+            "goal_difference": -1
           },
           {
             "club_id": "club_武汉三镇",
             "club_name": "武汉三镇",
-            "points": 10,
+            "points": 11,
             "penalty_points": 5,
-            "effective_points": 5,
-            "played": 12,
-            "w_d_l": "2-4-6",
-            "summary": "P12 W2 D4 L6 GF16 GA24",
+            "effective_points": 6,
+            "played": 13,
+            "w_d_l": "2-5-6",
+            "summary": "P13 W2 D5 L6 GF18 GA26",
             "goal_difference": -8
           },
           {
@@ -6995,10 +6995,10 @@
             "date": "2026-05-20 19:00:00",
             "home_club": "辽宁铁人",
             "away_club": "青岛海牛",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 1
             },
             "round": "第13轮",
             "venue": {
@@ -7013,10 +7013,10 @@
             "date": "2026-05-20 19:35:00",
             "home_club": "上海申花",
             "away_club": "武汉三镇",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 2,
+              "away": 2
             },
             "round": "第13轮",
             "venue": {
@@ -7031,10 +7031,10 @@
             "date": "2026-05-20 20:00:00",
             "home_club": "浙江",
             "away_club": "山东泰山",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 4,
+              "away": 1
             },
             "round": "第13轮",
             "venue": {
@@ -7049,10 +7049,10 @@
             "date": "2026-05-20 20:00:00",
             "home_club": "重庆铜梁龙",
             "away_club": "云南玉昆",
-            "status": "scheduled",
+            "status": "finished",
             "score": {
-              "home": null,
-              "away": null
+              "home": 0,
+              "away": 0
             },
             "round": "第13轮",
             "venue": {
