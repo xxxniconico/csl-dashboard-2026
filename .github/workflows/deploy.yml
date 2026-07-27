@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: data
-          key: csl-crawl-data-v1-${{ runner.os }}
+          key: csl-crawl-data-v2-${{ runner.os }}
 
       # 2. 设置 Python 环境
       - name: Set up Python
@@ -93,7 +93,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: data
-          key: csl-crawl-data-v1-${{ runner.os }}
+          key: csl-crawl-data-v2-${{ runner.os }}
 
       # 4c. 由 csl_matches_enriched.json 等生成 all_seasons_unified_index.json（data_enricher 依赖此文件）
       - name: Unify seasons index
